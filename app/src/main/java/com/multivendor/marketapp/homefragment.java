@@ -16,6 +16,7 @@ import com.google.*;
 
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -37,10 +38,15 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -52,9 +58,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.multivendor.marketapp.Adapters.bannerAdapter;
 import com.multivendor.marketapp.Adapters.categoriesAdapter;
 import com.multivendor.marketapp.Adapters.nbyshopAdapter;
+import com.multivendor.marketapp.CustomDialogs.zoom_imageDialog;
 import com.multivendor.marketapp.Models.bannermodel;
 import com.multivendor.marketapp.Models.nbyshopsModel;
 import com.multivendor.marketapp.ViewModel.homefragViewModel;
@@ -67,6 +75,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
@@ -175,6 +184,130 @@ public class homefragment extends Fragment implements LocationListener {
                 hmbinding.drawerlayout.openDrawer(GravityCompat.START);
             }
         });
+
+        View view1= hmbinding.navMenu.getHeaderView(0);
+        TextView nametxt=view1.findViewById(R.id.username2);
+        ImageView userimage=view1.findViewById(R.id.user_image);
+        TextView numbertxt=view1.findViewById(R.id.usernumber);
+        TextView addrtxt=view1.findViewById(R.id.useraddress2);
+        View edittxt=view1.findViewById(R.id.editopen);
+        MenuItem item = hmbinding.navMenu.getMenu().findItem(R.id.menu_logout);
+        SpannableString s = new SpannableString("Log Out");
+        item.setTitle(s);
+        s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
+        edittxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),profilesettingsact.class));
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+            }
+        });
+
+        hmbinding.navMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+
+                    case R.id.menu_myord:
+                        startActivity(new Intent(getActivity(),ordhisAct.class));
+                        getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                        break;
+                    case R.id.menu_termcond:
+                        Uri uri = Uri.parse("http://marketapp.co.in/conditions.html"); // missing 'http://' will cause crashed
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                        break;
+                    case R.id.menu_privpol:
+                        Uri uri1 = Uri.parse("http://marketapp.co.in/policy.html"); // missing 'http://' will cause crashed
+                        Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
+                        startActivity(intent1);
+                        break;
+                    case R.id.menu_custserv:
+                        String url = "https://api.whatsapp.com/send?phone=8299189690";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                        break;
+                    case R.id.menu_share:
+                        Intent sharemsg = new Intent(Intent.ACTION_VIEW);
+                        try {
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Market App");
+                            String shareMessage= "Install Market App Now.\n";
+                            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "choose one"));
+                        } catch(Exception e) {
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.menu_logout:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage("" +
+                                "Are you sure, you want to log out?").setTitle("Log Out?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.clear();
+                                editor.apply();
+                                startActivity(new Intent(getActivity(), Loginact.class));
+                                getActivity().finish();
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        builder.show();
+                }
+                return false;
+            }
+        });
+        String imgurl = sharedPreferences.getString("userimage", "data");
+        String name = sharedPreferences.getString("username", "");
+        String number=sharedPreferences.getString("usermobile","");
+        String address = sharedPreferences.getString("useraddress", "");
+
+        userimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("image",imgurl);
+                zoom_imageDialog zoom_imageDialog1 = new zoom_imageDialog();
+                zoom_imageDialog1.setArguments(bundle);
+                zoom_imageDialog1.show(getParentFragmentManager(), "zoom_imagDialog1");
+            }
+
+        });
+        if (imgurl != null) {
+            final int radius = 50;
+            final int margin = 50;
+            final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+            if (imgurl != null && !imgurl.equals("data")) {
+                Picasso.get().load(imgurl).transform(new CropCircleTransformation()).into(userimage);
+            }
+            else if(imgurl.equals("data")){
+                Picasso.get().load(R.drawable.sampleuserimg1).into(userimage);
+            }
+        }
+
+        if (name != null) {
+
+            nametxt.setText(name);
+        }
+        if (address != null) {
+            addrtxt.setText(address);
+
+        }
+        else {
+            addrtxt.setText("No Address");
+        }
+
+        if(number!=null) {
+            numbertxt.setText(number);
+        }
 
     }
 
