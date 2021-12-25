@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.multivendor.marketapp">
+
     <queries>
         <intent>
-            <action android:name="android.intent.action.IMAGE_CAPTURE"/>
+            <action android:name="android.intent.action.IMAGE_CAPTURE" />
         </intent>
     </queries>
 
@@ -15,6 +16,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/new_applogo"
@@ -25,6 +27,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarketApp"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.MarketApp.NoActionBar" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -63,8 +70,8 @@
             android:name=".Signinact"
             android:screenOrientation="portrait" />
         <activity
-            android:exported="true"
             android:name=".SplashScreen"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,11 +86,12 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 
-        <service android:name=".FirebaseMessagingService"
-            android:exported="false"
-            android:directBootAware="true">
+        <service
+            android:name=".FirebaseMessagingService"
+            android:directBootAware="true"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 

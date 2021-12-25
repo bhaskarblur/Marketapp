@@ -26,4 +26,13 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
     </style>
+
+    <style name="Theme.MarketApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MarketApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MarketApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
