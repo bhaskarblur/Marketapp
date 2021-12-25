@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@color/white"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#ffffff">
+
+
+        <ImageView
+            android:id="@+id/productimg"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/productname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="50dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/poppins"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Parle-G Biscuit Mze Kro"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pricetxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text=" ₹20.00"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toBottomOf="@+id/productname" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sizerec"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintStart_toEndOf="@+id/pricetxt3"
+            app:layout_constraintTop_toBottomOf="@+id/productname"
+            tools:itemCount="1"
+            tools:listitem="@layout/showsizeoth_lay" />
+
+        <TextView
+            android:id="@+id/totalquat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="In Stock"
+            android:textColor="#4C4C4C"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/productimg" />
+
+        <TextView
+            android:id="@+id/pricetxt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/poppins"
+            android:text="Select size:"
+            android:textColor="#4C4C4C"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+
+        <TextView
+            android:id="@+id/pricetxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="Select size:"
+            android:textColor="#4C4C4C"
+            android:textSize="13sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toBottomOf="@+id/productname" />
+
+        <TextView
+            android:id="@+id/mrptxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/poppins"
+            android:text="1000"
+            android:textColor="#2E2E2E"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/pricetxt"
+            app:layout_constraintTop_toBottomOf="@+id/productname" />
+
+        <Button
+            android:id="@+id/addbtn"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/loginbtnbg"
+            android:fontFamily="@font/poppins"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/qtylay"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/loginbtnbg"
+            android:fontFamily="@font/open_sans"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/itemquat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/quatincr"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="2dp"
+                android:clickable="true"
+                android:fontFamily="@font/poppins"
+                android:gravity="center|right"
+                android:text="+"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/quatdecr"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="3dp"
+                android:clickable="true"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="-"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

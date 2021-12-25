@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".profilesettingsact">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Edit Profile"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backbtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/backbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/cartfullnestedlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/userimg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sampleuserimg1" />
+
+
+            <ImageView
+                android:id="@+id/avataredit"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/editicon"
+                app:layout_constraintStart_toEndOf="@+id/userimg"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#575757" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userimg" />
+
+            <EditText
+                android:id="@+id/unamechange"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/descboxbg"
+                android:ems="10"
+                android:fontFamily="@font/poppins"
+                android:hint="Enter Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#7C7C7C"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Phone No."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/unamechange" />
+
+            <TextView
+                android:id="@+id/phonechange"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/descboxbg"
+                android:ems="10"
+                android:fontFamily="@font/poppins"
+                android:hint="Enter Number"
+                android:paddingTop="15dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#7C7C7C"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Password"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phonechange" />
+
+            <ProgressBar
+                android:id="@+id/progressBar4"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:indeterminateTint="@color/primcolor"
+                android:progressDrawable="@color/primcolor"
+                android:progressTint="@color/primcolor"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addresschange" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/passchangelay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView32">
+
+                <TextView
+                    android:id="@+id/passchange"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/descboxbg"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins"
+                    android:hint="Enter Password"
+                    android:text="1234567890"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#7C7C7C"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/passchangetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Change"
+                    android:textColor="@color/primcolor"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/addresschange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/descboxbg"
+                android:ems="10"
+                android:fontFamily="@font/poppins"
+                android:hint="No address added. Add Address."
+                android:inputType="textPersonName|textMultiLine"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="#7C7C7C"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+            <Button
+                android:id="@+id/picklocat"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/loginbtnbg"
+                android:fontFamily="@font/poppins"
+                android:foreground="?android:selectableItemBackground"
+                android:text="Add Address"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addresschange"
+                app:layout_constraintVertical_bias="0.0"/>
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Address"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passchangelay" />
+
+            <Button
+                android:id="@+id/updatebtn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/loginbtnbg"
+                android:fontFamily="@font/poppins"
+                android:foreground="?android:selectableItemBackground"
+                android:text="Update"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addresschange"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/deactAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="50dp"
+                android:fontFamily="@font/open_sans"
+                android:foreground="?android:selectableItemBackground"
+                android:text="Deactivate Account"
+                android:textColor="#FE1414"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/updatebtn"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/locatcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/locatdialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/currlocattxt"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/descboxbg"
+                android:ems="10"
+                android:fontFamily="@font/open_sans"
+                android:hint="Location Here"
+                android:inputType="none|textPersonName|textMultiLine"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="#7C7C7C"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/savelocat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/google_map2" />
+
+            <fragment
+                android:id="@+id/google_map2"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:name="com.multivendor.marketapp.shopsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:apiKey="@string/mapsapikey"
+                app:layout_constraintBottom_toTopOf="@+id/currlocattxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView63"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/savelocat"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/roundboxbg"
+                android:backgroundTint="@color/primcolor"
+                android:clickable="true"
+                android:fontFamily="@font/poppins_medium"
+                android:foreground="?android:selectableItemBackground"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView62"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Mark A Location"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView63"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="Hold the marker and drag it to set your location."
+                android:textColor="#292929"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+            <ImageView
+                android:id="@+id/recentrebtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="29dp"
+                android:clickable="true"
+                android:src="@drawable/recentreicon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.71000004" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

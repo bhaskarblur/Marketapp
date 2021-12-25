@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MarketApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapsapikey">AIzaSyC3U1d0zLSHXivbHfIRJ5-ctSwWOmlHqTg</string>
+    <string name="gallery_label">Gallery</string>
+    <string name="camera_label">Camera</string>
+    <string name="pick_image_lable">Pick Image</string>
+</resources>

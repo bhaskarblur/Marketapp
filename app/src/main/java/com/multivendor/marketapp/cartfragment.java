@@ -1,0 +1,709 @@
+package com.multivendor.marketapp;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
+
+import com.multivendor.marketapp.Adapters.cartproditemAdapter;
+import com.multivendor.marketapp.Adapters.productitemAdapter;
+import com.multivendor.marketapp.ApiWork.LogregApiInterface;
+import com.multivendor.marketapp.Models.cartModel;
+import com.multivendor.marketapp.Models.loginresResponse;
+import com.multivendor.marketapp.Models.productitemModel;
+import com.multivendor.marketapp.Models.userAPIResp;
+import com.multivendor.marketapp.ViewModel.catalogViewModel;
+import com.multivendor.marketapp.databinding.FragmentCartfragmentBinding;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link cartfragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class cartfragment extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private FragmentCartfragmentBinding cfbinding;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private catalogViewModel catViewModel;
+    private com.multivendor.marketapp.Adapters.cartproditemAdapter productitemAdapter;
+    private List<cartModel.cartqtyandsize> qtysizelist = new ArrayList<>();
+    private Boolean shortbol = false;
+    private Boolean sameshop = false;
+    private String lat;
+    private String longit;
+    private String storeid;
+    private String cartid;
+
+    private List<productitemModel> cartitems = new ArrayList<>();
+    String shopnamerec = new String();
+    private String username;
+    private String useraddress;
+    private String usernumber;
+    private Integer items;
+    private Integer amount;
+    private Boolean gotdata = false;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
+    public cartfragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment cartfragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static cartfragment newInstance(String param1, String param2) {
+        cartfragment fragment = new cartfragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+        String cartshop = sharedPreferences.getString("cartshop", "");
+        catViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(catalogViewModel.class);
+        catViewModel.initwork(cartshop);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        cfbinding = FragmentCartfragmentBinding.inflate(inflater, container, false);
+
+        catViewModel.getItemModel().observe(getActivity(), new Observer<List<productitemModel>>() {
+            @Override
+            public void onChanged(List<productitemModel> productitemModels) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (productitemModels.size() > 0) {
+                            getlatlong();
+                            checkcartexists();
+                            LoadCart();
+                        }
+                        else {
+                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }, 2000);
+            }
+        });
+
+        viewfuncs();
+        loaduserdetails();
+        return cfbinding.getRoot();
+    }
+
+    private void viewfuncs() {
+
+        cfbinding.placeorderbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), paymentactivity.class);
+                intent.putExtra("store_id", storeid);
+                intent.putExtra("cart_id", cartid);
+                intent.putExtra("amount", cfbinding.cartgrandtotal.getText().toString().substring(1).trim());
+                intent.putExtra("username", username);
+                intent.putExtra("usernumber", usernumber);
+                intent.putExtra("address", useraddress);
+                intent.putExtra("deliveryinstr", cfbinding.cartdesc.getText().toString());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+            }
+        });
+
+        cfbinding.backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
+        cfbinding.userinfochange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openchangeDialog();
+            }
+        });
+        cfbinding.useraddresschange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openchangeDialog();
+            }
+        });
+    }
+
+    private void openchangeDialog() {
+        cfbinding.newnametxt.setText(username);
+        cfbinding.newaddrtxt.setText(useraddress);
+        cfbinding.newnumtxt.setText(usernumber);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_down);
+        cfbinding.detchangeDialog.setAnimation(animation);
+        cfbinding.detchangeDialog.setVisibility(View.VISIBLE);
+
+        cfbinding.picklocat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getlatlong();
+            }
+        });
+        cfbinding.savelocat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
+                cfbinding.detchangeDialog.setAnimation(animation);
+                cfbinding.detchangeDialog.setVisibility(View.INVISIBLE);
+                username = cfbinding.newnametxt.getText().toString();
+                useraddress = cfbinding.newaddrtxt.getText().toString();
+                usernumber = cfbinding.newnumtxt.getText().toString();
+                cfbinding.userinfotxt.setText(username + ", " + usernumber);
+                cfbinding.userinfotxt2.setText(useraddress);
+            }
+        });
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getlatlong() {
+
+        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+            LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+            fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    super.onLocationResult(locationResult);
+
+                }
+            }, Looper.getMainLooper());
+            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+
+                    Location location = task.getResult();
+                    if (location != null) {
+                        lat = String.valueOf(location.getLatitude());
+                        longit = String.valueOf(location.getLongitude());
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+                                    , location.getLongitude(), 1);
+
+                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+
+                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+
+                        LocationCallback locationCallback = new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                super.onLocationResult(locationResult);
+                                Location location1 = locationResult.getLastLocation();
+                                lat = String.valueOf(location1.getLatitude());
+                                longit = String.valueOf(location1.getLongitude());
+                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                                try {
+
+                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+                                            , location.getLongitude(), 1);
+
+                                    cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+    }
+
+    private void loaduserdetails() {
+        SharedPreferences shpref = getActivity().getSharedPreferences("userlogged", 0);
+        String userid = shpref.getString("userid", "");
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+        Call<loginresResponse.login> call = logregApiInterface.getprofile(userid);
+        call.enqueue(new Callback<loginresResponse.login>() {
+            @Override
+            public void onResponse(Call<loginresResponse.login> call, Response<loginresResponse.login> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("error", String.valueOf(response.code()));
+                    return;
+                }
+
+                loginresResponse.login resp = response.body();
+
+                if (resp.getmessage().equals("User profile.!")) {
+                    username = resp.getResult().getName();
+                    useraddress = resp.getResult().getAddress();
+                    usernumber = resp.getResult().getPhone();
+                    filldetails();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<loginresResponse.login> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void filldetails() {
+        cfbinding.userinfotxt.setText(username + ", " + usernumber);
+        cfbinding.userinfotxt2.setText(useraddress);
+    }
+
+    public void LoadCart() {
+        SharedPreferences shpref = getActivity().getSharedPreferences("userlogged", 0);
+        String userid = shpref.getString("userid", "");
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        qtysizelist = new ArrayList<>();
+        LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+        Call<cartModel.cartResp> call = logregApiInterface.get_cart(userid);
+        call.enqueue(new Callback<cartModel.cartResp>() {
+            @Override
+            public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d("errorcode:", String.valueOf(response.code()));
+                    return;
+                }
+
+                cartModel.cartResp cartResp = response.body();
+
+                if (cartResp.getResult() != null) {
+
+                    if (cartResp.getResult().getProducts() != null) {
+                        SharedPreferences.Editor editor = shpref.edit();
+                        editor.putString("cartshop", cartResp.getResult().getStore());
+                        editor.apply();
+                        if (cartResp.getResult().getProducts().size() > 0) {
+                            if (cartResp.getResult().getStore() != null) {
+                                qtysizelist.clear();
+                                //checksamestore();
+                                cfbinding.emptycarttext.setVisibility(View.INVISIBLE);
+                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                                cfbinding.cartfullnestedlay.setVisibility(View.VISIBLE);
+                                cfbinding.carttotalprice.setText("₹ " + cartResp.getResult().getSubtotal());
+                                cfbinding.cartdeliverycharge.setText("₹ " + cartResp.getResult().getShipping_charge());
+                                cfbinding.cartgrandtotal.setText("₹ " + cartResp.getResult().getTotal_price());
+                                amount = Integer.valueOf(cartResp.getResult().getSubtotal());
+                                for (int i = 0; i < cartResp.getResult().getProducts().size(); i++) {
+
+
+                                    qtysizelist.add(i, new cartModel.cartqtyandsize(cartResp.getResult().getProducts()
+                                            .get(i).getProduct_id(), cartResp.getResult().getProducts()
+                                            .get(i).getProduct_name(), cartResp.getResult().getProducts()
+                                            .get(i).getVariant_id(), cartResp.getResult().getProducts()
+                                            .get(i).getSize(), cartResp.getResult().getProducts()
+                                            .get(i).getQty()));
+
+                                }
+                                loaditems(cartResp.getResult().getStore(), cartResp.getResult().getCart_id());
+                                //  productitemAdapter.notifyDataSetChanged();
+
+                            } else {
+                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                                cfbinding.emptycarttext.setText(View.VISIBLE);
+                                cfbinding.cartfullnestedlay.setVisibility(View.INVISIBLE);
+                                loaditems(cartResp.getResult().getStore(), cartResp.getResult().getCart_id());
+                                //  productitemAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                            cfbinding.cartfullnestedlay.setVisibility(View.INVISIBLE);
+                            loaditems(cartResp.getResult().getStore(), cartResp.getResult().getCart_id());
+                            // productitemAdapter.notifyDataSetChanged();
+
+                        }
+                    } else {
+                        cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                        cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                        cfbinding.cartfullnestedlay.setVisibility(View.INVISIBLE);
+                        loaditems(cartResp.getResult().getStore(), cartResp.getResult().getCart_id());
+                        // productitemAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    loaditems(null, null);
+                    cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                    Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
+                    cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                    cfbinding.cartfullnestedlay.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                Log.d("error", t.getMessage().toString());
+                sameshop = false;
+            }
+        });
+    }
+
+    private void loaditems(String store_id, String cart_id) {
+        storeid = store_id;
+        cartid = cart_id;
+        cartitems.clear();
+        for (cartModel.cartqtyandsize qty : qtysizelist) {
+            for (productitemModel pd : catViewModel.getItemModel().getValue()) {
+                if (pd.getProduct_id().equals(qty.getProduct_id())) {
+                    cartitems.add(pd);
+                }
+            }
+        }
+        productitemAdapter = new cartproditemAdapter(getContext(), cartitems,
+                qtysizelist, storeid);
+        productitemAdapter.setStore_id(store_id);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(RecyclerView.VERTICAL);
+        cfbinding.cartitemsrec.setLayoutManager(llm);
+        cfbinding.cartitemsrec.setAdapter(productitemAdapter);
+        cfbinding.cartitemsrec.setHasFixedSize(true);
+        cfbinding.cartitemsrec.setItemViewCacheSize(50);
+        cfbinding.cartitemsrec.setDrawingCacheEnabled(true);
+        cfbinding.cartitemsrec.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+        String userid = sharedPreferences.getString("userid", "");
+
+        productitemAdapter.setonproductsClick(new cartproditemAdapter.onproductsClick() {
+            @Override
+            public void onSizeClick(int position, String size_name) {
+                // Toast.makeText(getContext(), size_name, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onaddClick(int position, int sizepos, String prod_id, String size_id, String sizename, String qty) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        amount = amount + Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                .getSelling_price());
+
+                        cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
+
+                    }
+                }, 50);
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                Call<cartModel.cartResp> call = null;
+                LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+                call = logregApiInterface.add_cart(lat, longit, userid,
+                        productitemAdapter.productmodel.get(position).getUserid(),
+                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), productitemAdapter.productmodel.get(position).getSku(),
+                        productitemAdapter.productmodel.get(position).getItemname(), productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getSize(),
+                        productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                .getSelling_price(), productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                .getSelling_price(), qty, cart_id);
+
+
+                call.enqueue(new Callback<cartModel.cartResp>() {
+                    @Override
+                    public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("errorcode", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        cartModel.cartResp resp = response.body();
+                        Log.d("msg", resp.getMessage());
+                        if (resp.getMessage().equals("Product added successfully")) {
+                            checkcartexists();
+                            LoadCart();
+                        } else {
+
+                            Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                        Log.d("error", t.getMessage());
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onplusClick(int position, int sizepos, String prod_id, String size_id, String sizename, String qty) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        amount = amount + Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                .getSelling_price());
+
+                        cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
+
+                    }
+                }, 50);
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                        .addConverterFactory(GsonConverterFactory.create()).build();
+                LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+
+                Call<cartModel.cartResp> call = logregApiInterface.update_cart(lat, longit, userid
+                        , store_id, prod_id, size_id, productitemAdapter.productmodel.get(position).getSku(),
+                        productitemAdapter.productmodel.get(position).getItemname(), sizename,
+                        productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                .getSelling_price(), productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                .getSelling_price(), qty, cart_id);
+
+                call.enqueue(new Callback<cartModel.cartResp>() {
+                    @Override
+                    public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("error code", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        cartModel.cartResp resp = response.body();
+                        Log.d("msg", resp.getMessage().toString());
+                        if (resp.getMessage().equals("Product updated successfully ")) {
+                            checkcartexists();
+                            LoadCart();
+                        } else {
+
+                            Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                        Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onminusClick(int position, int sizepos, String prod_id, String size_id, String sizename, String qty) {
+                if (Integer.parseInt(qty) > 0) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            amount = amount - Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                    .getSelling_price());
+
+                            cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
+
+                        }
+                    }, 50);
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                            .addConverterFactory(GsonConverterFactory.create()).build();
+                    LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+
+                    Call<cartModel.cartResp> call = logregApiInterface.update_cart(lat, longit, userid
+                            , store_id, prod_id, productitemAdapter.productmodel
+                                    .get(position).getSizeandquats().get(sizepos).getVariation_id(), productitemAdapter.productmodel.get(position).getSku(),
+                            productitemAdapter.productmodel.get(position).getItemname(), sizename,
+                            productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                    .getSelling_price(), productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                    .getSelling_price(), qty, cart_id);
+
+                    call.enqueue(new Callback<cartModel.cartResp>() {
+                        @Override
+                        public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("error code", String.valueOf(response.code()));
+                                return;
+                            }
+
+                            cartModel.cartResp resp = response.body();
+                            Log.d("msg", resp.getMessage().toString());
+                            if (resp.getMessage().equals("Product updated successfully ")) {
+                                checkcartexists();
+                                LoadCart();
+                            } else {
+
+                                Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                            // Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            amount = amount - Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                    .getSelling_price());
+
+                            cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
+                        }
+                    }, 50);
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                            .addConverterFactory(GsonConverterFactory.create()).build();
+                    LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+
+                    Call<cartModel.cartResp> call = logregApiInterface.remove_product(lat, longit, userid
+                            , store_id, prod_id, productitemAdapter.productmodel
+                                    .get(position).getSizeandquats().get(sizepos).getVariation_id(), productitemAdapter.productmodel.get(position).getSku(),
+                            productitemAdapter.productmodel.get(position).getItemname(), sizename,
+                            productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                    .getSelling_price(), productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                                    .getSelling_price(), qty, cart_id);
+
+                    call.enqueue(new Callback<cartModel.cartResp>() {
+                        @Override
+                        public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("error code", String.valueOf(response.code()));
+                                return;
+                            }
+
+                            cartModel.cartResp resp = response.body();
+                            Log.d("msg", resp.getMessage().toString());
+                            if (resp.getMessage().equals("Product deleted successfully")) {
+                                checkcartexists();
+                                LoadCart();
+                            } else {
+
+                                Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+    public void checkcartexists() {
+        SharedPreferences shpref = getActivity().getSharedPreferences("userlogged", 0);
+        String userid = shpref.getString("userid", "");
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+        Call<cartModel.cartResp> call = logregApiInterface.get_cart(userid);
+        call.enqueue(new Callback<cartModel.cartResp>() {
+            @Override
+            public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d("errorcode:", String.valueOf(response.code()));
+                    return;
+                }
+
+                cartModel.cartResp cartResp = response.body();
+                if (cartResp.getResult() != null) {
+                    shortbol = true;
+
+
+                } else {
+                    shortbol = false;
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                Log.d("error", t.getMessage().toString());
+                shortbol = false;
+            }
+        });
+
+    }
+
+}

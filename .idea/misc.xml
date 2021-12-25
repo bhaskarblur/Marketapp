@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/borderbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/btcart_bg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/loginbtnbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/new_loginbtnbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/onboardingposcircle.xml" value="0.17848101265822786" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/roundboxbg.xml" value="0.17848101265822786" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/rounded_transf.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/drawable/shoplaybtnsbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_act_makequickord.xml" value="0.1361111111111111" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_act_makequickorder.xml" value="0.1361111111111111" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_act_quickordsee.rng" value="0.16540084388185655" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_act_quickordsee.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_loginact.xml" value="0.2" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_mainarea.xml" value="0.22" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_myord.xml" value="0.18" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_orderplacedactivity.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_ordhis.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_paymentactivity.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_profilesettingsact.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_signinact.xml" value="0.16" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/banner_lay.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/cartexists_dialog.xml" value="0.33" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/cartproditem_lay.xml" value="0.3138888888888889" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/categories_lay.xml" value="0.5" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/change_pass.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/favshopslay.xml" value="0.5" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/forg_pass1.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/forg_pass2.xml" value="0.22" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_addressbook.xml" value="0.1361111111111111" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_cartfragment.xml" value="0.18" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_catalog.xml" value="0.18" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_categories.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_favshop.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_homefragment.xml" value="0.2" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_makequickfragment.xml" value="0.2" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_myordhis.xml" value="0.22" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_noti.xml" value="0.22" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_orderfragment.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_profilefragment.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/fragment_shops.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/homequickord_lay.xml" value="0.21" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/nbyshops_lay.xml" value="0.75" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/nocat_dialog.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/noti_lay.xml" value="0.33" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/orderproditem_lay.xml" value="0.3825966850828729" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/orders_lay.xml" value="0.75" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/ordprod_lay.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/productitem_lay.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/qord_lay.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/showsizeoth_lay.xml" value="0.33" />
+        <entry key="..\:/Android finished projects/MarketApp/app/src/main/res/layout/zoom_imagedialog.xml" value="0.14" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/fragment_categories.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/fragment_favshop.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/fragment_myordhis.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/fragment_shops.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/nbyshops_lay.xml" value="0.24606299212598426" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/orderproditem_lay.xml" value="0.5" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/orders_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/ordprod_lay.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.1/MarketApp User/MarketApp/app/src/main/res/layout/productitem_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_act_quickordsee.xml" value="0.6070435588507878" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_loginact.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_mainarea.xml" value="0.22059651097355093" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_myord.xml" value="0.24904701397712833" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_orderplacedactivity.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_ordhis.xml" value="0.2697866483138334" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_paymentactivity.xml" value="0.22" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_profilesettingsact.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_signinact.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/banner_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/cartexists_dialog.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/cartproditem_lay.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/categories_lay.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/favshopslay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_addressbook.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_cartfragment.xml" value="0.34690265486725663" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_catalog.xml" value="0.5" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_categories.xml" value="0.21511627906976744" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_favshop.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_homefragment.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_makequickfragment.xml" value="0.25" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_myordhis.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_noti.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_orderfragment.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_profilefragment.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_search.xml" value="0.5" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/fragment_shops.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/homequickord_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/nbyshops_lay.xml" value="0.5" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/nocat_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/noti_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/orderproditem_lay.xml" value="0.5430954587581094" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/orders_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/ordprod_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/productitem_lay.xml" value="0.5430954587581094" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/qord_lay.xml" value="0.75" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/showsizeoth_lay.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User 1.0.0.2/MarketApp User/MarketApp/app/src/main/res/layout/zoom_imagedialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/MarketApp Final code/MarketApp User/MarketApp/app/src/main/res/layout/activity_mainarea.xml" value="0.1675213675213675" />
+        <entry key="..\:/MarketApp Final code/MarketApp User/MarketApp/app/src/main/res/layout/fragment_shops.xml" value="0.1675213675213675" />
+        <entry key="..\:/MarketApp Final code/MarketApp User/MarketApp/app/src/main/res/layout/orderproditem_lay.xml" value="0.33" />
+        <entry key="..\:/MarketApp Final code/MarketApp User/MarketApp/app/src/main/res/layout/orders_lay.xml" value="0.1675213675213675" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/drawable/otpborderbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_loginact.xml" value="0.20416666666666666" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_signinact.xml" value="0.20416666666666666" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_o_t_p.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

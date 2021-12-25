@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "472798407680",
+    "project_id": "marketapp-300a3",
+    "storage_bucket": "marketapp-300a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472798407680:android:85e48fb2a842c85f54fce5",
+        "android_client_info": {
+          "package_name": "com.multivendor.marketapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472798407680-7537sa5hg16ag36iqkhmrcsmg65cb3rs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.multivendor.marketapp",
+            "certificate_hash": "efcf421ffd83240be91fba26f481e15e9f153b57"
+          }
+        },
+        {
+          "client_id": "472798407680-nk31k3slfheajad3hlksokt09ss0qqct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDozTVUPrHSmFfPrHggnMw477o89aB5iDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472798407680-nk31k3slfheajad3hlksokt09ss0qqct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

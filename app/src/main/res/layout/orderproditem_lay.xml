@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prodlay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="#ffffff"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground">
+
+
+        <ImageView
+            android:id="@+id/productimg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+        <TextView
+            android:id="@+id/productname"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/poppins_medium"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Parle-G"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pricetxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:text="MRP  ₹20"
+            android:textColor="#4C4C4C"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toBottomOf="@+id/productname" />
+
+        <TextView
+            android:id="@+id/totalquat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13dp"
+            android:text="Selected Qty:"
+            android:textColor="#4C4C4C"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toBottomOf="@+id/pricetxt3" />
+
+        <TextView
+            android:id="@+id/pricetxt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="6dp"
+            android:text="Selected size:"
+            android:textColor="#4C4C4C"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/productimg"
+            app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+
+        <Button
+            android:id="@+id/seltsize"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/sizeprobg"
+            android:backgroundTint="#6FD1E8FB"
+            android:fontFamily="@font/open_sans"
+            android:text="None"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/pricetxt3"
+            app:layout_constraintTop_toBottomOf="@+id/productname" />
+
+        <TextView
+            android:id="@+id/seltqty"
+            android:layout_width="40dp"
+            android:layout_height="20sp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/open_sans"
+            android:text="10"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/pricetxt3"
+            app:layout_constraintTop_toBottomOf="@+id/seltsize" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
