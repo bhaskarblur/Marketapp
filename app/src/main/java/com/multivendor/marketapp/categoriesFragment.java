@@ -107,7 +107,7 @@ public class categoriesFragment extends Fragment {
         Bundle bundle = getArguments();
         String selcategory = bundle.getString("selectedCategory");
         selcatname = bundle.getString("selectedCategoryname");
-        cfbidning.textView.setText(selcategory);
+        cfbidning.textView.setText(selcatname);
         getlatlong();
         viewfunctions();
 

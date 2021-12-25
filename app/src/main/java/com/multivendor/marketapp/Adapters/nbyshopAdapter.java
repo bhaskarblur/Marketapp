@@ -57,7 +57,6 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
 
     @Override
     public void onBindViewHolder( viewHolder holder, int position) {
-        final Transformation transformation = new MaskTransformation(mcontext, R.drawable.rounded_transf);
         if(nbyshopsModel.get(position).getShopimg()!=null) {
             Picasso.get().load(nbyshopsModel.get(position).getShopimg()).fit().into(holder.shopimg);
         }
@@ -84,7 +83,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         holder.shoptype.setText(nbyshopsModel.get(position).getCategory());
        // holder.shopratingtxt.setText(nbyshopsModel.get(position).getShopratings());
         holder.shoplocat.setText(nbyshopsModel.get(position).getShoplocation());
-        holder.shopratingtxt.setText(String.valueOf(nbyshopsModel.get(position).getRating()));
+       // holder.shopratingtxt.setText(String.valueOf(nbyshopsModel.get(position).getRating()));
         holder.shopdist.setText(nbyshopsModel.get(position).getShopdistance()+"Km");
         holder.shopcard.setOnClickListener(new View.OnClickListener() {
             @Override

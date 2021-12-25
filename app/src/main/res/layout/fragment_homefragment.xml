@@ -62,10 +62,10 @@
 
         <ImageView
             android:id="@+id/menuicon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
             android:clickable="true"
             android:src="@drawable/menu_icon"
             app:layout_constraintStart_toStartOf="parent"
@@ -257,7 +257,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Near You"
+                android:text="Deals of the day"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"

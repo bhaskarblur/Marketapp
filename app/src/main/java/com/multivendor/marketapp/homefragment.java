@@ -624,8 +624,8 @@ public class homefragment extends Fragment implements LocationListener {
 
     private void loadnearbyshoprec() {
         nbadapter = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue());
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(RecyclerView.VERTICAL);
+        GridLayoutManager llm = new GridLayoutManager(getActivity(),2);
+        llm.setOrientation(RecyclerView.HORIZONTAL);
         hmbinding.nbyshoprec.setLayoutManager(llm);
         hmbinding.nbyshoprec.setAdapter(nbadapter);
     }
