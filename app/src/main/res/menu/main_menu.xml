@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="My Orders"
+        android:id="@+id/menu_myord"/>
+
+    <item android:title="Terms And Conditions"
+        android:id="@+id/menu_termcond"/>
+
+    <item android:title="Privacy Policy"
+        android:id="@+id/menu_privpol"/>
+
+    <item android:title="Customer Service"
+        android:id="@+id/menu_custserv"/>
+
+    <item android:title="Share And Earn"
+        android:id="@+id/menu_share"/>
+
+    <item android:title="Log Out"
+        android:id="@+id/menu_logout"/>
+</menu>

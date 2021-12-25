@@ -24,6 +24,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -128,12 +129,12 @@ public class homefragment extends Fragment implements LocationListener {
         } else {
             //     hmbinding.locattext.setText("No Address");
         }
-        if (username != null) {
-            String sourceString = "<b>" + username + "</b> ";
-            hmbinding.usertxt.setText("Hello " + Html.fromHtml(sourceString) + "!");
-        } else {
-            hmbinding.usertxt.setText("Hello User!");
-        }
+//        if (username != null) {
+//            String sourceString = "<b>" + username + "</b> ";
+//            hmbinding.usertxt.setText("Hello " + Html.fromHtml(sourceString) + "!");
+//        } else {
+//            hmbinding.usertxt.setText("Hello User!");
+//        }
 
 
         hmViewModel = new ViewModelProvider(getActivity(),
@@ -161,8 +162,20 @@ public class homefragment extends Fragment implements LocationListener {
         loadcatrec();
 
         viewfunction();
-
+        handleMenu();
         return hmbinding.getRoot();
+    }
+
+    private void handleMenu() {
+        hmbinding.drawerlayout.closeDrawer(GravityCompat.START);
+
+        hmbinding.menuicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmbinding.drawerlayout.openDrawer(GravityCompat.START);
+            }
+        });
+
     }
 
     @SuppressLint("MissingPermission")
@@ -213,7 +226,7 @@ public class homefragment extends Fragment implements LocationListener {
                                             if(geocoder!=null) {
                                                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
+//                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
                                             }
                                         } catch (IOException e) {
                                             e.printStackTrace();
@@ -258,7 +271,7 @@ public class homefragment extends Fragment implements LocationListener {
                                                 try {
                                                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-                                                    hmbinding.locattext.setText(addresses.get(0).getLocality());
+//                                                    hmbinding.locattext.setText(addresses.get(0).getLocality());
                                                 } catch (IOException e) {
                                                     e.printStackTrace();
                                                 }
