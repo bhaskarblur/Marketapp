@@ -632,8 +632,8 @@ public class homefragment extends Fragment implements LocationListener {
 
     private void loadcatrec() {
         com.multivendor.marketapp.Adapters.categoriesAdapter categoriesAdapter = new categoriesAdapter(getContext(), hmViewModel.getcatmodel().getValue());
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(RecyclerView.HORIZONTAL);
+       GridLayoutManager llm = new GridLayoutManager(getContext(),2);
+       llm.setOrientation(RecyclerView.HORIZONTAL);
         hmbinding.categoriesrv.setLayoutManager(llm);
         hmbinding.categoriesrv.setAdapter(categoriesAdapter);
     }

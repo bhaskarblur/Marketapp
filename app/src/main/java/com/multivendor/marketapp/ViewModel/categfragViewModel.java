@@ -13,28 +13,17 @@ public class categfragViewModel extends ViewModel {
     private MutableLiveData<List<categoriesModel>> catModel;
     private com.multivendor.marketapp.Repositories.catefragRepo mrepo = new catefragRepo();
     private MutableLiveData<List<com.multivendor.marketapp.Models.nbyshopsModel>> nbyshopmodel;
-    String selcat;
-    String selcatname;
-    String lat;
-    String longit;
 
-    public void getlocation(String lat, String longit) {
-        if(nbyshopmodel!=null) {
-            return;
-        }
-        this.lat=lat;
-        this.longit=longit;
-        nbyshopmodel = mrepo.getInstance().returnshopdata(selcat, lat, longit);
-    }
 
-    public void initwork(String selcat) {
-        this.selcat = selcat;
+    public void initwork(String selcat,String lat, String longit) {
         if (catModel != null) {
             return;
         }
-
+        if(nbyshopmodel!=null) {
+            return;
+        }
         catModel = mrepo.getInstance().returncatdata();
-
+        nbyshopmodel = mrepo.getInstance().returnshopdata(selcat, lat, longit);
     }
 
     public LiveData<List<categoriesModel>> getcatModel() {
@@ -45,10 +34,5 @@ public class categfragViewModel extends ViewModel {
         return nbyshopmodel;
     }
 
-    public void changeData(String catposselcat, String selcatname) {
-        this.selcat = catposselcat;
-        this.selcatname = selcatname;
-        nbyshopmodel.setValue(mrepo.returnshopdata(selcatname, lat, longit).getValue());
 
-    }
 }

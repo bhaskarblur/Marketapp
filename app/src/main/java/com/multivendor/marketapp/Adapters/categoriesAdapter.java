@@ -45,9 +45,9 @@ public class categoriesAdapter extends RecyclerView.Adapter<categoriesAdapter.vi
 
   @Override
   public void onBindViewHolder(viewHolder holder, int position) {
-
+    final Transformation transformation = new MaskTransformation(mcontext, R.drawable.rounded_transf);
     Picasso.get().load(catModel.get(position).getImage())
-            .resize(200,200).into(holder.catimg);
+            .resize(200,200).transform(transformation).into(holder.catimg);
     holder.catname.setText(catModel.get(position).getName());
 
     holder.catcard.setOnClickListener(new View.OnClickListener() {

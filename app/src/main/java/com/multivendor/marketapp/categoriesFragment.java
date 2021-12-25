@@ -96,7 +96,7 @@ public class categoriesFragment extends Fragment {
         Bundle bundle=getArguments();
         selcatname=bundle.getString("selectedCategoryname");
         categfragViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(com.multivendor.marketapp.ViewModel.categfragViewModel.class);
-        categfragViewModel.initwork(selcatname);
+
     }
 
     @Override
@@ -104,9 +104,12 @@ public class categoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         cfbidning = FragmentCategoriesBinding.inflate(inflater, container, false);
 
+        Bundle bundle = getArguments();
+        String selcategory = bundle.getString("selectedCategory");
+        selcatname = bundle.getString("selectedCategoryname");
+        cfbidning.textView.setText(selcategory);
         getlatlong();
         viewfunctions();
-        loadcatrec();
 
         return cfbidning.getRoot();
     }
@@ -137,7 +140,7 @@ public class categoriesFragment extends Fragment {
                     if (location != null) {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
-                        categfragViewModel.getlocation(lat, longit);
+                        categfragViewModel.initwork( selcatname,lat, longit);
                         categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
                             @Override
                             public void onChanged(List<nbyshopsModel> nbyshopsModels) {
@@ -167,7 +170,7 @@ public class categoriesFragment extends Fragment {
                                 Location location1 = locationResult.getLastLocation();
                                 lat = String.valueOf(location1.getLatitude());
                                 longit = String.valueOf(location1.getLongitude());
-                                categfragViewModel.getlocation(lat, longit);
+                                categfragViewModel.initwork( selcatname,lat, longit);
                                 categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
                                     @Override
                                     public void onChanged(List<nbyshopsModel> nbyshopsModels) {
@@ -199,33 +202,10 @@ public class categoriesFragment extends Fragment {
 
     }
 
-    private void loadcatrec() {
-        Bundle bundle = getArguments();
-        final String[] selcategory = {bundle.getString("selectedCategory")};
-        selcatname = bundle.getString("selectedCategoryname");
-        allcategoriesAdapter = new allcategoriesAdapter(getContext(), categfragViewModel.getcatModel().getValue(), selcategory[0]);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(RecyclerView.HORIZONTAL);
-        cfbidning.catrec.setLayoutManager(llm);
-        cfbidning.catrec.setAdapter(allcategoriesAdapter);
-
-        // Here i am simply overriding the interface and writing the code in the function
-        allcategoriesAdapter.setoncardclicklistener(new allcategoriesAdapter.oncardclicklistener() {
-            @Override
-            public void oncardclick(int position) {
-                selcatname = categfragViewModel.getcatModel().getValue().get(position).getName();
-                // categfragViewModel.changeData(selcategory[0], selcatname);
-                searchfun(allcategoriesAdapter.catModel.get(position).getName());
-                Log.d("iamcalling2", "yes");
-            }
-        });
-
-    }
-
     private void loadshoprec() {
 
         nbyshopAdapter = new nbyshopAdapter(getContext(), categfragViewModel.getnbyshopmodel().getValue());
-        LinearLayoutManager glm = new LinearLayoutManager(getContext());
+        GridLayoutManager glm = new GridLayoutManager(getContext(),2);
         glm.setOrientation(RecyclerView.VERTICAL);
         cfbidning.shoprec.setLayoutManager(glm);
         cfbidning.shoprec.setAdapter(nbyshopAdapter);
