@@ -65,6 +65,7 @@ import com.multivendor.marketapp.Adapters.nbyshopAdapter;
 import com.multivendor.marketapp.CustomDialogs.zoom_imageDialog;
 import com.multivendor.marketapp.Models.bannermodel;
 import com.multivendor.marketapp.Models.nbyshopsModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.ViewModel.homefragViewModel;
 import com.multivendor.marketapp.databinding.FragmentHomefragmentBinding;
 import com.squareup.picasso.Picasso;
@@ -99,8 +100,11 @@ public class homefragment extends Fragment implements LocationListener {
     private String mLastLocation;
     private List<bannermodel.singleBannerresp> bannerlist1 = new ArrayList<>();
     private List<bannermodel.singleBannerresp> bannerlist2 = new ArrayList<>();
-    com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter;
+    private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter;
+    private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter1;
+    private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter2;
     private Boolean dataloaded=false;
+    private String userid;
     public homefragment() {
 
     }
@@ -131,7 +135,7 @@ public class homefragment extends Fragment implements LocationListener {
         hmbinding = FragmentHomefragmentBinding.inflate(inflater, container, false);
         pos = 0;
         sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-        String userid = sharedPreferences.getString("userid", "");
+        userid = sharedPreferences.getString("userid", "");
         String username = sharedPreferences.getString("username", "");
         String useraddr = sharedPreferences.getString("useraddress", "");
 
@@ -167,6 +171,10 @@ public class homefragment extends Fragment implements LocationListener {
                     hmbinding.bannerrv.setAdapter(bannerAdapter);
                     hmbinding.bannerrv.setCurrentItem(0);
 
+                }
+                if (bannermodels.getBanner2list().size() > 0) {
+                    bannerlist2.clear();
+                    bannerlist2 = bannermodels.getBanner2list();
                     bannerAdapter2 = new bannerAdapter(getActivity(), bannerlist2);
                     hmbinding.bannerrv2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
                     hmbinding.bannerrv2.setAdapter(bannerAdapter2);
@@ -356,7 +364,7 @@ public class homefragment extends Fragment implements LocationListener {
                                         dataloaded = true;
                                         lat = String.valueOf(location.getLatitude());
                                         longit = String.valueOf(location.getLongitude());
-                                        hmViewModel.getlocation(lat, longit);
+                                        hmViewModel.getlocation(userid,lat, longit);
                                         Geocoder geocoder = null;
                                         if(getContext()!=null) {
                                             geocoder = new Geocoder(getActivity()
@@ -373,19 +381,29 @@ public class homefragment extends Fragment implements LocationListener {
                                         }
 
                                         if(hmViewModel.getnbyshopModel()!=null) {
-                                            hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
+                                            hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                                                 @Override
-                                                public void onChanged(List<nbyshopsModel> nbyshopsModels) {
+                                                public void onChanged(newProductModel.homeprodResult nbyshopsModels) {
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            if (nbyshopsModels.size() > 0) {
+                                                            if (nbyshopsModels.getDeal_day_products().size() > 0) {
                                                                 nbadapter.notifyDataSetChanged();
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                                             }
+                                                            if (nbyshopsModels.getTop_sell_products().size() > 0) {
+                                                                nbadapter1.notifyDataSetChanged();
+                                                                hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                            }
+                                                            if (nbyshopsModels.getBest_deal_products().size() > 0) {
+                                                                nbadapter2.notifyDataSetChanged();
+                                                                hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                            }
                                                         }
-                                                    }, 2000);
+                                                    }, 1500);
                                                 }
                                             });
                                             loadnearbyshoprec();
@@ -402,7 +420,7 @@ public class homefragment extends Fragment implements LocationListener {
                                                 Location location1 = locationResult.getLastLocation();
                                                 lat = String.valueOf(location1.getLatitude());
                                                 longit = String.valueOf(location1.getLongitude());
-                                                hmViewModel.getlocation(lat, longit);
+                                                hmViewModel.getlocation(userid,lat, longit);
                                                 Geocoder geocoder = null;
                                                 if(getContext()!=null) {
                                                      geocoder = new Geocoder(getActivity()
@@ -416,19 +434,29 @@ public class homefragment extends Fragment implements LocationListener {
                                                     e.printStackTrace();
                                                 }
 
-                                                hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
+                                                hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                                                     @Override
-                                                    public void onChanged(List<nbyshopsModel> nbyshopsModels) {
+                                                    public void onChanged(newProductModel.homeprodResult nbyshopsModels) {
                                                         new Handler().postDelayed(new Runnable() {
                                                             @Override
                                                             public void run() {
-                                                                if (nbyshopsModels.size() > 0) {
+                                                                if (nbyshopsModels.getDeal_day_products().size() > 0) {
                                                                     nbadapter.notifyDataSetChanged();
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                     hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                                                 }
+                                                                if (nbyshopsModels.getTop_sell_products().size() > 0) {
+                                                                    nbadapter1.notifyDataSetChanged();
+                                                                    hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                                                    hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                }
+                                                                if (nbyshopsModels.getBest_deal_products().size() > 0) {
+                                                                    nbadapter2.notifyDataSetChanged();
+                                                                    hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                                                    hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                }
                                                             }
-                                                        }, 2000);
+                                                        }, 1500);
                                                     }
                                                 });
                                                 loadnearbyshoprec();
@@ -630,11 +658,23 @@ public class homefragment extends Fragment implements LocationListener {
     }
 
     private void loadnearbyshoprec() {
-        nbadapter = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue());
+        nbadapter = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getBest_deal_products());
         GridLayoutManager llm = new GridLayoutManager(getActivity(),2);
         llm.setOrientation(RecyclerView.HORIZONTAL);
-        hmbinding.nbyshoprec.setLayoutManager(llm);
-        hmbinding.nbyshoprec.setAdapter(nbadapter);
+        hmbinding.dealdayrec.setLayoutManager(llm);
+        hmbinding.dealdayrec.setAdapter(nbadapter);
+
+        nbadapter1 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getTop_sell_products());
+        GridLayoutManager llm1 = new GridLayoutManager(getActivity(),2);
+        llm.setOrientation(RecyclerView.HORIZONTAL);
+        hmbinding.topselrec.setLayoutManager(llm1);
+        hmbinding.topselrec.setAdapter(nbadapter1);
+
+        nbadapter2 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getTop_sell_products());
+        GridLayoutManager llm2 = new GridLayoutManager(getActivity(),2);
+        llm.setOrientation(RecyclerView.HORIZONTAL);
+        hmbinding.bestdealrec.setLayoutManager(llm2);
+        hmbinding.bestdealrec.setAdapter(nbadapter2);
     }
 
     private void loadcatrec() {
@@ -703,6 +743,73 @@ public class homefragment extends Fragment implements LocationListener {
                         hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
                         hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
                         rotatebanner();
+                    }
+                }
+
+
+            }
+        }, 5000);
+    }
+
+    private void rotatebanner2() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (bannerAdapter2.getItemCount() > 0) {
+                    if (bannerAdapter2.getItemCount() > hmbinding.bannerrv2.getCurrentItem() && hmbinding.bannerrv2.getCurrentItem() == 0) {
+                        hmbinding.bannerrv2.setCurrentItem(1, true);
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner2();
+                        return;
+                    }
+                    if (bannerAdapter2.getItemCount() > hmbinding.bannerrv2.getCurrentItem() && hmbinding.bannerrv2.getCurrentItem() == 1) {
+                        hmbinding.bannerrv2.setCurrentItem(2, true);
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner2();
+                        return;
+                    }
+                    if (bannerAdapter2.getItemCount() > hmbinding.bannerrv2.getCurrentItem() && hmbinding.bannerrv2.getCurrentItem() == 2) {
+                        hmbinding.bannerrv.setCurrentItem(3, true);
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner2();
+                        return;
+                    }
+
+                    if (bannerAdapter2.getItemCount() > hmbinding.bannerrv2.getCurrentItem() && hmbinding.bannerrv2.getCurrentItem() == 2) {
+                        hmbinding.bannerrv2.setCurrentItem(0, true);
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner2();
+                        return;
+                    }
+                    if (hmbinding.bannerrv2.getCurrentItem() == bannerAdapter2.getItemCount() - 1) {
+                        hmbinding.bannerrv2.setCurrentItem(0);
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner2();
+                        return;
+
+                    } else {
+                        hmbinding.bannerrv2.setCurrentItem(0);
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner2();
                     }
                 }
 
