@@ -54,10 +54,10 @@ public class showszAdapter extends RecyclerView.Adapter<showszAdapter.viewHolder
             }
 
         if(selecteditem==position) {
-            holder.fieldtxt.setBackgroundTintList(context.getResources().getColorStateList(R.color.secblue));
+            holder.fieldtxt.setBackgroundResource(R.drawable.fieldselbg);
         }
         else{
-            holder.fieldtxt.setBackgroundTintList(context.getResources().getColorStateList(R.color.secgrey));
+            holder.fieldtxt.setBackgroundResource(R.drawable.fieldnotselbg);
         }
 
     }

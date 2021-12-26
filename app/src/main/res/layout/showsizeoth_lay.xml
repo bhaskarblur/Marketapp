@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="5dp">
+    android:layout_marginRight="5dp"
+    android:background="@drawable/fieldselbg">
 
     <Button
         android:id="@+id/size_btn"
         android:layout_width="100dp"
         android:layout_height="35dp"
-        android:background="@drawable/sizeprobg"
-        android:backgroundTint="#C6C6C6"
+        android:background="@drawable/fieldselbg"
         android:fontFamily="@font/poppins"
         android:text="None"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/pricetxt3"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
