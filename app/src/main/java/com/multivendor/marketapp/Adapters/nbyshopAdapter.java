@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.multivendor.marketapp.CustomDialogs.zoom_imageDialog;
 import com.multivendor.marketapp.Models.nbyshopsModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.R;
 import com.multivendor.marketapp.categoriesFragment;
 import com.multivendor.marketapp.shopsFragment;
@@ -40,13 +41,13 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
 
     private Context mcontext;
 
-    public nbyshopAdapter(Context mcontext, List<com.multivendor.marketapp.Models.nbyshopsModel> nbyshopsModel) {
+    public nbyshopAdapter(Context mcontext, List<newProductModel.ListProductresp> nbyshopsModel) {
         this.mcontext = mcontext;
         this.nbyshopsModel = nbyshopsModel;
     }
 
-    private List<nbyshopsModel> nbyshopsModel= new ArrayList<>();
-    private List<nbyshopsModel> originalnbyModel= new ArrayList<>();
+    private List<newProductModel.ListProductresp> nbyshopsModel= new ArrayList<>();
+    private List<newProductModel.ListProductresp> originalnbyModel= new ArrayList<>();
     @NonNull
     @Override
     public viewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
@@ -57,8 +58,8 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
 
     @Override
     public void onBindViewHolder( viewHolder holder, int position) {
-        if(nbyshopsModel.get(position).getShopimg()!=null) {
-            Picasso.get().load(nbyshopsModel.get(position).getShopimg()).fit().into(holder.shopimg);
+        if(nbyshopsModel.get(position).getProduct_image()!=null) {
+            Picasso.get().load(nbyshopsModel.get(position).getProduct_image()).fit().into(holder.shopimg);
         }
         else {
             Picasso.get().load(R.drawable.imgsample).fit().into(holder.shopimg);
@@ -79,18 +80,19 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
 //       });
 
 
-        holder.shopname.setText(nbyshopsModel.get(position).getShopname());
-        holder.shoptype.setText(nbyshopsModel.get(position).getCategory());
+        holder.shopname.setText(nbyshopsModel.get(position).getProduct_name());
+        holder.shoptype.setText(nbyshopsModel.get(position).getProduct_description());
        // holder.shopratingtxt.setText(nbyshopsModel.get(position).getShopratings());
-        holder.shoplocat.setText(nbyshopsModel.get(position).getShoplocation());
+        holder.shoplocat.setText(nbyshopsModel.get(position).getProduct_price());
        // holder.shopratingtxt.setText(String.valueOf(nbyshopsModel.get(position).getRating()));
-        holder.shopdist.setText(nbyshopsModel.get(position).getShopdistance()+"Km");
+        holder.shopdist.setText(nbyshopsModel.get(position).getProduct_cut_price());
+        holder.discount.setText(nbyshopsModel.get(position).getDiscount_rate());
         holder.shopcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shopsFragment shopsFragment=new shopsFragment();
                 Bundle bundle =new Bundle();
-                bundle.putString("shopname",nbyshopsModel.get(position).getUser_id());
+                bundle.putString("product_id",nbyshopsModel.get(position).getProduct_id());
                 FragmentTransaction transaction=((AppCompatActivity)mcontext).getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_left);
                 transaction.replace(R.id.mainfragment,shopsFragment);
@@ -101,7 +103,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         });
     }
 
-    public void searchList(List<nbyshopsModel> searchedList) {
+    public void searchList(List<newProductModel.ListProductresp> searchedList) {
        // nbyshopsModel.clear();
         nbyshopsModel=searchedList;
         notifyDataSetChanged();
@@ -120,6 +122,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         TextView shopratingtxt;
         TextView shoplocat;
         TextView shopdist;
+        TextView discount;
         View shopcard;
 
         public viewHolder(View itemView) {
@@ -132,6 +135,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
             shoplocat=itemView.findViewById(R.id.nbyshoplocat);
             shopdist=itemView.findViewById(R.id.nbyshopdist);
             shopcard=itemView.findViewById(R.id.nbyshopcard);
+            discount=itemView.findViewById(R.id.disctxt);
 
         }
 

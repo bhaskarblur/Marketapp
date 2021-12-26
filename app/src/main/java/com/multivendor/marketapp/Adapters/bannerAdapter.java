@@ -22,9 +22,9 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class bannerAdapter extends RecyclerView.Adapter<bannerAdapter.viewHolder> {
 
     private Context mcontext;
-    private List<bannermodel> bannerlist;
+    private List<bannermodel.singleBannerresp> bannerlist;
 
-    public bannerAdapter(Context mcontext, List<bannermodel> bannerlist) {
+    public bannerAdapter(Context mcontext, List<bannermodel.singleBannerresp> bannerlist) {
         this.mcontext = mcontext;
         this.bannerlist = bannerlist;
     }
