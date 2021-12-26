@@ -158,7 +158,6 @@ public class categoriesFragment extends Fragment {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        categfragViewModel.initwork( selcatname,lat, longit);
                         categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                             @Override
                             public void onChanged(newProductModel.homeprodResult homeprodResult) {
@@ -219,6 +218,7 @@ public class categoriesFragment extends Fragment {
 
                                 });
 
+                            }
                             }
                         };
                     }
