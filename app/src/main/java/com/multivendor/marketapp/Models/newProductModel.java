@@ -90,6 +90,15 @@ public class newProductModel {
         public String product_price;
         public String product_cut_price;
         public String discount_rate;
+        public String product_category;
+
+        public String getProduct_category() {
+            return product_category;
+        }
+
+        public void setProduct_category(String product_category) {
+            this.product_category = product_category;
+        }
 
         public String getProduct_id() {
             return product_id;

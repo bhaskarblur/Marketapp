@@ -50,11 +50,23 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="43dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/notiicon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/searchtopicon"
+                app:tint="#292929" />
+
+            <ImageView
+                android:id="@+id/quickordicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="10dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toStartOf="@+id/searchicon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/quickordicon"
                 app:tint="#292929" />
 
             <ImageView
@@ -67,6 +79,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/notiicon"
+                app:tint="#292929" />
+
+            <ImageView
+                android:id="@+id/bagicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="53dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bagicon"
                 app:tint="#292929" />
 
             <ImageView

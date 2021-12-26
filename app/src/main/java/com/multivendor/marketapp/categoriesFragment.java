@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.Task;
 import com.multivendor.marketapp.Adapters.allcategoriesAdapter;
 import com.multivendor.marketapp.Adapters.nbyshopAdapter;
 import com.multivendor.marketapp.Models.nbyshopsModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.databinding.CategoriesLayBinding;
 import com.multivendor.marketapp.databinding.FragmentCartfragmentBinding;
 import com.multivendor.marketapp.databinding.FragmentCategoriesBinding;
@@ -141,22 +142,22 @@ public class categoriesFragment extends Fragment {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
                         categfragViewModel.initwork( selcatname,lat, longit);
-                        categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
+                        categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                             @Override
-                            public void onChanged(List<nbyshopsModel> nbyshopsModels) {
+                            public void onChanged(newProductModel.homeprodResult homeprodResult) {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         loadshoprec();
-                                        searchfun(selcatname);
+                                        nbyshopAdapter.notifyDataSetChanged();
                                         cfbidning.shoprec.setVisibility(View.VISIBLE);
                                         cfbidning.progressBar3.setVisibility(View.INVISIBLE);
-                                        nbyshopAdapter.notifyDataSetChanged();
-
                                     }
                                 }, 500);
                             }
+
                         });
+
 
                     } else {
 
@@ -170,21 +171,21 @@ public class categoriesFragment extends Fragment {
                                 Location location1 = locationResult.getLastLocation();
                                 lat = String.valueOf(location1.getLatitude());
                                 longit = String.valueOf(location1.getLongitude());
-                                categfragViewModel.initwork( selcatname,lat, longit);
-                                categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
+                                categfragViewModel.initwork(selcatname, lat, longit);
+                                categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                                     @Override
-                                    public void onChanged(List<nbyshopsModel> nbyshopsModels) {
+                                    public void onChanged(newProductModel.homeprodResult homeprodResult) {
                                         new Handler().postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
                                                 loadshoprec();
-                                                searchfun(selcatname);
                                                 nbyshopAdapter.notifyDataSetChanged();
                                                 cfbidning.shoprec.setVisibility(View.VISIBLE);
                                                 cfbidning.progressBar3.setVisibility(View.INVISIBLE);
                                             }
                                         }, 500);
                                     }
+
                                 });
 
                             }
@@ -204,7 +205,7 @@ public class categoriesFragment extends Fragment {
 
     private void loadshoprec() {
 
-        nbyshopAdapter = new nbyshopAdapter(getContext(), categfragViewModel.getnbyshopmodel().getValue());
+        nbyshopAdapter = new nbyshopAdapter(getContext(), categfragViewModel.getnbyshopmodel().getValue().getAll_products());
         GridLayoutManager glm = new GridLayoutManager(getContext(),2);
         glm.setOrientation(RecyclerView.VERTICAL);
         cfbidning.shoprec.setLayoutManager(glm);
@@ -216,10 +217,10 @@ public class categoriesFragment extends Fragment {
         cfbidning.sharebtn.setVisibility(View.GONE);
         cfbidning.sharetxt.setVisibility(View.GONE);
         cfbidning.sharetxt2.setVisibility(View.GONE);
-        List<nbyshopsModel> searchedList = new ArrayList<>();
+        List<newProductModel.ListProductresp> searchedList = new ArrayList<>();
         //searchedList.clear();
-        for (nbyshopsModel model : categfragViewModel.getnbyshopmodel().getValue()) {
-            if (model.getCategory().toString().toLowerCase().contains(query.toLowerCase())) {
+        for (newProductModel.ListProductresp model : categfragViewModel.getnbyshopmodel().getValue().getAll_products()) {
+            if (model.getProduct_name().toString().toLowerCase().contains(query.toLowerCase())) {
                 searchedList.add(model);
             }
         }
@@ -285,5 +286,10 @@ public class categoriesFragment extends Fragment {
             }
         });
 
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().getViewModelStore().clear();
     }
 }

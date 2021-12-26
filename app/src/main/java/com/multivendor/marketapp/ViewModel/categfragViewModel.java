@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.multivendor.marketapp.Models.categoriesModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Repositories.catefragRepo;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class categfragViewModel extends ViewModel {
     private MutableLiveData<List<categoriesModel>> catModel;
     private com.multivendor.marketapp.Repositories.catefragRepo mrepo = new catefragRepo();
-    private MutableLiveData<List<com.multivendor.marketapp.Models.nbyshopsModel>> nbyshopmodel;
+    private MutableLiveData<newProductModel.homeprodResult> nbyshopmodel;
 
 
     public void initwork(String selcat,String lat, String longit) {
@@ -30,7 +31,7 @@ public class categfragViewModel extends ViewModel {
         return catModel;
     }
 
-    public LiveData<List<com.multivendor.marketapp.Models.nbyshopsModel>> getnbyshopmodel() {
+    public LiveData<newProductModel.homeprodResult> getnbyshopmodel() {
         return nbyshopmodel;
     }
 

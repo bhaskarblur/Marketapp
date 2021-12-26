@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.multivendor.marketapp.Adapters.nbyshopAdapter;
 import com.multivendor.marketapp.Models.nbyshopsModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.databinding.FragmentSearchBinding;
 
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class searchFragment extends Fragment {
     private String mParam2;
     private String lat;
     private String longit;
+    private String userid;
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private String mLastLocation;
@@ -84,8 +86,8 @@ public class searchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        userid=getActivity().getSharedPreferences("userlogged",0).getString("userid","");
         categfragViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(com.multivendor.marketapp.ViewModel.homefragViewModel.class);
-        categfragViewModel.getlocation(lat,longit);
     }
 
     @Override
@@ -96,136 +98,32 @@ public class searchFragment extends Fragment {
         Bundle bundle=getArguments();
         String lat=bundle.getString("lat","");
         String longit=bundle.getString("long","");
+        categfragViewModel.getlocation(userid,lat,longit);
+        categfragViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+            @Override
+            public void onChanged(newProductModel.homeprodResult homeprodResult) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (homeprodResult.getAll_products().size() > 0) {
+                            loadsearchres();
+                            nbyshopAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                }, 200);
+            }
+        });
         viewfunctions();
-        loadsearchres();
+
         return shbinding.getRoot();
 
     }
-    @SuppressLint("MissingPermission")
-    private void getlatlong() {
-        locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        }
 
-        if(getContext()!=null) {
-            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-                LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                        .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-                fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
-                    @Override
-                    public void onLocationResult(LocationResult locationResult) {
-                        super.onLocationResult(locationResult);
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                    Location location = task.getResult();
-                                    if (location != null) {
-
-                                        lat = String.valueOf(location.getLatitude());
-                                        longit = String.valueOf(location.getLongitude());
-                                        categfragViewModel.getlocation(lat, longit);
-                                        Geocoder geocoder = null;
-                                        if(getContext()!=null) {
-                                            geocoder = new Geocoder(getActivity()
-                                                    , Locale.getDefault());
-                                        }
-                                        try {
-                                            if(geocoder!=null) {
-                                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
-//                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
-                                            }
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        if(categfragViewModel.getnbyshopModel()!=null) {
-                                            categfragViewModel.getnbyshopModel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
-                                                @Override
-                                                public void onChanged(List<nbyshopsModel> nbyshopsModels) {
-                                                    new Handler().postDelayed(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            if (nbyshopsModels.size() > 0) {
-                                                                nbyshopAdapter.notifyDataSetChanged();
-
-                                                            }
-                                                        }
-                                                    }, 200);
-                                                }
-                                            });
-                                           loadsearchres();
-                                        }
-                                    } else {
-
-                                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-
-                                        LocationCallback locationCallback = new LocationCallback() {
-                                            @Override
-                                            public void onLocationResult(LocationResult locationResult) {
-                                                super.onLocationResult(locationResult);
-                                                Location location1 = locationResult.getLastLocation();
-                                                lat = String.valueOf(location1.getLatitude());
-                                                longit = String.valueOf(location1.getLongitude());
-                                                categfragViewModel.getlocation(lat, longit);
-                                                Geocoder geocoder = null;
-                                                if(getContext()!=null) {
-                                                    geocoder = new Geocoder(getActivity()
-                                                            , Locale.getDefault());
-                                                }
-                                                try {
-                                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
-//                                                    hmbinding.locattext.setText(addresses.get(0).getLocality());
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                                categfragViewModel.getnbyshopModel().observe(getActivity(), new Observer<List<nbyshopsModel>>() {
-                                                    @Override
-                                                    public void onChanged(List<nbyshopsModel> nbyshopsModels) {
-                                                        new Handler().postDelayed(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                if (nbyshopsModels.size() > 0) {
-                                                                    nbyshopAdapter.notifyDataSetChanged();
-                                                                }
-                                                            }
-                                                        }, 200);
-                                                    }
-                                                });
-                                                loadsearchres();
-                                            }
-                                        };
-                                    }
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }, Looper.getMainLooper());
-                LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                }
-
-
-            }
-        }
-
-    }
 
     private void loadsearchres() {
         shbinding.searchres.setVisibility(View.INVISIBLE);
-        nbyshopAdapter = new nbyshopAdapter(getContext(), categfragViewModel.getnbyshopModel().getValue());
+        nbyshopAdapter = new nbyshopAdapter(getContext(), categfragViewModel.getnbyshopModel().getValue().getAll_products());
         LinearLayoutManager glm = new LinearLayoutManager(getContext());
         glm.setOrientation(RecyclerView.VERTICAL);
         shbinding.searchres.setLayoutManager(glm);
@@ -258,13 +156,13 @@ public class searchFragment extends Fragment {
 
     private void searchfun(String query) {
 
-        List<nbyshopsModel> searchedList = new ArrayList<>();
+        List<newProductModel.ListProductresp> searchedList = new ArrayList<>();
         //searchedList.clear();
-        if(categfragViewModel.getnbyshopModel().getValue()!=null) {
-            for (nbyshopsModel model : categfragViewModel.getnbyshopModel().getValue()) {
+        if(categfragViewModel.getnbyshopModel().getValue().getAll_products()!=null) {
+            for (newProductModel.ListProductresp model : categfragViewModel.getnbyshopModel().getValue().getAll_products()) {
 
-                if (model.getCategory().toString().toLowerCase().contains(query.toLowerCase()) ||
-                        model.getShopname().toString().toLowerCase().contains(query.toLowerCase())) {
+                if (model.getProduct_name().toString().toLowerCase().contains(query.toLowerCase()) ||
+                        model.getProduct_category().toString().toLowerCase().contains(query.toLowerCase())) {
 
                     searchedList.add(model);
                 }
@@ -285,5 +183,11 @@ public class searchFragment extends Fragment {
                 transaction.commit();
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().getViewModelStore().clear();
     }
 }

@@ -30,4 +30,8 @@ public interface ApiWork {
     @POST("home_products")
     Call<newProductModel .homeprodResp> getallproducts(@Field("user_id") String userid,@Field("latitude") String lat,
                                                        @Field("longitude") String longit);
+    @FormUrlEncoded
+    @POST("category_products")
+    Call<newProductModel .homeprodResp> getcategoryproducts(@Field("category_name") String catname,@Field("latitude") String lat,
+                                                       @Field("longitude") String longit);
 }

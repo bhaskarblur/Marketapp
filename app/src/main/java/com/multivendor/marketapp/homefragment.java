@@ -402,11 +402,12 @@ public class homefragment extends Fragment implements LocationListener {
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                                             }
+                                                            loadnearbyshoprec();
                                                         }
                                                     }, 1500);
                                                 }
                                             });
-                                            loadnearbyshoprec();
+
                                         }
                                     } else {
 
@@ -455,11 +456,13 @@ public class homefragment extends Fragment implements LocationListener {
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                     hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                                                 }
+                                                                loadnearbyshoprec();
                                                             }
+
                                                         }, 1500);
                                                     }
                                                 });
-                                                loadnearbyshoprec();
+
                                             }
                                         };
                                     }
@@ -504,6 +507,30 @@ public class homefragment extends Fragment implements LocationListener {
 
     private void viewfunction() {
 
+        hmbinding.bagicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartfragment notiFragment = new cartfragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+                transaction.replace(R.id.mainfragment, notiFragment);
+                transaction.addToBackStack("A");
+                transaction.commit();
+            }
+        });
+        hmbinding.quickordicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                makequickfragment catfrag = new makequickfragment();
+                catfrag.setArguments(bundle);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_left);
+                transaction.replace(R.id.mainfragment, catfrag);
+                transaction.addToBackStack("A");
+                transaction.commit();
+            }
+        });
         hmbinding.retrybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -547,8 +574,8 @@ public class homefragment extends Fragment implements LocationListener {
             public void onClick(View v) {
                 com.multivendor.marketapp.categoriesFragment catFragment = new categoriesFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("selectedCategory", "4");
-                bundle.putString("selectedCategoryname","Grocery");
+                bundle.putString("selectedCategory", "0");
+                bundle.putString("selectedCategoryname",hmViewModel.getcatmodel().getValue().get(0).getName());
                 catFragment.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
@@ -563,8 +590,8 @@ public class homefragment extends Fragment implements LocationListener {
             public void onClick(View v) {
                 com.multivendor.marketapp.categoriesFragment catFragment = new categoriesFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("selectedCategory", "4");
-                bundle.putString("selectedCategoryname","Grocery");
+                bundle.putString("selectedCategory", "0");
+                bundle.putString("selectedCategoryname",hmViewModel.getcatmodel().getValue().get(0).getName());
                 catFragment.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
@@ -658,23 +685,27 @@ public class homefragment extends Fragment implements LocationListener {
     }
 
     private void loadnearbyshoprec() {
-        nbadapter = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getBest_deal_products());
-        GridLayoutManager llm = new GridLayoutManager(getActivity(),2);
-        llm.setOrientation(RecyclerView.HORIZONTAL);
-        hmbinding.dealdayrec.setLayoutManager(llm);
-        hmbinding.dealdayrec.setAdapter(nbadapter);
-
-        nbadapter1 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getTop_sell_products());
-        GridLayoutManager llm1 = new GridLayoutManager(getActivity(),2);
-        llm.setOrientation(RecyclerView.HORIZONTAL);
-        hmbinding.topselrec.setLayoutManager(llm1);
-        hmbinding.topselrec.setAdapter(nbadapter1);
-
-        nbadapter2 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getTop_sell_products());
-        GridLayoutManager llm2 = new GridLayoutManager(getActivity(),2);
-        llm.setOrientation(RecyclerView.HORIZONTAL);
-        hmbinding.bestdealrec.setLayoutManager(llm2);
-        hmbinding.bestdealrec.setAdapter(nbadapter2);
+        if(hmViewModel.getnbyshopModel().getValue().getDeal_day_products()!=null) {
+            nbadapter = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getDeal_day_products()        );
+            GridLayoutManager llm = new GridLayoutManager(getActivity(), 2);
+            llm.setOrientation(RecyclerView.HORIZONTAL);
+            hmbinding.dealdayrec.setLayoutManager(llm);
+            hmbinding.dealdayrec.setAdapter(nbadapter);
+        }
+        if(hmViewModel.getnbyshopModel().getValue().getTop_sell_products()!=null) {
+            nbadapter1 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getTop_sell_products());
+            GridLayoutManager llm1 = new GridLayoutManager(getActivity(), 2);
+            llm1.setOrientation(RecyclerView.HORIZONTAL);
+            hmbinding.topselrec.setLayoutManager(llm1);
+            hmbinding.topselrec.setAdapter(nbadapter1);
+        }
+        if(hmViewModel.getnbyshopModel().getValue().getBest_deal_products()!=null) {
+            nbadapter2 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getBest_deal_products());
+            GridLayoutManager llm2 = new GridLayoutManager(getActivity(), 2);
+            llm2.setOrientation(RecyclerView.HORIZONTAL);
+            hmbinding.bestdealrec.setLayoutManager(llm2);
+            hmbinding.bestdealrec.setAdapter(nbadapter2);
+        }
     }
 
     private void loadcatrec() {
@@ -848,6 +879,6 @@ public class homefragment extends Fragment implements LocationListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-       // getActivity().getViewModelStore();
+        getActivity().getViewModelStore();
     }
 }
