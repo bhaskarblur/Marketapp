@@ -13,65 +13,76 @@
     android:layout_height="match_parent">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topbar"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topcard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <ImageView
-            android:id="@+id/applogo"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="9dp"
-            android:paddingLeft="-20dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="10dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/applogo_blue" />
-
-        <ImageView
-            android:id="@+id/searchicon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="20dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toStartOf="@+id/notiicon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/searchtopicon"
-            app:tint="#292929" />
-
-        <ImageView
-            android:id="@+id/notiicon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="20dp"
-            android:scaleType="centerCrop"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/notiicon"
-            app:tint="#292929" />
-
-        <ImageView
-            android:id="@+id/menuicon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="18dp"
-            android:clickable="true"
-            android:src="@drawable/menu_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/applogo"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="9dp"
+                android:paddingLeft="-20dp"
+                android:paddingTop="25dp"
+                android:paddingBottom="10dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/applogo_blue" />
+
+            <ImageView
+                android:id="@+id/searchicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="20dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toStartOf="@+id/notiicon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/searchtopicon"
+                app:tint="#292929" />
+
+            <ImageView
+                android:id="@+id/notiicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="20dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/notiicon"
+                app:tint="#292929" />
+
+            <ImageView
+                android:id="@+id/menuicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+                android:clickable="true"
+                android:src="@drawable/menu_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/homeincludedfrag"
@@ -145,7 +156,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topbar">
+        app:layout_constraintTop_toBottomOf="@+id/topcard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -201,27 +212,41 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/bannerrv"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:scaleType="centerInside"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+            </androidx.viewpager2.widget.ViewPager2>
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Categories"
+                android:text="CATEGORIES"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/bannerrv_2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dealdayrec" />
 
             <TextView
                 android:id="@+id/catseeall"
@@ -255,11 +280,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Deals of the day"
+                android:text="DEALS OF THE DAY"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categoriesrv" />
 
@@ -267,7 +292,7 @@
                 android:id="@+id/nearbshopsall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:fontFamily="@font/poppins"
                 android:text="See All"
@@ -276,36 +301,72 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categoriesrv" />
 
+            <TextView
+                android:id="@+id/textView79"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="TOP SELLING"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv_2" />
+
+            <TextView
+                android:id="@+id/textView81"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="BEST DEAL"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topselrec" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/nbyshoprec"
+                android:id="@+id/bestdealrec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView81"
+                tools:itemCount="1"
+                tools:listitem="@layout/nbyshops_lay" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/topselrec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView79"
+                tools:itemCount="1"
+                tools:listitem="@layout/nbyshops_lay" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dealdayrec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7"
-                app:layout_constraintVertical_bias="0.0"
-                tools:itemCount="4"
+                tools:itemCount="1"
                 tools:listitem="@layout/nbyshops_lay" />
-
-            <TextView
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:inputType="textMultiLine"
-                android:text="Click See All to load more shops or Search the shop"
-                android:textColor="#92929292"
-                app:layout_constraintTop_toBottomOf="@id/nbyshoprec"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

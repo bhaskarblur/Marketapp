@@ -38,8 +38,8 @@ public class bannerAdapter extends RecyclerView.Adapter<bannerAdapter.viewHolder
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        final int radius = 20;
-        final int margin = 20;
+        final int radius = 10;
+        final int margin = 10;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
         Picasso.get().load(bannerlist.get(position).getImage()).transform(transformation).fit().into(holder.img);
         Log.d("img", bannerlist.get(position).getImage());
