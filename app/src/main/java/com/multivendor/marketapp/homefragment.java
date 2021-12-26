@@ -402,6 +402,14 @@ public class homefragment extends Fragment implements LocationListener {
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                                             }
+
+                                                            if(nbyshopsModels.getCart_items()!=null &&!nbyshopsModels.getCart_items().equals("0") ) {
+                                                                hmbinding.itemlay.setVisibility(View.VISIBLE);
+                                                                hmbinding.cartitemtxt.setText(nbyshopsModels.getCart_items());
+                                                            }
+                                                            else {
+                                                                hmbinding.itemlay.setVisibility(View.INVISIBLE);
+                                                            }
                                                             loadnearbyshoprec();
                                                         }
                                                     }, 1500);
@@ -455,6 +463,13 @@ public class homefragment extends Fragment implements LocationListener {
                                                                     nbadapter2.notifyDataSetChanged();
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                     hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                }
+                                                                if(nbyshopsModels.getCart_items()!=null &&!nbyshopsModels.getCart_items().equals("0") ) {
+                                                                    hmbinding.itemlay.setVisibility(View.VISIBLE);
+                                                                    hmbinding.cartitemtxt.setText(nbyshopsModels.getCart_items());
+                                                                }
+                                                                else {
+                                                                    hmbinding.itemlay.setVisibility(View.INVISIBLE);
                                                                 }
                                                                 loadnearbyshoprec();
                                                             }

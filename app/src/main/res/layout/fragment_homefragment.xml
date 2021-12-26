@@ -50,7 +50,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="43dp"
+                android:layout_marginEnd="41dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/notiicon"
                 app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +62,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="13dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/searchicon"
                 app:layout_constraintTop_toTopOf="parent"
@@ -86,7 +86,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="53dp"
+                android:layout_marginEnd="51dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -103,6 +103,33 @@
                 android:src="@drawable/menu_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/itemlay"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/onboardingposcircle"
+                android:backgroundTint="#FF0000"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/notiicon"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/cartitemtxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="2"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

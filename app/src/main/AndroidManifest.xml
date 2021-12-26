@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.multivendor.marketapp" >
+    package="com.multivendor.marketapp">
 
     <queries>
         <intent>
@@ -26,7 +26,7 @@
         android:roundIcon="@mipmap/new_applogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MarketApp"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -67,7 +67,7 @@
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,7 +84,7 @@
         <service
             android:name=".FirebaseMessagingService"
             android:directBootAware="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

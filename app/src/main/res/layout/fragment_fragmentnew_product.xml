@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fragmentnewProduct">
+
+    <Button
+        android:id="@+id/onbprog"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/onboardingposcircle"
+        android:backgroundTint="@color/primcolor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagebanner" />
+
+    <Button
+        android:id="@+id/onbprog2"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/onboardingposcircle"
+        android:backgroundTint="@color/secgrey"
+        app:layout_constraintStart_toEndOf="@+id/onbprog"
+        app:layout_constraintTop_toBottomOf="@+id/imagebanner" />
+
+    <Button
+        android:id="@+id/onbprog3"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/onboardingposcircle"
+        android:backgroundTint="@color/secgrey"
+        app:layout_constraintStart_toEndOf="@+id/onbprog2"
+        app:layout_constraintTop_toBottomOf="@+id/imagebanner" />
+
+    <Button
+        android:id="@+id/onbprog4"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/onboardingposcircle"
+        android:backgroundTint="@color/secgrey"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/onbprog3"
+        app:layout_constraintTop_toBottomOf="@+id/imagebanner" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/imagebanner"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <ImageView
+        android:id="@+id/backbtn"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:src="@drawable/new_backicon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/carticon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:src="@drawable/new_bagicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/heartonicon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
+        android:clickable="true"
+        android:src="@drawable/new_heartonicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/heartofficon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
+        android:clickable="true"
+        android:src="@drawable/new_heartofficon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="300dp"
+        android:background="#FF0000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/disctxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="10%"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onbprog2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView82"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="MARKETAPP"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/productname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="MARKETAPP"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView82" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
