@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -44,8 +46,10 @@ import com.multivendor.marketapp.databinding.CategoriesLayBinding;
 import com.multivendor.marketapp.databinding.FragmentCartfragmentBinding;
 import com.multivendor.marketapp.databinding.FragmentCategoriesBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class categoriesFragment extends Fragment {
@@ -136,11 +140,24 @@ public class categoriesFragment extends Fragment {
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
-
                     Location location = task.getResult();
+                    Geocoder geocoder = null;
+                    if(getContext()!=null) {
+                        geocoder = new Geocoder(getActivity()
+                                , Locale.getDefault());
+                    }
                     if (location != null) {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
+                        try {
+                            if(geocoder!=null) {
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                categfragViewModel.initwork(selcatname,lat, longit,addresses.get(0).getLocality().toString());
+
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         categfragViewModel.initwork( selcatname,lat, longit);
                         categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                             @Override
@@ -168,10 +185,24 @@ public class categoriesFragment extends Fragment {
                             @Override
                             public void onLocationResult(LocationResult locationResult) {
                                 super.onLocationResult(locationResult);
-                                Location location1 = locationResult.getLastLocation();
-                                lat = String.valueOf(location1.getLatitude());
-                                longit = String.valueOf(location1.getLongitude());
-                                categfragViewModel.initwork(selcatname, lat, longit);
+                                Location location = task.getResult();
+                                Geocoder geocoder = null;
+                                if(getContext()!=null) {
+                                    geocoder = new Geocoder(getActivity()
+                                            , Locale.getDefault());
+                                }
+                                if (location != null) {
+                                    lat = String.valueOf(location.getLatitude());
+                                    longit = String.valueOf(location.getLongitude());
+                                    try {
+                                        if(geocoder!=null) {
+                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                            categfragViewModel.initwork(selcatname,lat, longit,addresses.get(0).getLocality().toString());
+
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                                     @Override
                                     public void onChanged(newProductModel.homeprodResult homeprodResult) {

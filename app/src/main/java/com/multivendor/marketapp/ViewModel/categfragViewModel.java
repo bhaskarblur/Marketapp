@@ -16,7 +16,7 @@ public class categfragViewModel extends ViewModel {
     private MutableLiveData<newProductModel.homeprodResult> nbyshopmodel;
 
 
-    public void initwork(String selcat,String lat, String longit) {
+    public void initwork(String selcat,String lat, String longit,String city_name) {
         if (catModel != null) {
             return;
         }
@@ -24,7 +24,7 @@ public class categfragViewModel extends ViewModel {
             return;
         }
         catModel = mrepo.getInstance().returncatdata();
-        nbyshopmodel = mrepo.getInstance().returnshopdata(selcat, lat, longit);
+        nbyshopmodel = mrepo.getInstance().returnshopdata(selcat, lat, longit,city_name);
     }
 
     public LiveData<List<categoriesModel>> getcatModel() {

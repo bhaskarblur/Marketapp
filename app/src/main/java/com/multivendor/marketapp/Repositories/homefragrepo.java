@@ -95,19 +95,19 @@ public class homefragrepo {
         return catdata;
     }
 
-    public MutableLiveData<newProductModel.homeprodResult> returnnybyshopdata(String userid,String lat,String longit) {
-        getnbyshopsdatafromSource(userid,lat,longit);
+    public MutableLiveData<newProductModel.homeprodResult> returnnybyshopdata(String userid,String lat,String longit,String cityname) {
+        getnbyshopsdatafromSource(userid,lat,longit,cityname);
         return nyshopdata;
     }
 
-    private void getnbyshopsdatafromSource(String userid,String lat,String longit) {
+    private void getnbyshopsdatafromSource(String userid,String lat,String longit,String cityname) {
         Log.d("latandlong",lat+","+longit);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork= retrofit.create(ApiWork.class);
 
-        Call<newProductModel.homeprodResp> call=apiWork.getallproducts(userid,lat,longit);
+        Call<newProductModel.homeprodResp> call=apiWork.getallproducts(userid,lat,longit,cityname);
 
         call.enqueue(new Callback<newProductModel.homeprodResp>() {
             @Override

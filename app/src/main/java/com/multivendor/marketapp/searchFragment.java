@@ -98,7 +98,8 @@ public class searchFragment extends Fragment {
         Bundle bundle=getArguments();
         String lat=bundle.getString("lat","");
         String longit=bundle.getString("long","");
-        categfragViewModel.getlocation(userid,lat,longit);
+        String cityname=bundle.getString("city_name","");
+        categfragViewModel.getlocation(userid,lat,longit,cityname);
         categfragViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
             @Override
             public void onChanged(newProductModel.homeprodResult homeprodResult) {

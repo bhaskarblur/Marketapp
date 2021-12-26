@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.multidex.BuildConfig;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,6 +106,7 @@ public class homefragment extends Fragment implements LocationListener {
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter2;
     private Boolean dataloaded=false;
     private String userid;
+    private String cityname;
     public homefragment() {
 
     }
@@ -364,7 +366,7 @@ public class homefragment extends Fragment implements LocationListener {
                                         dataloaded = true;
                                         lat = String.valueOf(location.getLatitude());
                                         longit = String.valueOf(location.getLongitude());
-                                        hmViewModel.getlocation(userid,lat, longit);
+
                                         Geocoder geocoder = null;
                                         if(getContext()!=null) {
                                             geocoder = new Geocoder(getActivity()
@@ -373,7 +375,8 @@ public class homefragment extends Fragment implements LocationListener {
                                         try {
                                             if(geocoder!=null) {
                                                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
+                                                hmViewModel.getlocation(userid,lat, longit,addresses.get(0).getLocality().toString());
+                                                cityname=addresses.get(0).getLocality().toString();
 //                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
                                             }
                                         } catch (IOException e) {
@@ -429,7 +432,6 @@ public class homefragment extends Fragment implements LocationListener {
                                                 Location location1 = locationResult.getLastLocation();
                                                 lat = String.valueOf(location1.getLatitude());
                                                 longit = String.valueOf(location1.getLongitude());
-                                                hmViewModel.getlocation(userid,lat, longit);
                                                 Geocoder geocoder = null;
                                                 if(getContext()!=null) {
                                                      geocoder = new Geocoder(getActivity()
@@ -437,8 +439,9 @@ public class homefragment extends Fragment implements LocationListener {
                                                 }
                                                 try {
                                                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
+                                                    hmViewModel.getlocation(userid,lat, longit,addresses.get(0).getLocality().toString());
 //                                                    hmbinding.locattext.setText(addresses.get(0).getLocality());
+                                                    cityname=addresses.get(0).getLocality().toString();
                                                 } catch (IOException e) {
                                                     e.printStackTrace();
                                                 }
@@ -574,6 +577,7 @@ public class homefragment extends Fragment implements LocationListener {
                 Bundle bundle = new Bundle();
                 bundle.putString("lat", lat);
                 bundle.putString("long", longit);
+                bundle.putString("city_name",cityname);
                 searchFragment searchFragment = new searchFragment();
                 searchFragment.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

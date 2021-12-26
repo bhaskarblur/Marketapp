@@ -49,12 +49,12 @@ public class catefragRepo {
         return catdata;
     }
 
-    public MutableLiveData<newProductModel.homeprodResult> returnshopdata(String selcategoryname,String lat,String longit) {
-        getnbyshopsdatafromSource(selcategoryname,lat,longit);
+    public MutableLiveData<newProductModel.homeprodResult> returnshopdata(String selcategoryname,String lat,String longit,String cityname) {
+        getnbyshopsdatafromSource(selcategoryname,lat,longit,cityname);
         return shopdata;
     }
 
-    private void getnbyshopsdatafromSource(String selcategoryname,String lat,String longit) {
+    private void getnbyshopsdatafromSource(String selcategoryname,String lat,String longit,String cityname) {
         api_baseurl baseurl= new api_baseurl();
         Log.d("latandlong",lat+","+longit);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
@@ -62,7 +62,7 @@ public class catefragRepo {
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<newProductModel.homeprodResp> call = apiWork.getcategoryproducts(selcategoryname,lat,longit);
+        Call<newProductModel.homeprodResp> call = apiWork.getcategoryproducts(selcategoryname,lat,longit,cityname);
 
         call.enqueue(new Callback<newProductModel.homeprodResp>() {
             @Override

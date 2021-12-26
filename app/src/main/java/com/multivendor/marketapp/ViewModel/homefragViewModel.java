@@ -19,11 +19,11 @@ public class homefragViewModel extends ViewModel {
     private com.multivendor.marketapp.Repositories.homefragrepo mrepo= new homefragrepo();
 
 
-    public void getlocation(String userid,String lat,String longit) {
+    public void getlocation(String userid,String lat,String longit,String cityname) {
         if(nbyshopmodel!=null) {
             return;
         }
-        nbyshopmodel=mrepo.getInstance().returnnybyshopdata(userid,lat,longit);
+        nbyshopmodel=mrepo.getInstance().returnnybyshopdata(userid,lat,longit,cityname);
     }
     public void initwork() {
         if(catmodel!=null) {
