@@ -32,6 +32,15 @@ public class newProductModel {
         public List<ListProductresp> top_sell_products;
         public List<ListProductresp> best_deal_products;
         public List<categoriesModel> all_categories;
+        public String cart_items;
+
+        public String getCart_items() {
+            return cart_items;
+        }
+
+        public void setCart_items(String cart_items) {
+            this.cart_items = cart_items;
+        }
 
         public List<ListProductresp> getAll_products() {
             return all_products;

@@ -7,11 +7,14 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 
+import com.multivendor.marketapp.ApiWork.ApiWork;
 import com.multivendor.marketapp.ApiWork.LogregApiInterface;
+import com.multivendor.marketapp.Constants.api_baseurl;
 import com.multivendor.marketapp.Models.bannermodel;
 
 import com.multivendor.marketapp.Models.categoriesModel;
 import com.multivendor.marketapp.Models.nbyshopsModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Models.userAPIResp;
 import com.multivendor.marketapp.R;
 
@@ -30,12 +33,10 @@ public class homefragrepo {
     private homefragrepo instance;
     private List<categoriesModel> catlist = new ArrayList<>();
     private MutableLiveData< List<categoriesModel>> catdata=new MutableLiveData<>();
-    private List<nbyshopsModel> nyshoplist = new ArrayList<>();
-    private MutableLiveData< List<nbyshopsModel>> nyshopdata=new MutableLiveData<>();
-
-    private List<bannermodel> bannerlist = new ArrayList<>();
-    private MutableLiveData< List<bannermodel>> bannerdata=new MutableLiveData<>();
+    private MutableLiveData<newProductModel.homeprodResult> nyshopdata=new MutableLiveData<>();
+    private MutableLiveData<bannermodel.banneresult> bannerdata=new MutableLiveData<>();
     private Integer pos;
+    api_baseurl baseurl=new api_baseurl();
     public homefragrepo getInstance() {
         if(instance==null) {
             instance= new homefragrepo();
@@ -45,46 +46,40 @@ public class homefragrepo {
     }
 
 
-    public MutableLiveData< List<bannermodel>> returnbannerdata() {
+    public MutableLiveData< bannermodel.banneresult> returnbannerdata() {
         getbannerdatafromSource();
-        if(bannerlist==null) {
-            bannerdata.setValue(null);
-        }
-        bannerdata.setValue(bannerlist);
         return bannerdata;
     }
 
     private void getbannerdatafromSource() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
-        LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+        ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<userAPIResp.getbanners> call=logregApiInterface.getbanners();
+        Call<bannermodel.bannerresp> call=apiWork.getbanners();
 
-        call.enqueue(new Callback<userAPIResp.getbanners>() {
+        call.enqueue(new Callback<bannermodel.bannerresp>() {
             @Override
-            public void onResponse(Call<userAPIResp.getbanners> call, Response<userAPIResp.getbanners> response) {
+            public void onResponse(Call<bannermodel.bannerresp> call, Response<bannermodel.bannerresp> response) {
                 if (!response.isSuccessful()) {
                     Log.d("Error code", String.valueOf(response.code()));
                     return;
                 }
 
-                userAPIResp.getbanners data=response.body();
-                Log.d("msg",data.getMessage());
+                bannermodel.bannerresp data=response.body();
+                Log.d("msg",data.getSuccess());
 
-                if(data.getMessage().equals("All Banners.!")) {
-                    for(com.multivendor.marketapp.Models.bannermodel bmodel:data.getResult()) {
-                        bannerlist.add(bmodel);
-                    }
-                    bannerdata.setValue(bannerlist);
+                if(data.getResult()!=null) {
+
+                    bannerdata.setValue(data.getResult());
                 }
 
 
             }
 
             @Override
-            public void onFailure(Call<userAPIResp.getbanners> call, Throwable t) {
+            public void onFailure(Call<bannermodel.bannerresp> call, Throwable t) {
 
             }
         });
@@ -93,7 +88,6 @@ public class homefragrepo {
 }
 
     public MutableLiveData< List<categoriesModel>> returncatdata() {
-        getcatdatafromSource();
         if(catlist==null) {
             catdata.setValue(null);
         }
@@ -101,55 +95,36 @@ public class homefragrepo {
         return catdata;
     }
 
-    public MutableLiveData<List<nbyshopsModel>> returnnybyshopdata(String lat,String longit) {
-        getnbyshopsdatafromSource(lat,longit);
-        if(nyshoplist==null) {
-            nyshopdata.setValue(null);
-        }
-        nyshopdata.setValue(nyshoplist);
+    public MutableLiveData<newProductModel.homeprodResult> returnnybyshopdata(String userid,String lat,String longit) {
+        getnbyshopsdatafromSource(userid,lat,longit);
         return nyshopdata;
     }
 
-    private void getnbyshopsdatafromSource(String lat,String longit) {
+    private void getnbyshopsdatafromSource(String userid,String lat,String longit) {
         Log.d("latandlong",lat+","+longit);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
-        LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+        ApiWork apiWork= retrofit.create(ApiWork.class);
 
-        Call<userAPIResp.getStores> call=logregApiInterface.getstores(lat,longit);
+        Call<newProductModel.homeprodResp> call=apiWork.getallproducts(userid,lat,longit);
 
-        call.enqueue(new Callback<userAPIResp.getStores>() {
+        call.enqueue(new Callback<newProductModel.homeprodResp>() {
             @Override
-            public void onResponse(Call<userAPIResp.getStores> call, Response<userAPIResp.getStores> response) {
+            public void onResponse(Call<newProductModel.homeprodResp> call, Response<newProductModel.homeprodResp> response) {
                 if (!response.isSuccessful()) {
                     Log.d("Error code", String.valueOf(response.code()));
                     return;
                 }
 
-                userAPIResp.getStores storedata = response.body();
+                newProductModel.homeprodResp storedata = response.body();
 
 
-                Log.d("message",storedata.getMessage());
+                Log.d("message",storedata.getSuccess());
 
                 if(storedata.getResult()!=null) {
-                    if (storedata.getResult().size() > 5) {
 
-                        for (int i = 0; i < storedata.getResult().size(); i++) {
-
-                            nyshoplist.add(storedata.getResult().get(i));
-                        }
-                    }
-
-                    else {
-                        for (int x = 0; x < storedata.getResult().size(); x++) {
-
-                            nyshoplist.add(storedata.getResult().get(x));
-                        }
-                        Log.d("here", nyshoplist.get(0).getShopname());
-                    }
-
-                    nyshopdata.setValue(nyshoplist);
+                    nyshopdata.setValue(storedata.getResult());
                 }
 
 
@@ -157,7 +132,7 @@ public class homefragrepo {
             }
 
             @Override
-            public void onFailure(Call<userAPIResp.getStores> call, Throwable t) {
+            public void onFailure(Call<newProductModel.homeprodResp> call, Throwable t) {
                 Log.d("errorshops",t.getMessage().toString());
             }
         });

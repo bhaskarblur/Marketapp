@@ -86,6 +86,7 @@ public class homefragment extends Fragment implements LocationListener {
     private com.multivendor.marketapp.ViewModel.homefragViewModel hmViewModel;
     private static final String ARG_PARAM1 = "param1";
     private com.multivendor.marketapp.Adapters.bannerAdapter bannerAdapter;
+    private com.multivendor.marketapp.Adapters.bannerAdapter bannerAdapter2;
     private static final String ARG_PARAM2 = "param2";
     private Integer pos = 0;
     private SharedPreferences sharedPreferences;
@@ -96,7 +97,8 @@ public class homefragment extends Fragment implements LocationListener {
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private String mLastLocation;
-    private List<bannermodel> bannerlist = new ArrayList<>();
+    private List<bannermodel.singleBannerresp> bannerlist1 = new ArrayList<>();
+    private List<bannermodel.singleBannerresp> bannerlist2 = new ArrayList<>();
     com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter;
     private Boolean dataloaded=false;
     public homefragment() {
@@ -154,17 +156,22 @@ public class homefragment extends Fragment implements LocationListener {
         hmbinding.progressBar2.setVisibility(View.VISIBLE);
         hmbinding.retrybtn.setVisibility(View.INVISIBLE);
         hmbinding.rettxt.setVisibility(View.INVISIBLE);
-        hmViewModel.getBannerModel().observe(getActivity(), new Observer<List<bannermodel>>() {
+        hmViewModel.getBannerModel().observe(getActivity(), new Observer<bannermodel.banneresult>() {
             @Override
-            public void onChanged(List<bannermodel> bannermodels) {
-                if (bannermodels.size() > 0) {
-                    bannerlist.clear();
-                    bannerlist = bannermodels;
-                    bannerAdapter = new bannerAdapter(getActivity(), bannerlist);
+            public void onChanged(bannermodel.banneresult bannermodels) {
+                if (bannermodels.getBanner1list().size() > 0) {
+                    bannerlist1.clear();
+                    bannerlist1 = bannermodels.getBanner1list();
+                    bannerAdapter = new bannerAdapter(getActivity(), bannerlist1);
                     hmbinding.bannerrv.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
                     hmbinding.bannerrv.setAdapter(bannerAdapter);
                     hmbinding.bannerrv.setCurrentItem(0);
-                    rotatebanner();
+
+                    bannerAdapter2 = new bannerAdapter(getActivity(), bannerlist2);
+                    hmbinding.bannerrv2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    hmbinding.bannerrv2.setAdapter(bannerAdapter2);
+                    hmbinding.bannerrv2.setCurrentItem(0);
+                    rotatebanner2();
                 }
             }
         });
