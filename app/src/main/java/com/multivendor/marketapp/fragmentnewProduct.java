@@ -1,5 +1,7 @@
 package com.multivendor.marketapp;
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -88,13 +90,53 @@ public class fragmentnewProduct extends Fragment {
     }
 
     private void viewfuncs() {
+        binding.onbprog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imagebanner.setCurrentItem(0, true);
+                binding.onbprog.getBackground().setTint(Color.parseColor("#0881E3"));
+                binding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        binding.onbprog2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imagebanner.setCurrentItem(1, true);
+                binding.onbprog2.getBackground().setTint(Color.parseColor("#0881E3"));
+                binding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        binding.onbprog3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imagebanner.setCurrentItem(2, true);
+                binding.onbprog3.getBackground().setTint(Color.parseColor("#0881E3"));
+                binding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        binding.onbprog4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imagebanner.setCurrentItem(3, true);
+                binding.onbprog4.getBackground().setTint(Color.parseColor("#0881E3"));
+                binding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                binding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
     }
 
     private void Managefuncs() {
-        imagesAdapter = new productImageAdapter(getActivity(), imageList);
-        binding.imagebanner.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        binding.imagebanner.setAdapter(imagesAdapter);
-        binding.imagebanner.setCurrentItem(0);
 
         sizeadapter=new showszAdapter(getContext(),sizeList);
         LinearLayoutManager llm1=new LinearLayoutManager(getContext());
@@ -140,7 +182,23 @@ public class fragmentnewProduct extends Fragment {
                 if(productdata.getResult()!=null) {
                     if(productdata.getResult().getProduct_images().size()>0) {
                         imageList=productdata.getResult().getProduct_images();
-                        imagesAdapter.notifyDataSetChanged();
+                        imagesAdapter = new productImageAdapter(getActivity(), imageList);
+                        binding.imagebanner.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                        binding.imagebanner.setAdapter(imagesAdapter);
+                        binding.imagebanner.setCurrentItem(0);
+
+                        if(productdata.getResult().getProduct_images().size()<4){
+                            binding.onbprog4.setVisibility(View.INVISIBLE);
+                        }
+                        if(productdata.getResult().getProduct_images().size()<3) {
+                            binding.onbprog3.setVisibility(View.INVISIBLE);
+                            binding.onbprog4.setVisibility(View.INVISIBLE);
+                        }
+                        if(productdata.getResult().getProduct_images().size()<2) {
+                            binding.onbprog2.setVisibility(View.INVISIBLE);
+                            binding.onbprog3.setVisibility(View.INVISIBLE);
+                            binding.onbprog4.setVisibility(View.INVISIBLE);
+                        }
                     }
 
                     if(productdata.getResult().getProduct_variants().size()>0) {
@@ -148,6 +206,26 @@ public class fragmentnewProduct extends Fragment {
                         selected_size=sizeList.get(0).getVariation_id().toString();
                         sizeadapter.notifyDataSetChanged();
                     }
+                    if(productdata.getResult().getProduct_reviews().size()>0) {
+                        reviewList=productdata.getResult().getProduct_reviews();
+                        reviewAdapter.notifyDataSetChanged();
+                    }
+                    if(productdata.getResult().getIn_cart().size()>0) {
+                        inCartList=productdata.getResult().getIn_cart();
+                    }
+                    binding.productname.setText(productdata.getResult().getProduct_name().toString());
+                    binding.productdesc.setText(productdata.getResult().getProduct_description().toString());
+                    binding.prodprice.setText(productdata.getResult().getProduct_price().toString());
+                    binding.cutprice.setText(productdata.getResult().getProduct_cut_price().toString());
+                    binding.cutprice.setPaintFlags( binding.cutprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    binding.disctxt.setText(productdata.getResult().getDiscount_rate());
+
+                    if(productdata.getResult().getIn_cart()!=null) {
+                        for(int i=0;i<productdata.getResult().getIn_cart().size();i++) {
+
+                        }
+                    }
+
                 }
 
 
@@ -156,7 +234,7 @@ public class fragmentnewProduct extends Fragment {
 
             @Override
             public void onFailure(Call<newProductModel.productdetailResp> call, Throwable t) {
-                Log.d("errorshops",t.getMessage().toString());
+                Log.d("errorDetail",t.getMessage().toString());
             }
         });
 
