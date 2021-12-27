@@ -82,7 +82,9 @@ public class newProductModel {
             this.all_categories = all_categories;
         }
     }
+
     public class ListProductresp {
+
         public String product_id;
         public String product_name;
         public String product_image;

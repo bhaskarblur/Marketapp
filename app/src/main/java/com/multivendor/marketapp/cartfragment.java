@@ -152,8 +152,7 @@ public class cartfragment extends Fragment {
                             getlatlong();
                             checkcartexists();
                             LoadCart();
-                        }
-                        else {
+                        } else {
                             cfbinding.progressBar7.setVisibility(View.INVISIBLE);
                             cfbinding.emptycarttext.setVisibility(View.VISIBLE);
                         }
@@ -204,6 +203,18 @@ public class cartfragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openchangeDialog();
+            }
+        });
+
+        cfbinding.couponApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!cfbinding.couponVox.getText().toString().isEmpty() &&
+                        cfbinding.couponVox.getText().toString() != null) {
+                }
+                else {
+
+                }
             }
         });
     }
@@ -262,7 +273,7 @@ public class cartfragment extends Fragment {
                     if (location != null) {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
-                        loadmat(Double.parseDouble(lat),Double.parseDouble(longit),"Your Location");
+                        loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         try {
 
@@ -286,7 +297,7 @@ public class cartfragment extends Fragment {
                                 Location location1 = locationResult.getLastLocation();
                                 lat = String.valueOf(location1.getLatitude());
                                 longit = String.valueOf(location1.getLongitude());
-                                loadmat(Double.parseDouble(lat),Double.parseDouble(longit),"Your Location");
+                                loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
                                 Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                                 try {
 
@@ -347,9 +358,9 @@ public class cartfragment extends Fragment {
     }
 
     private void filldetails() {
-       cfbinding.usermobileTxt.setText(usernumber);
-       cfbinding.usernameTxt.setText(username);
-       cfbinding.useraddressTxt.setText(useraddress);   
+        cfbinding.usermobileTxt.setText(usernumber);
+        cfbinding.usernameTxt.setText(username);
+        cfbinding.useraddressTxt.setText(useraddress);
     }
 
     public void LoadCart() {
@@ -716,7 +727,7 @@ public class cartfragment extends Fragment {
     }
 
     private void loadmat(double sellat, double sellongit, String curlocat) {
-        SupportMapFragment supportMapFragment = (SupportMapFragment)getActivity().
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getActivity().
                 getSupportFragmentManager().findFragmentById(R.id.google_map3);
 
         new Handler().postDelayed(new Runnable() {
@@ -753,7 +764,7 @@ public class cartfragment extends Fragment {
 
                                     @Override
                                     public void onMarkerDragEnd(@NonNull Marker marker) {
-                                        latLng[0] =marker.getPosition();
+                                        latLng[0] = marker.getPosition();
                                         LatLng new_latlng = marker.getPosition();
                                         lat = String.valueOf(new_latlng.latitude);
                                         longit = String.valueOf(new_latlng.longitude);

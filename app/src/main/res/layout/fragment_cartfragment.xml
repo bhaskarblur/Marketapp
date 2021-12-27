@@ -73,6 +73,7 @@
         android:id="@+id/cartfullnestedlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#ffffff"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#ffffff">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -112,9 +114,9 @@
                 android:id="@+id/cartdesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/descboxbg"
                 android:ems="10"
                 android:fontFamily="@font/open_sans"
@@ -136,9 +138,9 @@
                 android:id="@+id/coupon_vox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/descboxbg"
                 android:ems="10"
                 android:fontFamily="@font/open_sans"
@@ -428,10 +430,24 @@
                 android:fontFamily="@font/poppins"
                 android:foreground="?android:selectableItemBackground"
                 android:text="Change"
-                android:textColor="@color/black"
-                android:textSize="13sp"
+                android:textColor="@color/primcolor"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coupon_vox" />
+
+            <TextView
+                android:id="@+id/coupon_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/poppins_medium"
+                android:foreground="?android:selectableItemBackground"
+                android:text="Apply"
+                android:textColor="@color/primcolor"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cartitemsrec" />
 
             <TextView
                 android:id="@+id/useraddresschange"
@@ -510,7 +526,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cartdesc"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

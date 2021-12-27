@@ -3,7 +3,6 @@ package com.multivendor.marketapp.Models;
 public class categoriesModel {
     private String image;
     private String name;
-
     private String id;
     private String store_id;
 
