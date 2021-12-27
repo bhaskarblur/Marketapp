@@ -134,6 +134,8 @@
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/menu/main_menu.xml" value="0.1675213675213675" />
         <entry key="app/src/main/res/drawable/fieldnotselbg.xml" value="0.2123931623931624" />
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.2123931623931624" />
+        <entry key="app/src/main/res/layout/activity_ordhis.xml" value="0.19662447257383966" />
+        <entry key="app/src/main/res/layout/activity_paymentactivity.xml" value="0.20166512761725797" />
         <entry key="app/src/main/res/layout/cartproditem_lay.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/categories_lay.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/fragment_cartfragment.xml" value="0.37320080184004556" />

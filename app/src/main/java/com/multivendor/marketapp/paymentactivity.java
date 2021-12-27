@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -58,6 +59,7 @@ public class paymentactivity extends AppCompatActivity {
     private String sellerUPI;
     private String lat;
     private String longit;
+    private String selected = "upi";
     private String MOA_amount;
     private FusedLocationProviderClient fusedLocationProviderClient;
     String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
@@ -84,6 +86,7 @@ public class paymentactivity extends AppCompatActivity {
         number = intent.getStringExtra("usernumber");
         address = intent.getStringExtra("address");
         amount = intent.getStringExtra("amount");
+        pmbinding.amounttxt.setText("₹ " + amount);
         delvinstr = intent.getStringExtra("deliveryinstr");
         if (cartid != null) {
             getinfo();
@@ -166,105 +169,63 @@ public class paymentactivity extends AppCompatActivity {
             }
         });
 
-        pmbinding.upiradio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isChecked == true) {
-                            pmbinding.codradio.setChecked(false);
-                            pmbinding.paybtn.setVisibility(View.VISIBLE);
-                            pmbinding.codimg.setVisibility(View.INVISIBLE);
-                            pmbinding.codtxt.setVisibility(View.INVISIBLE);
-                            pmbinding.codtxt1.setVisibility(View.INVISIBLE);
-                            pmbinding.submitbtn.setVisibility(View.INVISIBLE);
-                        } else {
-                            pmbinding.upiradio.setChecked(false);
-                            pmbinding.paybtn.setVisibility(View.GONE);
-                            pmbinding.codtxt.setVisibility(View.VISIBLE);
-                            pmbinding.codtxt1.setVisibility(View.VISIBLE);
-                            pmbinding.submitbtn.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }, 50);
-            }
-        });
-        pmbinding.codradio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isChecked == true) {
-                            pmbinding.upiradio.setChecked(false);
-
-                            pmbinding.paybtn.setVisibility(View.GONE);
-                            pmbinding.codtxt.setVisibility(View.VISIBLE);
-                            pmbinding.codtxt1.setVisibility(View.VISIBLE);
-                            pmbinding.submitbtn.setVisibility(View.VISIBLE);
-                            pmbinding.codimg.setVisibility(View.VISIBLE);
-
-                        } else {
-                            pmbinding.codradio.setChecked(false);
-                            pmbinding.paybtn.setVisibility(View.VISIBLE);
-                            pmbinding.codtxt.setVisibility(View.INVISIBLE);
-                            pmbinding.codtxt1.setVisibility(View.INVISIBLE);
-                            pmbinding.submitbtn.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                }, 50);
-
-            }
-        });
-
-
-        pmbinding.submitbtn.setOnClickListener(new View.OnClickListener() {
+        pmbinding.upilay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
-                    confirmorder(userid, storeid, cartid, amount, name, number, address,
-                            "cod", "success", "nothing", delvinstr);
-                } else {
-                    Toast.makeText(paymentactivity.this, "This shop accept minimum order of Rs " + MOA_amount, Toast.LENGTH_SHORT).show();
-                }
+                selected = "upi";
+                pmbinding.upilay.getBackground().setTint(Color.parseColor("#F5F5F5"));
+                pmbinding.codlayout.getBackground().setTint(Color.parseColor("#FFFFFF"));
             }
-
         });
 
+        pmbinding.codlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selected="cod";
+                pmbinding.codlayout.getBackground().setTint(Color.parseColor("#F5F5F5"));
+                pmbinding.upilay.getBackground().setTint(Color.parseColor("#FFFFFF"));
+            }
+        });
         pmbinding.paybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   if (Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
+                if (selected.equals("cod")) {
+                    if (Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
+                        confirmorder(userid, storeid, cartid, amount, name, number, address,
+                                "cod", "success", "nothing", delvinstr);
+                    } else {
+                        Toast.makeText(paymentactivity.this, "This shop accept minimum order of Rs " + MOA_amount, Toast.LENGTH_SHORT).show();
+                    }
+                } else if (selected.equals("upi")) {
+                    if (Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
 
-                    Uri uri = new Uri.Builder().scheme("upi").authority("pay")
-                            .appendQueryParameter("pa", "8299189690@okbizaxis")
-                            .appendQueryParameter("pn", "LMART SOLUTIONS PVT LTD")
-                            .appendQueryParameter("am", amount.toString().replace("₹ ", ""))
-                            .appendQueryParameter("cu", "INR")
-                            .build();
+                        Uri uri = new Uri.Builder().scheme("upi").authority("pay")
+                                .appendQueryParameter("pa", "8299189690@okbizaxis")
+                                .appendQueryParameter("pn", "LMART SOLUTIONS PVT LTD")
+                                .appendQueryParameter("am", amount.toString().replace("₹ ", ""))
+                                .appendQueryParameter("cu", "INR")
+                                .build();
 
-                    Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
-                    upiPayIntent.setData(uri);
-                    Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
+                        Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
+                        upiPayIntent.setData(uri);
+                        Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
 
-                    if (chooser.resolveActivity(getPackageManager()) != null) {
-                        try {
-                            startActivityForResult(upiPayIntent, GOOGLE_PAY_REQUEST_CODE);
-                        } catch (Exception e) {
-                            Toast.makeText(paymentactivity.this, "No UPI Apps Found", Toast.LENGTH_SHORT).show();
+                        if (chooser.resolveActivity(getPackageManager()) != null) {
+                            try {
+                                startActivityForResult(upiPayIntent, GOOGLE_PAY_REQUEST_CODE);
+                            } catch (Exception e) {
+                                Toast.makeText(paymentactivity.this, "No UPI Apps Found", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(paymentactivity.this, "No UPI Apps Found!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(paymentactivity.this, "No UPI Apps Found!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(paymentactivity.this, "Minimum order is Rs " + MOA_amount, Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(paymentactivity.this, "This shop accept minimum order of Rs " + MOA_amount, Toast.LENGTH_SHORT).show();
                 }
-
             }
-
-
         });
+
     }
 
     private void confirmorder(String userid, String storeid, String cartid, String amount,
@@ -380,7 +341,7 @@ public class paymentactivity extends AppCompatActivity {
                 userAPIResp.sellerinfo resp = response.body();
 
                 sellerUPI = resp.getResult().getUpi_id();
-                if (sellerUPI==null){
+                if (sellerUPI == null) {
                     pmbinding.codimg.setVisibility(View.VISIBLE);
                     pmbinding.codtxt.setVisibility(View.VISIBLE);
                     pmbinding.codtxt1.setVisibility(View.VISIBLE);
