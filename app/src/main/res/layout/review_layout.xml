@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:max="5"
-        android:progress="1"
-        android:progressTint="@color/primcolor"
+        android:progress="2"
+        android:progressTint="#FFC107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +47,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/poppins"
+        android:maxLength="50"
         android:text="This is the description"
         android:textColor="@color/black"
         android:textSize="10sp"
