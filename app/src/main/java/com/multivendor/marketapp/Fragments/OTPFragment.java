@@ -229,6 +229,16 @@ public class OTPFragment extends Fragment {
                                         // send for profile update
                                         Bundle bundle = new Bundle();
                                         bundle.putString("userid", resp.getResult().getId());
+                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("userlogged", "yes");
+                                        editor.putString("userimage",resp.getResult().getImage());
+                                        editor.putString("userid", resp.getResult().getId());
+                                        editor.putString("username", resp.getResult().getName().toString());
+                                        editor.putString("userstate", resp.getResult().getState().toString());
+                                        editor.putString("usercity", resp.getResult().getCity().toString());
+                                        editor.putString("usermobile", resp.getResult().getMobile());
+                                        editor.commit();
                                         startActivity(new Intent(getActivity(), Mainarea.class));
                                         getActivity().finish();
                                         getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
