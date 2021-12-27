@@ -41,5 +41,16 @@ public interface ApiWork {
     @POST("product_detail")
     Call<newProductModel.productdetailResp> getproduct_details(@Field("user_id") String userid,
                                                                @Field("product_id") String productid);
-    }
+
+
+    @FormUrlEncoded
+    @POST("add_to_favourite")
+    Call<AuthResponse.VerifyOtp> addfavourite(@Field("user_id") String userid,
+                                              @Field("product_id") String productid);
+
+    @FormUrlEncoded
+    @POST("remove_favourite")
+    Call<AuthResponse.VerifyOtp> removefavourite(@Field("user_id") String userid,
+                                              @Field("product_id") String productid);
 }
+

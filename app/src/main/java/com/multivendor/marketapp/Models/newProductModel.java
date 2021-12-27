@@ -290,6 +290,15 @@ public class newProductModel {
         public List<reviewResult> product_reviews;
         public List<productCartresp> in_cart;
         public String in_favourites;
+        public String cart_id;
+
+        public String getCart_id() {
+            return cart_id;
+        }
+
+        public void setCart_id(String cart_id) {
+            this.cart_id = cart_id;
+        }
 
         public String getIn_favourites() {
             return in_favourites;

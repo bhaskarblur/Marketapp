@@ -99,7 +99,7 @@ public class productitemAdapter extends RecyclerView.Adapter<productitemAdapter.
             holder.itemmrp.setPaintFlags(holder.itemmrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        adapter = new showszAdapter(mcontext, productmodel.get(position).getSizeandquats());
+       // adapter = new showszAdapter(mcontext, productmodel.get(position).getSizeandquats());
 
         LinearLayoutManager llm = new LinearLayoutManager(mcontext);
         llm.setOrientation(RecyclerView.HORIZONTAL);
@@ -127,46 +127,46 @@ public class productitemAdapter extends RecyclerView.Adapter<productitemAdapter.
 
 
         }
-        adapter.setonbtnclickListener(new showszAdapter.onbtnclick() {
-            @Override
-            public void onCLICK(int pos) {
-                holder.selitemtxt.setText(String.valueOf(pos));
-                holder.quatavail.setText("Available Qty.:" + productmodel.get(position).getSizeandquats()
-                        .get(pos).getQty());
-                holder.itemprice.setText("₹ " + productmodel.get(position)
-                        .getSizeandquats().get(pos).getSelling_price() + ".00");
-
-                holder.itemmrp.setText("₹ " + productmodel.get(position)
-                        .getSizeandquats().get(pos).getPrice() + ".00");
-                holder.itemmrp.setPaintFlags(holder.itemmrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                listener.onSizeClick(position, productmodel.get(position).getSizeandquats()
-                        .get(pos).getVariation_id());
-
-                for (cartModel.cartqtyandsize qtydata : qtylist) {
-                    if (qtydata.getProduct_id().equals(productmodel.get(position).getProduct_id())) {
-                        if (qtydata.getSize_id().equals(productmodel.get(position).getSizeandquats().get(pos).getVariation_id())) {
-                            holder.quat.setText(qtydata.getQty());
-                            holder.quatdec.setVisibility(View.VISIBLE);
-                            holder.addlay.setVisibility(View.VISIBLE);
-                            holder.addtrigger.setVisibility(View.INVISIBLE);
-                            return;
-                        } else {
-                            holder.quatdec.setVisibility(View.VISIBLE);
-                            holder.addlay.setVisibility(View.INVISIBLE);
-                            holder.addtrigger.setVisibility(View.VISIBLE);
-
-                        }
-                    }
-
-
-                }
-                // productmodel.get(getAdapterPosition()).getSizeandquats().get(position).getVariation_id();
-
-
-            }
-
-
-        });
+//        adapter.setonbtnclickListener(new showszAdapter.onbtnclick() {
+//            @Override
+//            public void onCLICK(int pos) {
+//                holder.selitemtxt.setText(String.valueOf(pos));
+//                holder.quatavail.setText("Available Qty.:" + productmodel.get(position).getSizeandquats()
+//                        .get(pos).getQty());
+//                holder.itemprice.setText("₹ " + productmodel.get(position)
+//                        .getSizeandquats().get(pos).getSelling_price() + ".00");
+//
+//                holder.itemmrp.setText("₹ " + productmodel.get(position)
+//                        .getSizeandquats().get(pos).getPrice() + ".00");
+//                holder.itemmrp.setPaintFlags(holder.itemmrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                listener.onSizeClick(position, productmodel.get(position).getSizeandquats()
+//                        .get(pos).getVariation_id());
+//
+//                for (cartModel.cartqtyandsize qtydata : qtylist) {
+//                    if (qtydata.getProduct_id().equals(productmodel.get(position).getProduct_id())) {
+//                        if (qtydata.getSize_id().equals(productmodel.get(position).getSizeandquats().get(pos).getVariation_id())) {
+//                            holder.quat.setText(qtydata.getQty());
+//                            holder.quatdec.setVisibility(View.VISIBLE);
+//                            holder.addlay.setVisibility(View.VISIBLE);
+//                            holder.addtrigger.setVisibility(View.INVISIBLE);
+//                            return;
+//                        } else {
+//                            holder.quatdec.setVisibility(View.VISIBLE);
+//                            holder.addlay.setVisibility(View.INVISIBLE);
+//                            holder.addtrigger.setVisibility(View.VISIBLE);
+//
+//                        }
+//                    }
+//
+//
+//                }
+//                // productmodel.get(getAdapterPosition()).getSizeandquats().get(position).getVariation_id();
+//
+//
+//            }
+//
+//
+//        });
         holder.addtrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
