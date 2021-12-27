@@ -450,4 +450,44 @@ public class newProductModel {
             this.quantity = quantity;
         }
     }
+
+    public class couponResp {
+        public String success;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String message;
+        public String discount;
+        public String total_price;
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        public String getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(String discount) {
+            this.discount = discount;
+        }
+
+        public String getTotal_price() {
+            return total_price;
+        }
+
+        public void setTotal_price(String total_price) {
+            this.total_price = total_price;
+        }
+    }
 }

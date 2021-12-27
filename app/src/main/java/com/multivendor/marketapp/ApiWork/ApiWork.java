@@ -52,5 +52,12 @@ public interface ApiWork {
     @POST("remove_favourite")
     Call<AuthResponse.VerifyOtp> removefavourite(@Field("user_id") String userid,
                                               @Field("product_id") String productid);
+
+    @FormUrlEncoded
+    @POST("apply_coupon")
+    Call<newProductModel.couponResp> applycoupon(@Field("user_id") String userid,
+                                                 @Field("coupon_code") String coupon,
+                                                 @Field("cart_id") String cartid);
+
 }
 

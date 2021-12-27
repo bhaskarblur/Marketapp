@@ -47,9 +47,11 @@ import android.widget.Toast;
 
 import com.multivendor.marketapp.Adapters.cartproditemAdapter;
 import com.multivendor.marketapp.Adapters.productitemAdapter;
+import com.multivendor.marketapp.ApiWork.ApiWork;
 import com.multivendor.marketapp.ApiWork.LogregApiInterface;
 import com.multivendor.marketapp.Models.cartModel;
 import com.multivendor.marketapp.Models.loginresResponse;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Models.productitemModel;
 import com.multivendor.marketapp.Models.userAPIResp;
 import com.multivendor.marketapp.ViewModel.catalogViewModel;
@@ -211,9 +213,47 @@ public class cartfragment extends Fragment {
             public void onClick(View v) {
                 if (!cfbinding.couponVox.getText().toString().isEmpty() &&
                         cfbinding.couponVox.getText().toString() != null) {
+                    String userid=getActivity().getSharedPreferences("userlogged",0)
+                            .getString("userid","");
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                            .addConverterFactory(GsonConverterFactory.create()).build();
+
+                    ApiWork apiWork = retrofit.create(ApiWork.class);
+                    Call<newProductModel.couponResp> call = apiWork.applycoupon(userid,cfbinding
+                    .couponVox.getText().toString(),cartid);
+                    call.enqueue(new Callback<newProductModel.couponResp>() {
+                        @Override
+                        public void onResponse(Call<newProductModel.couponResp> call, Response<newProductModel.couponResp> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("error", String.valueOf(response.code()));
+                                return;
+                            }
+
+                            newProductModel.couponResp resp = response.body();
+
+                            if (resp.getMessage().equals("correct")) {
+                                Toast.makeText(getContext(), "Coupon Code Applied!", Toast.LENGTH_SHORT).show();
+                                cfbinding.cartgrandtotal.setText("₹ "+resp.getTotal_price());
+                                cfbinding.discountapplied.setText("- ₹"+resp.getDiscount());
+                                cfbinding.discountapplied.setVisibility(View.VISIBLE);
+                                cfbinding.textView23.setVisibility(View.VISIBLE);
+                                filldetails();
+                            }
+                            else {
+                                Toast.makeText(getContext(), "Incorrect Coupon Code!", Toast.LENGTH_SHORT).show();
+                                cfbinding.discountapplied.setVisibility(View.GONE);
+                                cfbinding.textView23.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<newProductModel.couponResp> call, Throwable t) {
+                            Log.d("Failure",t.getMessage());
+                        }
+                    });
                 }
                 else {
-
+                    Toast.makeText(getActivity(), "Please enter coupon code.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -396,7 +436,7 @@ public class cartfragment extends Fragment {
                                 cfbinding.emptycarttext.setVisibility(View.INVISIBLE);
                                 cfbinding.progressBar7.setVisibility(View.INVISIBLE);
                                 cfbinding.cartfullnestedlay.setVisibility(View.VISIBLE);
-                                cfbinding.carttotalprice.setText("₹ " + cartResp.getResult().getSubtotal());
+                                cfbinding.carttotalprice.setText("₹ " + cartResp.getResult().getSubtotal()+"("+String.valueOf(cartResp.getResult().getProducts().size())+" Items)");
                                 cfbinding.cartdeliverycharge.setText("₹ " + cartResp.getResult().getShipping_charge());
                                 cfbinding.cartgrandtotal.setText("₹ " + cartResp.getResult().getTotal_price());
                                 amount = Integer.valueOf(cartResp.getResult().getSubtotal());
