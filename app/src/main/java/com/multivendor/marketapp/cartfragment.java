@@ -16,6 +16,13 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -157,6 +164,7 @@ public class cartfragment extends Fragment {
 
         viewfuncs();
         loaduserdetails();
+
         return cfbinding.getRoot();
     }
 
@@ -223,8 +231,6 @@ public class cartfragment extends Fragment {
                 username = cfbinding.newnametxt.getText().toString();
                 useraddress = cfbinding.newaddrtxt.getText().toString();
                 usernumber = cfbinding.newnumtxt.getText().toString();
-                cfbinding.userinfotxt.setText(username + ", " + usernumber);
-                cfbinding.userinfotxt2.setText(useraddress);
             }
         });
     }
@@ -256,6 +262,7 @@ public class cartfragment extends Fragment {
                     if (location != null) {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
+                        loadmat(Double.parseDouble(lat),Double.parseDouble(longit),"Your Location");
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         try {
 
@@ -279,6 +286,7 @@ public class cartfragment extends Fragment {
                                 Location location1 = locationResult.getLastLocation();
                                 lat = String.valueOf(location1.getLatitude());
                                 longit = String.valueOf(location1.getLongitude());
+                                loadmat(Double.parseDouble(lat),Double.parseDouble(longit),"Your Location");
                                 Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                                 try {
 
@@ -339,8 +347,9 @@ public class cartfragment extends Fragment {
     }
 
     private void filldetails() {
-        cfbinding.userinfotxt.setText(username + ", " + usernumber);
-        cfbinding.userinfotxt2.setText(useraddress);
+       cfbinding.usermobileTxt.setText(usernumber);
+       cfbinding.usernameTxt.setText(username);
+       cfbinding.useraddressTxt.setText(useraddress);   
     }
 
     public void LoadCart() {
@@ -706,4 +715,83 @@ public class cartfragment extends Fragment {
 
     }
 
+    private void loadmat(double sellat, double sellongit, String curlocat) {
+        SupportMapFragment supportMapFragment = (SupportMapFragment)getActivity().
+                getSupportFragmentManager().findFragmentById(R.id.google_map3);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(@NonNull GoogleMap googleMap) {
+                        final LatLng[] latLng = {new LatLng(sellat, sellongit)};
+                        MarkerOptions markerOptions = new MarkerOptions().position(latLng[0])
+                                .title("Current Location").draggable(true);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+                        googleMap.addMarker(markerOptions).setDraggable(true);
+
+//                        psbinding.recentrebtn.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+//                            }
+//                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                                    @Override
+                                    public void onMarkerDragStart(@NonNull Marker marker) {
+
+                                    }
+
+                                    @Override
+                                    public void onMarkerDrag(@NonNull Marker marker) {
+
+                                    }
+
+                                    @Override
+                                    public void onMarkerDragEnd(@NonNull Marker marker) {
+                                        latLng[0] =marker.getPosition();
+                                        LatLng new_latlng = marker.getPosition();
+                                        lat = String.valueOf(new_latlng.latitude);
+                                        longit = String.valueOf(new_latlng.longitude);
+
+
+                                        Geocoder geocoder = new Geocoder(getContext()
+                                                , Locale.getDefault());
+                                        try {
+                                            List<Address> addresses = geocoder.getFromLocation(new_latlng.latitude, new_latlng.longitude, 1);
+                                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+                        }, 1000);
+
+                    }
+                });
+
+            }
+        }, 100);
+
+        cfbinding.savelocat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cfbinding.useraddressTxt.setText(cfbinding.newaddrtxt.getText().toString());
+                cfbinding.usermobileTxt.setText(cfbinding.newnumtxt.getText().toString());
+                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
+                cfbinding.detchangeDialog.setAnimation(animation);
+                cfbinding.detchangeDialog.setVisibility(View.INVISIBLE);
+                username = cfbinding.newnametxt.getText().toString();
+                useraddress = cfbinding.newaddrtxt.getText().toString();
+                usernumber = cfbinding.newnumtxt.getText().toString();
+
+            }
+        });
+    }
 }

@@ -135,7 +135,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/detaillay"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="10dp"
@@ -185,30 +185,46 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView88" />
 
                 <TextView
-                    android:id="@+id/textView87"
+                    android:id="@+id/username_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Mobile"
+                    android:text="Name"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintStart_toEndOf="@+id/textView86"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView89"
+                    android:id="@+id/usermobile_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="6dp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Mobile"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintStart_toEndOf="@+id/textView86"
-                    app:layout_constraintTop_toBottomOf="@+id/textView87" />
+                    app:layout_constraintTop_toBottomOf="@+id/username_txt" />
+
+                <TextView
+                    android:id="@+id/useraddress_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Address"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView86"
+                    app:layout_constraintTop_toBottomOf="@+id/usermobile_txt"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -466,7 +482,7 @@
         android:id="@+id/detchangeDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardCornerRadius="4dp"
         app:cardElevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
