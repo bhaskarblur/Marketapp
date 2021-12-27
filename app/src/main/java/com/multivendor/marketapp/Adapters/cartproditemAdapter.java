@@ -177,7 +177,7 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
         TextView quat;
         View quatinc;
         View quatdec;
-        Button sizebtn;
+        TextView sizebtn;
         TextView selitemtxt;
 
         public viewHolder(View itemView) {

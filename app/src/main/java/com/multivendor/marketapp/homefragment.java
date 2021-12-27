@@ -524,7 +524,15 @@ public class homefragment extends Fragment implements LocationListener {
     }
 
     private void viewfunction() {
-
+        fragmentnewProduct notiFragment = new fragmentnewProduct();
+        Bundle bundle=new Bundle();
+        bundle.putString("product_id","1");
+        notiFragment.setArguments(bundle);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+        transaction.replace(R.id.mainfragment, notiFragment);
+        transaction.addToBackStack("A");
+        transaction.commit();
         hmbinding.bagicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

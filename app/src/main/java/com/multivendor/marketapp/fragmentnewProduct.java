@@ -121,6 +121,8 @@ public class fragmentnewProduct extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFragmentnewProductBinding.inflate(inflater, container, false);
+        View bottom=getActivity().findViewById(R.id.bottomnav);
+        bottom.setVisibility(View.GONE);
         Managefuncs();
         viewfuncs();
         getlatlong();
@@ -176,6 +178,8 @@ public class fragmentnewProduct extends Fragment {
         binding.backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View bottom=getActivity().findViewById(R.id.bottomnav);
+                bottom.setVisibility(View.VISIBLE);
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
@@ -258,7 +262,7 @@ public class fragmentnewProduct extends Fragment {
             public void onClick(View v) {
                 cartfragment notiFragment = new cartfragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
                 transaction.replace(R.id.mainfragment, notiFragment);
                 transaction.addToBackStack("B");
                 transaction.commit();
@@ -614,4 +618,5 @@ public class fragmentnewProduct extends Fragment {
         });
 
     }
+
 }
