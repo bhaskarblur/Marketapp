@@ -289,6 +289,15 @@ public class newProductModel {
         public List<sizeandquat> product_variants;
         public List<reviewResult> product_reviews;
         public List<productCartresp> in_cart;
+        public String in_favourites;
+
+        public String getIn_favourites() {
+            return in_favourites;
+        }
+
+        public void setIn_favourites(String in_favourites) {
+            this.in_favourites = in_favourites;
+        }
 
         public String getProduct_id() {
             return product_id;

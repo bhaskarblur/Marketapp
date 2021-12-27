@@ -46,13 +46,14 @@ public class fragmentnewProduct extends Fragment {
     private String selected_size;
     private String product_id;
     private FragmentFragmentnewProductBinding binding;
-    private List<newProductModel .reviewResult> reviewList=new ArrayList<>();
-    private List<newProductModel.sizeandquat> sizeList=new ArrayList<>();
-    api_baseurl baseurl=new api_baseurl();
-    private List<newProductModel.productImage> imageList=new ArrayList<>();
+    private List<newProductModel.reviewResult> reviewList = new ArrayList<>();
+    private List<newProductModel.sizeandquat> sizeList = new ArrayList<>();
+    api_baseurl baseurl = new api_baseurl();
+    private List<newProductModel.productImage> imageList = new ArrayList<>();
     private String userid;
     private com.multivendor.marketapp.Adapters.productImageAdapter imagesAdapter;
-    private List<newProductModel.productCartresp> inCartList=new ArrayList<>();
+    private List<newProductModel.productCartresp> inCartList = new ArrayList<>();
+
     public fragmentnewProduct() {
         // Required empty public constructor
     }
@@ -74,15 +75,15 @@ public class fragmentnewProduct extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Bundle bundle=getArguments();
-        product_id=bundle.getString("product_id");
-        userid=getActivity().getSharedPreferences("userlogged",0).getString("userid","");
+        Bundle bundle = getArguments();
+        product_id = bundle.getString("product_id");
+        userid = getActivity().getSharedPreferences("userlogged", 0).getString("userid", "");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentFragmentnewProductBinding.inflate(inflater,container,false);
+        binding = FragmentFragmentnewProductBinding.inflate(inflater, container, false);
         Managefuncs();
         viewfuncs();
         loadData();
@@ -134,24 +135,66 @@ public class fragmentnewProduct extends Fragment {
             }
         });
 
+        binding.backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        binding.heartofficon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add to favourite
+            }
+        });
+
+        binding.heartonicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // remove from favourite;
+            }
+        });
     }
+
 
     private void Managefuncs() {
 
-        sizeadapter=new showszAdapter(getContext(),sizeList);
-        LinearLayoutManager llm1=new LinearLayoutManager(getContext());
+        sizeadapter = new showszAdapter(getContext(), sizeList);
+        LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
         llm1.setOrientation(RecyclerView.HORIZONTAL);
         binding.sizerec.setLayoutManager(llm1);
         binding.sizerec.setAdapter(sizeadapter);
         sizeadapter.setonbtnclickListener(new showszAdapter.onbtnclick() {
             @Override
-            public void onCLICK(int position,String id) {
-                selected_size=id.toString();
+            public void onCLICK(int position, String id) {
+                selected_size = id.toString();
+                if (inCartList.size() > 0) {
+                    for (int i = 0; i < inCartList.size(); i++) {
+                        if (inCartList.get(i).getVariant_id().equals(selected_size)) {
+                            binding.addctLay.setVisibility(View.INVISIBLE);
+                            binding.qtytxt.setText(inCartList.get(i).getQuantity().toString());
+                            binding.plusLay.setVisibility(View.VISIBLE);
+                            binding.minusLay.setVisibility(View.VISIBLE);
+                            return;
+                        } else {
+                            binding.addctLay.setVisibility(View.VISIBLE);
+                            binding.qtytxt.setText("0");
+                            binding.plusLay.setVisibility(View.INVISIBLE);
+                            binding.minusLay.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                } else {
+                    binding.addctLay.setVisibility(View.VISIBLE);
+                    binding.plusLay.setVisibility(View.INVISIBLE);
+                    binding.qtytxt.setText("0");
+                    binding.minusLay.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
-        reviewAdapter=new reviewAdapter(getContext(),reviewList);
-        LinearLayoutManager llm2=new LinearLayoutManager(getContext());
+        reviewAdapter = new reviewAdapter(getContext(), reviewList);
+        LinearLayoutManager llm2 = new LinearLayoutManager(getContext());
         llm2.setOrientation(RecyclerView.VERTICAL);
         binding.reviewrec.setLayoutManager(llm2);
         binding.reviewrec.setAdapter(reviewAdapter);
@@ -162,9 +205,9 @@ public class fragmentnewProduct extends Fragment {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
-        ApiWork apiWork= retrofit.create(ApiWork.class);
+        ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<newProductModel.productdetailResp> call=apiWork.getproduct_details(userid,product_id);
+        Call<newProductModel.productdetailResp> call = apiWork.getproduct_details(userid, product_id);
 
         call.enqueue(new Callback<newProductModel.productdetailResp>() {
             @Override
@@ -177,64 +220,80 @@ public class fragmentnewProduct extends Fragment {
                 newProductModel.productdetailResp productdata = response.body();
 
 
-                Log.d("message",productdata.getSuccess());
+                Log.d("message", productdata.getSuccess());
 
-                if(productdata.getResult()!=null) {
-                    if(productdata.getResult().getProduct_images().size()>0) {
-                        imageList=productdata.getResult().getProduct_images();
+                if (productdata.getResult() != null) {
+                    if (productdata.getResult().getProduct_images().size() > 0) {
+                        imageList = productdata.getResult().getProduct_images();
                         imagesAdapter = new productImageAdapter(getActivity(), imageList);
                         binding.imagebanner.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
                         binding.imagebanner.setAdapter(imagesAdapter);
                         binding.imagebanner.setCurrentItem(0);
 
-                        if(productdata.getResult().getProduct_images().size()<4){
+                        if (productdata.getResult().getProduct_images().size() < 4) {
                             binding.onbprog4.setVisibility(View.INVISIBLE);
                         }
-                        if(productdata.getResult().getProduct_images().size()<3) {
+                        if (productdata.getResult().getProduct_images().size() < 3) {
                             binding.onbprog3.setVisibility(View.INVISIBLE);
                             binding.onbprog4.setVisibility(View.INVISIBLE);
                         }
-                        if(productdata.getResult().getProduct_images().size()<2) {
+                        if (productdata.getResult().getProduct_images().size() < 2) {
                             binding.onbprog2.setVisibility(View.INVISIBLE);
                             binding.onbprog3.setVisibility(View.INVISIBLE);
                             binding.onbprog4.setVisibility(View.INVISIBLE);
                         }
                     }
 
-                    if(productdata.getResult().getProduct_variants().size()>0) {
-                        sizeList=productdata.getResult().getProduct_variants();
-                        selected_size=sizeList.get(0).getVariation_id().toString();
+                    if (productdata.getResult().getProduct_variants().size() > 0) {
+                        sizeList = productdata.getResult().getProduct_variants();
+                        selected_size = sizeList.get(0).getVariation_id().toString();
                         sizeadapter.notifyDataSetChanged();
                     }
-                    if(productdata.getResult().getProduct_reviews().size()>0) {
-                        reviewList=productdata.getResult().getProduct_reviews();
+                    if (productdata.getResult().getProduct_reviews().size() > 0) {
+                        reviewList = productdata.getResult().getProduct_reviews();
                         reviewAdapter.notifyDataSetChanged();
                     }
-                    if(productdata.getResult().getIn_cart().size()>0) {
-                        inCartList=productdata.getResult().getIn_cart();
+                    if (productdata.getResult().getIn_cart().size() > 0) {
+                        inCartList = productdata.getResult().getIn_cart();
                     }
                     binding.productname.setText(productdata.getResult().getProduct_name().toString());
                     binding.productdesc.setText(productdata.getResult().getProduct_description().toString());
                     binding.prodprice.setText(productdata.getResult().getProduct_price().toString());
                     binding.cutprice.setText(productdata.getResult().getProduct_cut_price().toString());
-                    binding.cutprice.setPaintFlags( binding.cutprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    binding.cutprice.setPaintFlags(binding.cutprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     binding.disctxt.setText(productdata.getResult().getDiscount_rate());
-
-                    if(productdata.getResult().getIn_cart()!=null) {
-                        for(int i=0;i<productdata.getResult().getIn_cart().size();i++) {
-
+                    if(productdata.getResult().getIn_favourites().equals("yes")) {
+                        binding.heartonicon.setVisibility(View.VISIBLE);
+                        binding.heartofficon.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        binding.heartonicon.setVisibility(View.INVISIBLE);
+                        binding.heartofficon.setVisibility(View.VISIBLE);
+                    }
+                    if (productdata.getResult().getIn_cart() != null) {
+                        for (int i = 0; i < productdata.getResult().getIn_cart().size(); i++) {
+                            if (productdata.getResult().getIn_cart().get(i).getVariant_id().equals(selected_size)) {
+                                binding.addctLay.setVisibility(View.INVISIBLE);
+                                binding.qtytxt.setText(productdata.getResult().getIn_cart().get(i).getQuantity().toString());
+                                binding.plusLay.setVisibility(View.VISIBLE);
+                                binding.minusLay.setVisibility(View.VISIBLE);
+                            }
                         }
+                    } else {
+                        binding.addctLay.setVisibility(View.VISIBLE);
+                        binding.qtytxt.setText("0");
+                        binding.plusLay.setVisibility(View.INVISIBLE);
+                        binding.minusLay.setVisibility(View.INVISIBLE);
                     }
 
                 }
-
 
 
             }
 
             @Override
             public void onFailure(Call<newProductModel.productdetailResp> call, Throwable t) {
-                Log.d("errorDetail",t.getMessage().toString());
+                Log.d("errorDetail", t.getMessage().toString());
             }
         });
 
