@@ -209,9 +209,30 @@ public class homefragment extends Fragment implements LocationListener {
         TextView addrtxt=view1.findViewById(R.id.useraddress2);
         View edittxt=view1.findViewById(R.id.editopen);
         MenuItem item = hmbinding.navMenu.getMenu().findItem(R.id.menu_logout);
+        MenuItem item1 = hmbinding.navMenu.getMenu().findItem(R.id.menu_myord);
+        MenuItem item2 = hmbinding.navMenu.getMenu().findItem(R.id.menu_termcond);
+        MenuItem item3 = hmbinding.navMenu.getMenu().findItem(R.id.menu_privpol);
+        MenuItem item4 = hmbinding.navMenu.getMenu().findItem(R.id.menu_custserv);
+        MenuItem item5 = hmbinding.navMenu.getMenu().findItem(R.id.menu_share);
+        SpannableString s1 = new SpannableString("My Orders");
+        SpannableString s2 = new SpannableString("Terms And Conditions");
+        SpannableString s3 = new SpannableString("Privacy Policy");
+        SpannableString s4 = new SpannableString("Customer Service");
+        SpannableString s5 = new SpannableString("Share And Earn");
         SpannableString s = new SpannableString("Log Out");
         item.setTitle(s);
+        item1.setTitle(s1);
+        item2.setTitle(s2);
+        item3.setTitle(s3);
+        item4.setTitle(s4);
+        item5.setTitle(s5);
+
         s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
+        s1.setSpan(new ForegroundColorSpan(Color.parseColor("#000000")), 0, s1.length(), 0);
+        s2.setSpan(new ForegroundColorSpan(Color.parseColor("#000000")), 0, s2.length(), 0);
+        s3.setSpan(new ForegroundColorSpan(Color.parseColor("#000000")), 0, s3.length(), 0);
+        s4.setSpan(new ForegroundColorSpan(Color.parseColor("#000000")), 0, s4.length(), 0);
+        s5.setSpan(new ForegroundColorSpan(Color.parseColor("#000000")), 0, s5.length(), 0);
         edittxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -282,50 +303,49 @@ public class homefragment extends Fragment implements LocationListener {
                 return false;
             }
         });
-        String imgurl = sharedPreferences.getString("userimage", "data");
-        String name = sharedPreferences.getString("username", "");
-        String number=sharedPreferences.getString("usermobile","");
-        String address = sharedPreferences.getString("useraddress", "");
+        if(!sharedPreferences.getString("userid","").toString().isEmpty()) {
+            String imgurl = sharedPreferences.getString("userimage", "data");
+            String name = sharedPreferences.getString("username", "");
+            String number = sharedPreferences.getString("usermobile", "");
+            String address = sharedPreferences.getString("useraddress", "");
 
-        userimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("image",imgurl);
-                zoom_imageDialog zoom_imageDialog1 = new zoom_imageDialog();
-                zoom_imageDialog1.setArguments(bundle);
-                zoom_imageDialog1.show(getParentFragmentManager(), "zoom_imagDialog1");
+            userimage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("image", imgurl);
+                    zoom_imageDialog zoom_imageDialog1 = new zoom_imageDialog();
+                    zoom_imageDialog1.setArguments(bundle);
+                    zoom_imageDialog1.show(getParentFragmentManager(), "zoom_imagDialog1");
+                }
+
+            });
+            if (imgurl != null) {
+                final int radius = 50;
+                final int margin = 50;
+                final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+                if (imgurl != null && !imgurl.equals("data")) {
+                    Picasso.get().load(imgurl).transform(new CropCircleTransformation()).into(userimage);
+                } else if (imgurl.equals("data")) {
+                    Picasso.get().load(R.drawable.sampleuserimg1).into(userimage);
+                }
             }
 
-        });
-        if (imgurl != null) {
-            final int radius = 50;
-            final int margin = 50;
-            final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-            if (imgurl != null && !imgurl.equals("data")) {
-                Picasso.get().load(imgurl).transform(new CropCircleTransformation()).into(userimage);
+            if (name != null) {
+
+                nametxt.setText(name);
             }
-            else if(imgurl.equals("data")){
-                Picasso.get().load(R.drawable.sampleuserimg1).into(userimage);
+            if (address != null) {
+                addrtxt.setText(address);
+
+            } else {
+                addrtxt.setText("No Address");
+            }
+
+            if (number != null) {
+                numbertxt.setText(number);
             }
         }
-
-        if (name != null) {
-
-            nametxt.setText(name);
-        }
-        if (address != null) {
-            addrtxt.setText(address);
-
-        }
-        else {
-            addrtxt.setText("No Address");
-        }
-
-        if(number!=null) {
-            numbertxt.setText(number);
-        }
-
     }
 
     @SuppressLint("MissingPermission")
@@ -551,6 +571,7 @@ public class homefragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                bundle.putString("storeid","1");
                 makequickfragment catfrag = new makequickfragment();
                 catfrag.setArguments(bundle);
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
