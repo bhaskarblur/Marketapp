@@ -60,7 +60,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/codlayout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="43dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/upilay">
 
                 <TextView
-                    android:id="@+id/upiradio"
+                    android:id="@+id/codtxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="55dp"
@@ -100,7 +100,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/upilay"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="43dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="15dp"
@@ -112,12 +112,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/codimg">
 
                 <TextView
-                    android:id="@+id/upiradio"
+                    android:id="@+id/upitxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="55dp"
                     android:buttonTint="@color/primcolor"
                     android:checked="true"
+                    android:clickable="true"
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:text="UPI"
@@ -128,7 +129,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView9"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_marginStart="15dp"
@@ -141,7 +141,7 @@
             <Button
                 android:id="@+id/paybtn"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
@@ -153,7 +153,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +161,6 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/codtxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -171,7 +170,7 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="13sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="62dp" />

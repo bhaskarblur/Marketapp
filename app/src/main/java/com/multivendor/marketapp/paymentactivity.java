@@ -80,18 +80,22 @@ public class paymentactivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
         userid = sharedPreferences.getString("userid", "");
         Intent intent = getIntent();
-        storeid = intent.getStringExtra("store_id");
-        cartid = intent.getStringExtra("cart_id");
-        name = intent.getStringExtra("username");
-        number = intent.getStringExtra("usernumber");
-        address = intent.getStringExtra("address");
-        amount = intent.getStringExtra("amount");
-        pmbinding.amounttxt.setText("₹ " + amount);
-        delvinstr = intent.getStringExtra("deliveryinstr");
-        if (cartid != null) {
-            getinfo();
+        if(intent.getData()!=null) {
+            storeid = intent.getStringExtra("store_id");
+            cartid = intent.getStringExtra("cart_id");
+            name = intent.getStringExtra("username");
+            number = intent.getStringExtra("usernumber");
+            address = intent.getStringExtra("address");
+            amount = intent.getStringExtra("amount");
+            pmbinding.amounttxt.setText("₹ " + amount);
+            delvinstr = intent.getStringExtra("deliveryinstr");
+
+            if (cartid != null) {
+                getinfo();
+            }
         }
         getlatlong();
+        viewfunctions();
     }
 
     @SuppressLint("MissingPermission")
@@ -169,7 +173,7 @@ public class paymentactivity extends AppCompatActivity {
             }
         });
 
-        pmbinding.upilay.setOnClickListener(new View.OnClickListener() {
+        pmbinding.upitxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selected = "upi";
@@ -178,7 +182,7 @@ public class paymentactivity extends AppCompatActivity {
             }
         });
 
-        pmbinding.codlayout.setOnClickListener(new View.OnClickListener() {
+        pmbinding.codtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selected="cod";
@@ -346,11 +350,11 @@ public class paymentactivity extends AppCompatActivity {
                     pmbinding.codtxt.setVisibility(View.VISIBLE);
                     pmbinding.codtxt1.setVisibility(View.VISIBLE);
                     pmbinding.submitbtn.setVisibility(View.VISIBLE);
-                    pmbinding.upiradio.setVisibility(View.INVISIBLE);
+                   // pmbinding.upiradio.setVisibility(View.INVISIBLE);
                     pmbinding.paybtn.setVisibility(View.INVISIBLE);
 
                 }
-                viewfunctions();
+
                 MOA_amount = resp.getResult().getMin_order_amount();
 //                Toast.makeText(paymentactivity.this, "Choose Any Of These To Proceed.", Toast.LENGTH_SHORT).show();
             }
