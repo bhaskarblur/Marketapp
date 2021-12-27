@@ -36,4 +36,10 @@ public interface ApiWork {
     Call<newProductModel .homeprodResp> getcategoryproducts(@Field("category_name") String catname,@Field("latitude") String lat,
                                                        @Field("longitude") String longit,@Field("city_name")
                                                                     String cityname);
+
+    @FormUrlEncoded
+    @POST("product_detail")
+    Call<newProductModel.productdetailResp> getproduct_details(@Field("user_id") String userid,
+                                                               @Field("product_id") String productid);
+    }
 }

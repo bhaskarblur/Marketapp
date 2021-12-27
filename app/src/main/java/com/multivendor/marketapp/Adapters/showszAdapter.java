@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Models.productitemModel;
 import com.multivendor.marketapp.R;
 import com.squareup.picasso.Picasso;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class showszAdapter extends RecyclerView.Adapter<showszAdapter.viewHolder> {
 
-    public showszAdapter(Context context, List<productitemModel.sizeandquat> list) {
+    public showszAdapter(Context context, List<newProductModel.sizeandquat> list) {
         this.context = context;
         this.list = list;
     }
@@ -37,7 +38,7 @@ public class showszAdapter extends RecyclerView.Adapter<showszAdapter.viewHolder
         this.selecteditem = selecteditem;
     }
 
-    public List<productitemModel.sizeandquat> list=new ArrayList<>();
+    public List<newProductModel.sizeandquat> list=new ArrayList<>();
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -81,7 +82,7 @@ public class showszAdapter extends RecyclerView.Adapter<showszAdapter.viewHolder
                 @Override
                 public void onClick(View v) {
                     if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                        listener.onCLICK(getAdapterPosition());
+                        listener.onCLICK(getAdapterPosition(),list.get(getAdapterPosition()).getVariation_id());
                         Log.d("size",String.valueOf(getItemCount()));
                         selecteditem=getAdapterPosition();
                         notifyDataSetChanged();
@@ -91,7 +92,7 @@ public class showszAdapter extends RecyclerView.Adapter<showszAdapter.viewHolder
         }
     }
     public interface onbtnclick {
-        void onCLICK(int position);
+        void onCLICK(int position,String id);
     }
     public void setonbtnclickListener(onbtnclick listener) {
         this.listener=listener;
