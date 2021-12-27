@@ -95,9 +95,9 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
                                 holder.sizebtn.setBackgroundTintList(mcontext.getResources().getColorStateList(R.color.secblue));
                                 holder.quatavail.setText("Available Qty.:" + productmodel.get(position).getSizeandquats()
                                         .get(i).getQty());
-                                holder.itemprice.setText("₹ " + productmodel.get(position)
+                                holder.itemprice.setText("Rs " + productmodel.get(position)
                                         .getSizeandquats().get(i).getSelling_price() + ".00");
-                                holder.itemmrp.setText("₹ " + productmodel.get(position)
+                                holder.itemmrp.setText("Rs " + productmodel.get(position)
                                         .getSizeandquats().get(i).getPrice() + ".00");
                                 holder.selitemtxt.setText(String.valueOf(i));
                                 holder.itemmrp.setPaintFlags(holder.itemmrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

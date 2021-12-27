@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
-    android:background="@color/white"
+    app:cardBackgroundColor="#f6f6f6"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="#ffffff">
+        android:layout_height="140dp">
 
 
         <TextView
@@ -31,7 +30,7 @@
 
         <ImageView
             android:id="@+id/productimg"
-            android:layout_width="120dp"
+            android:layout_width="125dp"
             android:layout_height="match_parent"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
@@ -40,14 +39,15 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/imgsample" />
 
         <TextView
             android:id="@+id/productname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
             android:ellipsize="marquee"
             android:focusable="true"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_medium"
             android:text=" ₹20.00"
             android:textColor="@color/black"
@@ -95,8 +95,8 @@
             android:id="@+id/pricetxt3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/poppins"
             android:text="Variant:"
             android:textColor="#4C4C4C"
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins"
             android:text="1000"
             android:textColor="#2E2E2E"
@@ -219,7 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="18dp"
             android:background="@color/white"
             android:fontFamily="@font/open_sans"
             android:text="100Ml"
