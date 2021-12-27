@@ -275,6 +275,121 @@ public class fragmentnewProduct extends Fragment {
                 call = logregApiInterface.add_cart(lat, longit, userid, "1", product_id,
                         selected_size, "", prod_name, selectedsizename, selectedprice, selected_size,
                         String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1), null);
+
+                call.enqueue(new Callback<cartModel.cartResp>() {
+                    @Override
+                    public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("errorcode", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        cartModel.cartResp resp = response.body();
+                        Log.d("msg", resp.getMessage());
+                        if (resp.getMessage().equals("Product added successfully")) {
+                            cartid=resp.getResult().getCart_id();
+                            binding.qtytxt.setText("1");
+                            binding.qtytxt.setVisibility(View.VISIBLE);
+                            binding.minusLay.setVisibility(View.VISIBLE);
+                            binding.plusLay.setVisibility(View.VISIBLE);
+                            binding.addctLay.setVisibility(View.INVISIBLE);
+                        } else {
+
+                            Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                        Log.d("Failure",t.getMessage());
+                    }
+                });
+            }
+        });
+
+        binding.plusLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<cartModel.cartResp> call = null;
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
+                        .addConverterFactory(GsonConverterFactory.create()).build();
+                LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+                call = logregApiInterface.update_cart(lat, longit, userid, "1", product_id,
+                        selected_size, "", prod_name, selectedsizename, selectedprice, selected_size,
+                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1), cartid);
+
+                call.enqueue(new Callback<cartModel.cartResp>() {
+                    @Override
+                    public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("errorcode", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        cartModel.cartResp resp = response.body();
+                        Log.d("msg", resp.getMessage());
+                        if (resp.getMessage().equals("Product updated successfully")) {
+                            cartid=resp.getResult().getCart_id();
+                            binding.qtytxt.setText( String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1));
+                        } else {
+
+                            Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                        Log.d("Failure",t.getMessage());
+                    }
+                });
+            }
+        });
+
+        binding.minusLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<cartModel.cartResp> call = null;
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
+                        .addConverterFactory(GsonConverterFactory.create()).build();
+                LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
+                call = logregApiInterface.update_cart(lat, longit, userid, "1", product_id,
+                        selected_size, "", prod_name, selectedsizename, selectedprice, selected_size,
+                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1), cartid);
+
+                call.enqueue(new Callback<cartModel.cartResp>() {
+                    @Override
+                    public void onResponse(Call<cartModel.cartResp> call, Response<cartModel.cartResp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("errorcode", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        cartModel.cartResp resp = response.body();
+                        Log.d("msg", resp.getMessage());
+                        if (resp.getMessage().equals("Product updated successfully")) {
+                            cartid=resp.getResult().getCart_id();
+                            if(Integer.valueOf(binding.qtytxt.getText().toString())>1) {
+                                binding.qtytxt.setText(String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1));
+                            }
+                            else {
+                                binding.qtytxt.setText("0");
+                                binding.qtytxt.setVisibility(View.INVISIBLE);
+                                binding.minusLay.setVisibility(View.INVISIBLE);
+                                binding.plusLay.setVisibility(View.INVISIBLE);
+                                binding.addctLay.setVisibility(View.VISIBLE);
+                            }
+
+                        } else {
+
+                            Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
+                        Log.d("Failure",t.getMessage());
+                    }
+                });
             }
         });
     }
@@ -367,6 +482,7 @@ public class fragmentnewProduct extends Fragment {
                     for (int i = 0; i < inCartList.size(); i++) {
                         if (inCartList.get(i).getVariant_id().equals(selected_size)) {
                             binding.addctLay.setVisibility(View.INVISIBLE);
+                            binding.qtytxt.setVisibility(View.VISIBLE);
                             binding.qtytxt.setText(inCartList.get(i).getQuantity().toString());
                             binding.plusLay.setVisibility(View.VISIBLE);
                             binding.minusLay.setVisibility(View.VISIBLE);
@@ -382,6 +498,7 @@ public class fragmentnewProduct extends Fragment {
                     binding.addctLay.setVisibility(View.VISIBLE);
                     binding.plusLay.setVisibility(View.INVISIBLE);
                     binding.qtytxt.setText("0");
+                    binding.qtytxt.setVisibility(View.INVISIBLE);
                     binding.minusLay.setVisibility(View.INVISIBLE);
                 }
             }
@@ -471,6 +588,7 @@ public class fragmentnewProduct extends Fragment {
                         for (int i = 0; i < productdata.getResult().getIn_cart().size(); i++) {
                             if (productdata.getResult().getIn_cart().get(i).getVariant_id().equals(selected_size)) {
                                 binding.addctLay.setVisibility(View.INVISIBLE);
+                                binding.qtytxt.setVisibility(View.VISIBLE);
                                 binding.qtytxt.setText(productdata.getResult().getIn_cart().get(i).getQuantity().toString());
                                 binding.plusLay.setVisibility(View.VISIBLE);
                                 binding.minusLay.setVisibility(View.VISIBLE);
@@ -479,6 +597,7 @@ public class fragmentnewProduct extends Fragment {
                     } else {
                         binding.addctLay.setVisibility(View.VISIBLE);
                         binding.qtytxt.setText("0");
+                        binding.qtytxt.setVisibility(View.INVISIBLE);
                         binding.plusLay.setVisibility(View.INVISIBLE);
                         binding.minusLay.setVisibility(View.INVISIBLE);
                     }
