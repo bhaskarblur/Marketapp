@@ -132,18 +132,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
+            <EditText
+                android:id="@+id/coupon_vox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/descboxbg"
+                android:ems="10"
+                android:fontFamily="@font/open_sans"
+                android:gravity="top"
+                android:hint="Enter code to redeem discount"
+                android:inputType="textPersonName|textMultiLine"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:singleLine="false"
+                android:textColor="@color/black"
+                android:textColorHint="#717171"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView92" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/detaillay"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/roundboxbg"
                 android:backgroundTint="#EFEFEF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartitemsrec">
+                app:layout_constraintTop_toBottomOf="@+id/textView21">
 
                 <TextView
                     android:id="@+id/textView86"
@@ -233,10 +257,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Delivery Instructions"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout1" />
 
@@ -245,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
                 android:background="@drawable/borderbg"
@@ -264,7 +288,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Billing Details"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detaillay" />
 
@@ -309,7 +333,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/poppins"
                 android:text="Items total"
                 android:textColor="@color/black"
@@ -376,7 +400,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="₹ 10"
+                android:text="Rs 0"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -407,7 +431,7 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartitemsrec" />
+                app:layout_constraintTop_toBottomOf="@+id/coupon_vox" />
 
             <TextView
                 android:id="@+id/useraddresschange"
@@ -424,18 +448,31 @@
                 app:layout_constraintTop_toBottomOf="@+id/userinfochange" />
 
             <TextView
+                android:id="@+id/textView92"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Enter Coupon Code"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cartitemsrec" />
+
+            <TextView
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="User details"
+                android:text="User Details"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartitemsrec" />
+                app:layout_constraintTop_toBottomOf="@+id/coupon_vox" />
 
             <TextView
                 android:id="@+id/expdelvtxt"
@@ -482,7 +519,7 @@
         android:id="@+id/detchangeDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardCornerRadius="4dp"
         app:cardElevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -6,7 +6,7 @@ public class bannermodel {
 
     public class bannerresp{
         public String success;
-        public  banneresult result;
+        public banneresult result;
 
         public String getSuccess() {
             return success;
