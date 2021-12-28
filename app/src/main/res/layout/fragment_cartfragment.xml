@@ -537,7 +537,7 @@
         android:id="@+id/detchangeDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:cardCornerRadius="4dp"
         app:cardElevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"

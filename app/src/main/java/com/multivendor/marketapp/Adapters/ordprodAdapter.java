@@ -148,10 +148,10 @@ public class ordprodAdapter extends RecyclerView.Adapter<ordprodAdapter.viewHold
             }
 
             if(show_price.equals(true)) {
-                prodprice.setVisibility(View.GONE);
+                prodprice.setVisibility(View.VISIBLE);
             }
             else {
-                prodprice.setVisibility(View.VISIBLE);
+                prodprice.setVisibility(View.GONE);
             }
 
 

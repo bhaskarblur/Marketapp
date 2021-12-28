@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -147,6 +148,9 @@ public class makequickfragment extends Fragment {
         qobinding.usernameTxt.setText(name);
         qobinding.useraddressTxt.setText(addr);
         qobinding.usermobileTxt.setText(number);
+        qobinding.newnametxt.setText(username);
+        qobinding.newaddrtxt.setText(useraddress);
+        qobinding.newnumtxt.setText(usernumber);
         finalprodlist = new ArrayList<>();
         finalprodlist.add(new quickorderModel.quick_products(null, null, null));
         ordprodAdapter = new ordprodAdapter(getContext(), finalprodlist, true,false);
@@ -164,10 +168,11 @@ public class makequickfragment extends Fragment {
 
 
     }
+
     @SuppressLint("MissingPermission")
     private void getlatlong() {
 
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                     .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
@@ -178,7 +183,7 @@ public class makequickfragment extends Fragment {
 
                 }
             }, Looper.getMainLooper());
-            LocationManager manager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
@@ -191,6 +196,17 @@ public class makequickfragment extends Fragment {
                     if (location != null) {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
+                        loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+                                    , location.getLongitude(), 1);
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                     } else {
 
@@ -204,7 +220,16 @@ public class makequickfragment extends Fragment {
                                 Location location1 = locationResult.getLastLocation();
                                 lat = String.valueOf(location1.getLatitude());
                                 longit = String.valueOf(location1.getLongitude());
+                                loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
+                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                                try {
 
+                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+                                            , location.getLongitude(), 1);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         };
                     }
@@ -220,10 +245,9 @@ public class makequickfragment extends Fragment {
 
     }
 
+
     private void openchangeDialog() {
-        qobinding.newnametxt.setText(username);
-        qobinding.newaddrtxt.setText(useraddress);
-        qobinding.newnumtxt.setText(usernumber);
+
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_down);
         qobinding.detchangeDialog.setAnimation(animation);
         qobinding.detchangeDialog.setVisibility(View.VISIBLE);
@@ -248,6 +272,31 @@ public class makequickfragment extends Fragment {
     }
 
     private void viewfunc() {
+
+        qobinding.listTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qobinding.listselector.setVisibility(View.VISIBLE);
+                qobinding.listlayout.setVisibility(View.VISIBLE);
+                qobinding.listTxt.setTextColor(Color.parseColor("#000000"));
+                qobinding.uploadlayout.setVisibility(View.INVISIBLE);
+                qobinding.uploadselector.setVisibility(View.INVISIBLE);
+                qobinding.uploadTxt.setTextColor(Color.parseColor("#5F5F5F"));
+            }
+        });
+
+        qobinding.uploadTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qobinding.listselector.setVisibility(View.INVISIBLE);
+                qobinding.listlayout.setVisibility(View.INVISIBLE);
+                qobinding.listTxt.setTextColor(Color.parseColor("#5F5F5F"));
+                qobinding.uploadlayout.setVisibility(View.VISIBLE);
+                qobinding.uploadselector.setVisibility(View.VISIBLE);
+                qobinding.uploadTxt.setTextColor(Color.parseColor("#000000"));
+            }
+        });
+
         qobinding.userinfochange2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -400,19 +449,20 @@ public class makequickfragment extends Fragment {
     }
     private void loadmat(double sellat, double sellongit, String curlocat) {
         SupportMapFragment supportMapFragment = (SupportMapFragment) getActivity().
-                getSupportFragmentManager().findFragmentById(R.id.google_map3);
+                getSupportFragmentManager().findFragmentById(R.id.google_map4);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                    @Override
-                    public void onMapReady(@NonNull GoogleMap googleMap) {
-                        final LatLng[] latLng = {new LatLng(sellat, sellongit)};
-                        MarkerOptions markerOptions = new MarkerOptions().position(latLng[0])
-                                .title("Current Location").draggable(true);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
-                        googleMap.addMarker(markerOptions).setDraggable(true);
+                if(supportMapFragment!=null) {
+                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(@NonNull GoogleMap googleMap) {
+                            final LatLng[] latLng = {new LatLng(sellat, sellongit)};
+                            MarkerOptions markerOptions = new MarkerOptions().position(latLng[0])
+                                    .title("Current Location").draggable(true);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+                            googleMap.addMarker(markerOptions).setDraggable(true);
 
 //                        psbinding.recentrebtn.setOnClickListener(new View.OnClickListener() {
 //                            @Override
@@ -420,59 +470,59 @@ public class makequickfragment extends Fragment {
 //                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
 //                            }
 //                        });
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-                                    @Override
-                                    public void onMarkerDragStart(@NonNull Marker marker) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                                        @Override
+                                        public void onMarkerDragStart(@NonNull Marker marker) {
 
-                                    }
-
-                                    @Override
-                                    public void onMarkerDrag(@NonNull Marker marker) {
-
-                                    }
-
-                                    @Override
-                                    public void onMarkerDragEnd(@NonNull Marker marker) {
-                                        latLng[0] = marker.getPosition();
-                                        LatLng new_latlng = marker.getPosition();
-                                        lat = String.valueOf(new_latlng.latitude);
-                                        longit = String.valueOf(new_latlng.longitude);
-
-
-                                        Geocoder geocoder = new Geocoder(getContext()
-                                                , Locale.getDefault());
-                                        try {
-                                            List<Address> addresses = geocoder.getFromLocation(new_latlng.latitude, new_latlng.longitude, 1);
-                                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
                                         }
-                                    }
-                                });
-                            }
-                        }, 1000);
 
-                    }
-                });
+                                        @Override
+                                        public void onMarkerDrag(@NonNull Marker marker) {
 
+                                        }
+
+                                        @Override
+                                        public void onMarkerDragEnd(@NonNull Marker marker) {
+                                            latLng[0] = marker.getPosition();
+                                            LatLng new_latlng = marker.getPosition();
+                                            lat = String.valueOf(new_latlng.latitude);
+                                            longit = String.valueOf(new_latlng.longitude);
+
+
+                                            Geocoder geocoder = new Geocoder(getContext()
+                                                    , Locale.getDefault());
+                                            try {
+                                                List<Address> addresses = geocoder.getFromLocation(new_latlng.latitude, new_latlng.longitude, 1);
+                                                qobinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                }
+                            }, 1000);
+
+                        }
+                    });
+                }
             }
         }, 100);
 
-        cfbinding.savelocat2.setOnClickListener(new View.OnClickListener() {
+        qobinding.savelocat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cfbinding.useraddressTxt.setText(cfbinding.newaddrtxt.getText().toString());
-                cfbinding.usermobileTxt.setText(cfbinding.newnumtxt.getText().toString());
+                qobinding.useraddressTxt.setText(qobinding.newaddrtxt.getText().toString());
+                qobinding.usermobileTxt.setText(qobinding.newnumtxt.getText().toString());
                 Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
-                cfbinding.detchangeDialog.setAnimation(animation);
-                cfbinding.detchangeDialog.setVisibility(View.INVISIBLE);
-                username = cfbinding.newnametxt.getText().toString();
-                useraddress = cfbinding.newaddrtxt.getText().toString();
-                usernumber = cfbinding.newnumtxt.getText().toString();
+                qobinding.detchangeDialog.setAnimation(animation);
+                qobinding.detchangeDialog.setVisibility(View.INVISIBLE);
+                username = qobinding.newnametxt.getText().toString();
+                useraddress = qobinding.newaddrtxt.getText().toString();
+                usernumber = qobinding.newnumtxt.getText().toString();
 
             }
         });
