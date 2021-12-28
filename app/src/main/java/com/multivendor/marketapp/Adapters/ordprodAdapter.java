@@ -22,10 +22,13 @@ public class ordprodAdapter extends RecyclerView.Adapter<ordprodAdapter.viewHold
     private Context mcontext;
     public List<quickorderModel.quick_products> prodList;
     public Boolean clickable;
-    public ordprodAdapter(Context mcontext, List<quickorderModel .quick_products> prodList,Boolean clickable) {
+    public Boolean show_price;
+    public ordprodAdapter(Context mcontext, List<quickorderModel .quick_products> prodList,Boolean clickable,
+                          Boolean show_price) {
         this.mcontext = mcontext;
         this.prodList = prodList;
         this.clickable=clickable;
+        this.show_price=show_price;
     }
 
 
@@ -142,6 +145,13 @@ public class ordprodAdapter extends RecyclerView.Adapter<ordprodAdapter.viewHold
                         return true;
                     }
                 });
+            }
+
+            if(show_price.equals(true)) {
+                prodprice.setVisibility(View.GONE);
+            }
+            else {
+                prodprice.setVisibility(View.VISIBLE);
             }
 
 

@@ -414,16 +414,22 @@ public class homefragment extends Fragment implements LocationListener {
                                                                 nbadapter.notifyDataSetChanged();
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                                             }
                                                             if (nbyshopsModels.getTop_sell_products().size() > 0) {
                                                                 nbadapter1.notifyDataSetChanged();
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                                             }
                                                             if (nbyshopsModels.getBest_deal_products().size() > 0) {
                                                                 nbadapter2.notifyDataSetChanged();
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                                             }
 
                                                             if(nbyshopsModels.getCart_items()!=null &&!nbyshopsModels.getCart_items().equals("0") ) {
@@ -476,16 +482,22 @@ public class homefragment extends Fragment implements LocationListener {
                                                                     nbadapter.notifyDataSetChanged();
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                     hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                    hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                                                    hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                                                 }
                                                                 if (nbyshopsModels.getTop_sell_products().size() > 0) {
                                                                     nbadapter1.notifyDataSetChanged();
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                     hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                    hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                                                    hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                                                 }
                                                                 if (nbyshopsModels.getBest_deal_products().size() > 0) {
                                                                     nbadapter2.notifyDataSetChanged();
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                                                     hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                                                    hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                                                    hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                                                 }
                                                                 if(nbyshopsModels.getCart_items()!=null &&!nbyshopsModels.getCart_items().equals("0") ) {
                                                                     hmbinding.itemlay.setVisibility(View.VISIBLE);

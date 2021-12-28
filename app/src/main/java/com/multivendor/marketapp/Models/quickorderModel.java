@@ -120,6 +120,15 @@ public class quickorderModel {
         public List<cartModel.orderModel> orderstatus;
         public String expected_delivery;
         public String cancel_reason;
+        public String order_instructions;
+
+        public String getOrder_instructions() {
+            return order_instructions;
+        }
+
+        public void setOrder_instructions(String order_instructions) {
+            this.order_instructions = order_instructions;
+        }
 
         public String getCancel_reason() {
             return cancel_reason;

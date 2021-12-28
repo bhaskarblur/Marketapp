@@ -489,7 +489,6 @@
                 android:text="User Details"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coupon_vox" />
 

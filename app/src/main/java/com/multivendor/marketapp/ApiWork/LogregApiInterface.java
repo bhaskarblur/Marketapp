@@ -183,6 +183,8 @@ public interface LogregApiInterface {
                                                          @Field("customer_name") String name,
                                                          @Field("customer_address") String address,
                                                          @Field("customer_phone") String phone,
+                                                         @Field("delivery_instructions") String delv_instr,
+                                                         @Field("order_instructions") String ord_instrc,
                                                          @Field("lat") String lat,@Field("long") String longit);
 
     @FormUrlEncoded

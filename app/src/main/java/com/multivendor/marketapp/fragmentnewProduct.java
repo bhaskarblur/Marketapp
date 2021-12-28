@@ -297,6 +297,7 @@ public class fragmentnewProduct extends Fragment {
                             binding.minusLay.setVisibility(View.VISIBLE);
                             binding.plusLay.setVisibility(View.VISIBLE);
                             binding.addctLay.setVisibility(View.INVISIBLE);
+                            refreshCart();
                         } else {
 
                             Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
@@ -335,6 +336,7 @@ public class fragmentnewProduct extends Fragment {
                         if (resp.getMessage().equals("Product updated successfully")) {
                             cartid=resp.getResult().getCart_id();
                             binding.qtytxt.setText( String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1));
+                            refreshCart();
                         } else {
 
                             Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
@@ -374,6 +376,7 @@ public class fragmentnewProduct extends Fragment {
                             cartid=resp.getResult().getCart_id();
                             if(Integer.valueOf(binding.qtytxt.getText().toString())>1) {
                                 binding.qtytxt.setText(String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1));
+
                             }
                             else {
                                 binding.qtytxt.setText("0");
@@ -382,7 +385,7 @@ public class fragmentnewProduct extends Fragment {
                                 binding.plusLay.setVisibility(View.INVISIBLE);
                                 binding.addctLay.setVisibility(View.VISIBLE);
                             }
-
+                            refreshCart();
                         } else {
 
                             Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
@@ -588,6 +591,63 @@ public class fragmentnewProduct extends Fragment {
                         binding.heartonicon.setVisibility(View.INVISIBLE);
                         binding.heartofficon.setVisibility(View.VISIBLE);
                     }
+                    if (productdata.getResult().getIn_cart() != null) {
+                        for (int i = 0; i < productdata.getResult().getIn_cart().size(); i++) {
+                            if (productdata.getResult().getIn_cart().get(i).getVariant_id().equals(selected_size)) {
+                                binding.addctLay.setVisibility(View.INVISIBLE);
+                                binding.qtytxt.setVisibility(View.VISIBLE);
+                                binding.qtytxt.setText(productdata.getResult().getIn_cart().get(i).getQuantity().toString());
+                                binding.plusLay.setVisibility(View.VISIBLE);
+                                binding.minusLay.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    } else {
+                        binding.addctLay.setVisibility(View.VISIBLE);
+                        binding.qtytxt.setText("0");
+                        binding.qtytxt.setVisibility(View.INVISIBLE);
+                        binding.plusLay.setVisibility(View.INVISIBLE);
+                        binding.minusLay.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<newProductModel.productdetailResp> call, Throwable t) {
+                Log.d("errorDetail", t.getMessage().toString());
+            }
+        });
+
+    }
+
+    private void refreshCart() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<newProductModel.productdetailResp> call = apiWork.getproduct_details(userid, product_id);
+
+        call.enqueue(new Callback<newProductModel.productdetailResp>() {
+            @Override
+            public void onResponse(Call<newProductModel.productdetailResp> call, Response<newProductModel.productdetailResp> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Error code", String.valueOf(response.code()));
+                    return;
+                }
+
+                newProductModel.productdetailResp productdata = response.body();
+
+
+                Log.d("message", productdata.getSuccess());
+
+                if (productdata.getResult() != null) {
+                    if (productdata.getResult().getIn_cart().size() > 0) {
+                        inCartList = productdata.getResult().getIn_cart();
+                    }
+                    cartid = productdata.getResult().getCart_id();
                     if (productdata.getResult().getIn_cart() != null) {
                         for (int i = 0; i < productdata.getResult().getIn_cart().size(); i++) {
                             if (productdata.getResult().getIn_cart().get(i).getVariant_id().equals(selected_size)) {
