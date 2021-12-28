@@ -8,10 +8,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
@@ -19,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -34,6 +39,13 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -50,9 +62,11 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,6 +95,9 @@ public class makequickfragment extends Fragment {
     String storeid;
     private String lat;
     private String longit;
+    private String username;
+    private String useraddress;
+    private String usernumber;
     private FusedLocationProviderClient fusedLocationProviderClient;
     public makequickfragment() {
         // Required empty public constructor
@@ -124,12 +141,15 @@ public class makequickfragment extends Fragment {
         String name = sharedPreferences.getString("username", "");
         String addr = sharedPreferences.getString("useraddress", "");
         String number = sharedPreferences.getString("usernumber", "");
-        qobinding.custname.setText(name);
-        qobinding.custaddr.setText(addr);
-        qobinding.custphone.setText(number);
+        useraddress=sharedPreferences.getString("useraddress", "");
+        username=sharedPreferences.getString("username", "");
+        usernumber=  sharedPreferences.getString("usernumber", "");
+        qobinding.usernameTxt.setText(name);
+        qobinding.useraddressTxt.setText(addr);
+        qobinding.usermobileTxt.setText(number);
         finalprodlist = new ArrayList<>();
         finalprodlist.add(new quickorderModel.quick_products(null, null, null));
-        ordprodAdapter = new ordprodAdapter(getContext(), finalprodlist, true);
+        ordprodAdapter = new ordprodAdapter(getContext(), finalprodlist, true,false);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         qobinding.prodlistrec.setLayoutManager(llm);
         qobinding.prodlistrec.setAdapter(ordprodAdapter);
@@ -199,8 +219,41 @@ public class makequickfragment extends Fragment {
 
 
     }
-    private void viewfunc() {
 
+    private void openchangeDialog() {
+        qobinding.newnametxt.setText(username);
+        qobinding.newaddrtxt.setText(useraddress);
+        qobinding.newnumtxt.setText(usernumber);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_down);
+        qobinding.detchangeDialog.setAnimation(animation);
+        qobinding.detchangeDialog.setVisibility(View.VISIBLE);
+
+        qobinding.picklocat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getlatlong();
+            }
+        });
+        qobinding.savelocat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
+                qobinding.detchangeDialog.setAnimation(animation);
+                qobinding.detchangeDialog.setVisibility(View.INVISIBLE);
+                username = qobinding.newnametxt.getText().toString();
+                useraddress = qobinding.newaddrtxt.getText().toString();
+                usernumber = qobinding.newnumtxt.getText().toString();
+            }
+        });
+    }
+
+    private void viewfunc() {
+        qobinding.userinfochange2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openchangeDialog();
+            }
+        });
         qobinding.backbtn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,8 +343,9 @@ public class makequickfragment extends Fragment {
             LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
             Call<quickorderModel.AddquickordResp> call = logregApiInterface.add_quickorders(storeid, userid, productname.toString(), qty.toString()
-                    , image.toString(), qobinding.custname.getText().toString(), qobinding.custaddr.getText().toString(),
-                    qobinding.custphone.getText().toString(),lat,longit);
+                    , image.toString(), qobinding.usernameTxt.getText().toString(), qobinding.usernameTxt.getText().toString(),
+                    qobinding.usermobileTxt.getText().toString(),lat,longit,qobinding.cartdesc2.getText().toString(),
+                    qobinding.ordinst.getText().toString());
 
             call.enqueue(new Callback<quickorderModel.AddquickordResp>() {
                 @Override
@@ -344,7 +398,85 @@ public class makequickfragment extends Fragment {
                 .start(getContext(), this);
 
     }
+    private void loadmat(double sellat, double sellongit, String curlocat) {
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getActivity().
+                getSupportFragmentManager().findFragmentById(R.id.google_map3);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(@NonNull GoogleMap googleMap) {
+                        final LatLng[] latLng = {new LatLng(sellat, sellongit)};
+                        MarkerOptions markerOptions = new MarkerOptions().position(latLng[0])
+                                .title("Current Location").draggable(true);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+                        googleMap.addMarker(markerOptions).setDraggable(true);
+
+//                        psbinding.recentrebtn.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+//                            }
+//                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                                    @Override
+                                    public void onMarkerDragStart(@NonNull Marker marker) {
+
+                                    }
+
+                                    @Override
+                                    public void onMarkerDrag(@NonNull Marker marker) {
+
+                                    }
+
+                                    @Override
+                                    public void onMarkerDragEnd(@NonNull Marker marker) {
+                                        latLng[0] = marker.getPosition();
+                                        LatLng new_latlng = marker.getPosition();
+                                        lat = String.valueOf(new_latlng.latitude);
+                                        longit = String.valueOf(new_latlng.longitude);
+
+
+                                        Geocoder geocoder = new Geocoder(getContext()
+                                                , Locale.getDefault());
+                                        try {
+                                            List<Address> addresses = geocoder.getFromLocation(new_latlng.latitude, new_latlng.longitude, 1);
+                                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+                        }, 1000);
+
+                    }
+                });
+
+            }
+        }, 100);
+
+        cfbinding.savelocat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cfbinding.useraddressTxt.setText(cfbinding.newaddrtxt.getText().toString());
+                cfbinding.usermobileTxt.setText(cfbinding.newnumtxt.getText().toString());
+                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
+                cfbinding.detchangeDialog.setAnimation(animation);
+                cfbinding.detchangeDialog.setVisibility(View.INVISIBLE);
+                username = cfbinding.newnametxt.getText().toString();
+                useraddress = cfbinding.newaddrtxt.getText().toString();
+                usernumber = cfbinding.newnumtxt.getText().toString();
+
+            }
+        });
+    }
     private void pickImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");

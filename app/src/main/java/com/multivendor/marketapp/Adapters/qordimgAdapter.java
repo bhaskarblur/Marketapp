@@ -59,9 +59,19 @@ public class qordimgAdapter extends RecyclerView.Adapter<qordimgAdapter.viewHold
 
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView image;
+        View delete;
         public viewHolder( View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.qordimg);
+            delete=itemView.findViewById(R.id.new_del);
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imglist.remove(getAdapterPosition());
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 }

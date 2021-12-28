@@ -183,9 +183,9 @@ public interface LogregApiInterface {
                                                          @Field("customer_name") String name,
                                                          @Field("customer_address") String address,
                                                          @Field("customer_phone") String phone,
+                                                         @Field("lat") String lat,@Field("long") String longit,
                                                          @Field("delivery_instructions") String delv_instr,
-                                                         @Field("order_instructions") String ord_instrc,
-                                                         @Field("lat") String lat,@Field("long") String longit);
+                                                         @Field("order_instructions") String ord_instrc);
 
     @FormUrlEncoded
     @POST("user-get-single-quick-order")

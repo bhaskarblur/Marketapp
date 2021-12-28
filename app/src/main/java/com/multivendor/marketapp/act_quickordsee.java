@@ -245,7 +245,7 @@ public class act_quickordsee extends AppCompatActivity {
     }
 
     private void loadData() {
-        ordprodAdapter = new ordprodAdapter(this, quickordViewModel.getOrdprodModel().getValue(), false);
+        ordprodAdapter = new ordprodAdapter(this, quickordViewModel.getOrdprodModel().getValue(), false,true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         qobinding.prodlistrec.setLayoutManager(llm);
         qobinding.prodlistrec.setAdapter(ordprodAdapter);

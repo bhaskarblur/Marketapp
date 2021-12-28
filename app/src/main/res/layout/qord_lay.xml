@@ -11,8 +11,18 @@
         android:layout_height="100dp"
         android:clickable="true"
         android:padding="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abouticon" />
+        app:srcCompat="@drawable/imgsample" />
+
+    <ImageView
+        android:id="@+id/new_del"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="77dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/new_delete" />
 </androidx.constraintlayout.widget.ConstraintLayout>
