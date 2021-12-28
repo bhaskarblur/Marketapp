@@ -221,10 +221,10 @@ public class OTPFragment extends Fragment {
 
                                 AuthResponse.VerifyOtp resp = response.body();
 
-                                Log.d("message", resp.getMessage());
+                               // Log.d("message", resp.getMessage());
 
                                 pressed = false;
-                                if (resp.getMessage().toString().contains("success")) {
+                                if (resp.getSuccess().toString().contains("true")) {
                                     if (resp.getResult().getUser_type().equals("new user")) {
                                         // send for profile update
                                         Bundle bundle = new Bundle();
@@ -254,8 +254,12 @@ public class OTPFragment extends Fragment {
                                         editor.putString("userimage",resp.getResult().getImage());
                                         editor.putString("userid", resp.getResult().getId());
                                         editor.putString("username", resp.getResult().getName().toString());
-                                        editor.putString("userstate", resp.getResult().getState().toString());
-                                        editor.putString("usercity", resp.getResult().getCity().toString());
+                                        if(resp.getResult().getState()!=null) {
+                                            editor.putString("userstate", resp.getResult().getState().toString());
+                                        }
+                                        if(resp.getResult().getCity()!=null) {
+                                            editor.putString("usercity", resp.getResult().getCity().toString());
+                                        }
                                         editor.putString("usermobile", resp.getResult().getMobile());
                                         editor.commit();
                                         startActivity(new Intent(getActivity(), Mainarea.class));

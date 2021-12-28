@@ -137,7 +137,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:tint="?android:textColorPrimary" />
+                    app:tint="@color/black" />
 
                 <EditText
                     android:id="@+id/otpbox1"
@@ -175,7 +175,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:tint="?android:textColorPrimary" />
+                    app:tint="@color/black" />
 
                 <EditText
                     android:id="@+id/otpbox2"
@@ -213,7 +213,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:tint="?android:textColorPrimary" />
+                    app:tint="@color/black" />
 
                 <EditText
                     android:id="@+id/otpbox3"
@@ -252,7 +252,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:tint="?android:textColorPrimary" />
+                    app:tint="@color/black" />
 
                 <EditText
                     android:id="@+id/otpbox4"

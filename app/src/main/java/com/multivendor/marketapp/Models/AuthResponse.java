@@ -27,6 +27,15 @@ public class AuthResponse {
     }
 
     public class VerifyOtp {
+        public String success;
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
 
         public String message;
         public String code;

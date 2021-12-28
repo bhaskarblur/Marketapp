@@ -116,7 +116,7 @@ public class LoginFragment extends Fragment {
 
                                 Log.d("message", resp.getMessage());
 
-                                if (resp.getMessage().toString().contains("success")) {
+                                if (resp.getMessage().toString().contains("OTP send")) {
                                     OTPFragment df = new OTPFragment();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("number", lgbinding.loginnumber.getText().toString());
