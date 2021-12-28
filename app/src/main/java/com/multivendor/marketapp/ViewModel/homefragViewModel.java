@@ -1,5 +1,7 @@
 package com.multivendor.marketapp.ViewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 

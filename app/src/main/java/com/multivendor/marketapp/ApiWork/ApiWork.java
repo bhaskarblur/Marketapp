@@ -27,7 +27,7 @@ public interface ApiWork {
     Call<bannermodel.bannerresp> getbanners();
 
     @FormUrlEncoded
-    @POST("home_products")
+    @POST("all_products")
     Call<newProductModel .homeprodResp> getallproducts(@Field("user_id") String userid,@Field("latitude") String lat,
                                                        @Field("longitude") String longit,@Field("city_name")
                                                        String cityname);

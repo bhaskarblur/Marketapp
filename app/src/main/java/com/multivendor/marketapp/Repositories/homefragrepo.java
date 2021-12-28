@@ -120,14 +120,12 @@ public class homefragrepo {
                 newProductModel.homeprodResp storedata = response.body();
 
 
-                Log.d("message",storedata.getSuccess());
+                Log.d("message12",storedata.getSuccess());
 
                 if(storedata.getResult()!=null) {
 
                     nyshopdata.setValue(storedata.getResult());
                 }
-
-
 
             }
 
