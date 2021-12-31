@@ -25,6 +25,7 @@ import com.multivendor.marketapp.Models.nbyshopsModel;
 import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.R;
 import com.multivendor.marketapp.categoriesFragment;
+import com.multivendor.marketapp.fragmentnewProduct;
 import com.multivendor.marketapp.shopsFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -90,7 +91,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         holder.shopcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shopsFragment shopsFragment=new shopsFragment();
+                fragmentnewProduct shopsFragment=new fragmentnewProduct();
                 Bundle bundle =new Bundle();
                 bundle.putString("product_id",nbyshopsModel.get(position).getProduct_id());
                 FragmentTransaction transaction=((AppCompatActivity)mcontext).getSupportFragmentManager().beginTransaction();

@@ -350,6 +350,7 @@ public class homefragment extends Fragment implements LocationListener {
 
     @SuppressLint("MissingPermission")
     private void getlatlong() {
+
         locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
