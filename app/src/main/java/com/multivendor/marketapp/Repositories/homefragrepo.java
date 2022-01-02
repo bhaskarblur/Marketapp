@@ -20,6 +20,7 @@ import com.multivendor.marketapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -102,6 +103,7 @@ public class homefragrepo {
 
     private void getnbyshopsdatafromSource(String userid,String lat,String longit,String cityname) {
         Log.d("latandlong",lat+","+longit);
+        Log.d("city_name",cityname);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -122,9 +124,11 @@ public class homefragrepo {
 
                 Log.d("message12",storedata.getSuccess());
 
-                if(storedata.getResult()!=null) {
+                if(storedata.getResult().getBest_deal_products()!=null) {
 
                     nyshopdata.setValue(storedata.getResult());
+                    Log.d("sample",
+                            storedata.getResult().getAll_categories().get(0).getName());
                 }
 
             }

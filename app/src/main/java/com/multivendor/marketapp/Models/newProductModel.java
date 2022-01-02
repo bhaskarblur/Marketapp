@@ -83,8 +83,7 @@ public class newProductModel {
         }
     }
 
-    public class ListProductresp {
-
+    public static class ListProductresp {
         public String product_id;
         public String product_name;
         public String product_image;

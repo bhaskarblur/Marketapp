@@ -116,6 +116,7 @@ public class searchFragment extends Fragment {
             }
         });
         viewfunctions();
+        loadsearchres();
 
         return shbinding.getRoot();
 

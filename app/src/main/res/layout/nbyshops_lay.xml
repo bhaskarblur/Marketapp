@@ -62,7 +62,7 @@
             android:singleLine="true"
             android:text="Product Description"
             android:textColor="#292929"
-            android:textSize="10sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nbyshopname" />
 
@@ -82,7 +82,7 @@
             android:singleLine="true"
             android:text="Rs 1000"
             android:textColor="#292929"
-            android:textSize="10sp"
+            android:textSize="13sp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +103,7 @@
             android:singleLine="true"
             android:text="3 km"
             android:textColor="#FF1F1F"
-            android:textSize="8sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/nbyshoplocat"
             app:layout_constraintTop_toBottomOf="@+id/nbyshopcat" />
 

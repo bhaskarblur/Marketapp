@@ -84,9 +84,9 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         holder.shopname.setText(nbyshopsModel.get(position).getProduct_name());
         holder.shoptype.setText(nbyshopsModel.get(position).getProduct_description());
        // holder.shopratingtxt.setText(nbyshopsModel.get(position).getShopratings());
-        holder.shoplocat.setText(nbyshopsModel.get(position).getProduct_price());
+        holder.shoplocat.setText("Rs "+nbyshopsModel.get(position).getProduct_price());
        // holder.shopratingtxt.setText(String.valueOf(nbyshopsModel.get(position).getRating()));
-        holder.shopdist.setText(nbyshopsModel.get(position).getProduct_cut_price());
+        holder.shopdist.setText("Rs "+nbyshopsModel.get(position).getProduct_cut_price());
         holder.discount.setText(nbyshopsModel.get(position).getDiscount_rate());
         holder.shopcard.setOnClickListener(new View.OnClickListener() {
             @Override

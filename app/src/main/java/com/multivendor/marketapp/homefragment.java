@@ -76,6 +76,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -185,7 +186,7 @@ public class homefragment extends Fragment implements LocationListener {
                 }
             }
         });
-        loadcatrec();
+
         getlatlong();
         viewfunction();
         handleMenu();
@@ -412,6 +413,8 @@ public class homefragment extends Fragment implements LocationListener {
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
+                                                            loadcatrec();
+                                                            loadnearbyshoprec();
                                                             if (nbyshopsModels.getDeal_day_products().size() > 0) {
                                                                 nbadapter.notifyDataSetChanged();
                                                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
@@ -441,7 +444,7 @@ public class homefragment extends Fragment implements LocationListener {
                                                             else {
                                                                 hmbinding.itemlay.setVisibility(View.INVISIBLE);
                                                             }
-                                                            loadnearbyshoprec();
+
                                                         }
                                                     }, 1500);
                                                 }
@@ -468,6 +471,7 @@ public class homefragment extends Fragment implements LocationListener {
                                                 try {
                                                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                                     hmViewModel.getlocation(userid,lat, longit,addresses.get(0).getLocality().toString());
+
 //                                                    hmbinding.locattext.setText(addresses.get(0).getLocality());
                                                     Toast.makeText(getContext(), "Hi", Toast.LENGTH_SHORT).show();
                                                     cityname=addresses.get(0).getLocality().toString();
@@ -481,6 +485,8 @@ public class homefragment extends Fragment implements LocationListener {
                                                         new Handler().postDelayed(new Runnable() {
                                                             @Override
                                                             public void run() {
+                                                                loadcatrec();
+                                                                loadnearbyshoprec();
                                                                 if (nbyshopsModels.getDeal_day_products().size() > 0) {
                                                                     nbadapter.notifyDataSetChanged();
                                                                     hmbinding.homefragscroll.setVisibility(View.VISIBLE);
@@ -775,11 +781,16 @@ public class homefragment extends Fragment implements LocationListener {
     }
 
     private void loadcatrec() {
-        com.multivendor.marketapp.Adapters.categoriesAdapter categoriesAdapter = new categoriesAdapter(getContext(), hmViewModel.getcatmodel().getValue());
-       GridLayoutManager llm = new GridLayoutManager(getContext(),2);
-       llm.setOrientation(RecyclerView.HORIZONTAL);
-        hmbinding.categoriesrv.setLayoutManager(llm);
-        hmbinding.categoriesrv.setAdapter(categoriesAdapter);
+        if(Objects.requireNonNull(hmViewModel.getnbyshopModel()
+                .getValue()).getAll_categories()!=null) {
+            com.multivendor.marketapp.Adapters.categoriesAdapter categoriesAdapter = new categoriesAdapter(getContext(), Objects.requireNonNull(hmViewModel.getnbyshopModel()
+                    .getValue()).getAll_categories());
+
+            GridLayoutManager llm = new GridLayoutManager(getContext(), 2);
+            llm.setOrientation(RecyclerView.HORIZONTAL);
+            hmbinding.categoriesrv.setLayoutManager(llm);
+            hmbinding.categoriesrv.setAdapter(categoriesAdapter);
+        }
     }
 
     private void rotatebanner() {
