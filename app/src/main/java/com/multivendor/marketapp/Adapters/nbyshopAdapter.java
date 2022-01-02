@@ -66,6 +66,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         else {
             Picasso.get().load(R.drawable.imgsample).fit().into(holder.shopimg);
         }
+
 //        holder.shopimg.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
