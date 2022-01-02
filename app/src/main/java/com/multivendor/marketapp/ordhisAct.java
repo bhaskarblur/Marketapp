@@ -307,7 +307,7 @@ public class ordhisAct extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
-        Call<loginresResponse.forgotpass> call = logregApiInterface.giveratings(userid, storeid, ratings,
+        Call<loginresResponse.forgotpass> call = logregApiInterface.giveratings(userid, storeid,orderid, ratings,
                 ohbinding.ordcomment.getText().toString());
 
         call.enqueue(new Callback<loginresResponse.forgotpass>() {

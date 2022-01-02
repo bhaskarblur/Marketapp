@@ -161,6 +161,7 @@ public interface LogregApiInterface {
     @POST("add-rating")
     Call<loginresResponse.forgotpass> giveratings(@Field("user_id") String userid,
                                                   @Field("store_id") String storeid,
+                                                  @Field("product_id") String prod_id,
                                                   @Field("rating") String rating,
                                                   @Field("review") String reviews);
 

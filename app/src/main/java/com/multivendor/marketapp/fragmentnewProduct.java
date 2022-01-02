@@ -679,4 +679,10 @@ public class fragmentnewProduct extends Fragment {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        View bottom=getActivity().findViewById(R.id.bottomnav);
+        bottom.setVisibility(View.VISIBLE);
+    }
 }

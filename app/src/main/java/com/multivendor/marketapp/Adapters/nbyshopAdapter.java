@@ -1,6 +1,7 @@
 package com.multivendor.marketapp.Adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -87,6 +88,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
         holder.shoplocat.setText("Rs "+nbyshopsModel.get(position).getProduct_price());
        // holder.shopratingtxt.setText(String.valueOf(nbyshopsModel.get(position).getRating()));
         holder.shopdist.setText("Rs "+nbyshopsModel.get(position).getProduct_cut_price());
+        holder.shopdist.setPaintFlags(holder.shopdist.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.discount.setText(nbyshopsModel.get(position).getDiscount_rate());
         holder.shopcard.setOnClickListener(new View.OnClickListener() {
             @Override
