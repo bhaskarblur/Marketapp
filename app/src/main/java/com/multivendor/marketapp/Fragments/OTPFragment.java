@@ -251,9 +251,13 @@ public class OTPFragment extends Fragment {
                                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("userlogged", "yes");
-                                        editor.putString("userimage",resp.getResult().getImage());
+                                        if(resp.getResult().getImage()!=null) {
+                                            editor.putString("userimage", resp.getResult().getImage());
+                                        }
                                         editor.putString("userid", resp.getResult().getId());
-                                        editor.putString("username", resp.getResult().getName().toString());
+                                        if(resp.getResult().getName()!=null) {
+                                            editor.putString("username", resp.getResult().getName().toString());
+                                        }
                                         if(resp.getResult().getState()!=null) {
                                             editor.putString("userstate", resp.getResult().getState().toString());
                                         }

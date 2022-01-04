@@ -398,7 +398,6 @@ public class homefragment extends Fragment implements LocationListener {
                                             if(geocoder!=null) {
                                                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                                 hmViewModel.getlocation(userid,lat, longit,addresses.get(0).getLocality().toString());
-                                                Toast.makeText(getContext(), "Hi", Toast.LENGTH_SHORT).show();
                                                 cityname=addresses.get(0).getLocality().toString();
 //                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
                                             }

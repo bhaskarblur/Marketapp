@@ -472,44 +472,6 @@ public class fragmentnewProduct extends Fragment {
 
     private void Managefuncs() {
 
-        sizeadapter = new showszAdapter(getContext(), sizeList);
-        LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
-        llm1.setOrientation(RecyclerView.HORIZONTAL);
-        binding.sizerec.setLayoutManager(llm1);
-        binding.sizerec.setAdapter(sizeadapter);
-        sizeadapter.setonbtnclickListener(new showszAdapter.onbtnclick() {
-            @Override
-            public void onCLICK(int position, String id) {
-                selected_size = id.toString();
-                selectedprice = sizeList.get(position).getSelling_price();
-                selectedsizename = sizeList.get(position).getSize();
-                binding.prodprice.setText("Rs "+selectedprice);
-                binding.cutprice.setText("Rs "+sizeList.get(position).getPrice());
-                if (inCartList.size() > 0) {
-                    for (int i = 0; i < inCartList.size(); i++) {
-                        if (inCartList.get(i).getVariant_id().equals(selected_size)) {
-                            binding.addctLay.setVisibility(View.INVISIBLE);
-                            binding.qtytxt.setVisibility(View.VISIBLE);
-                            binding.qtytxt.setText(inCartList.get(i).getQuantity().toString());
-                            binding.plusLay.setVisibility(View.VISIBLE);
-                            binding.minusLay.setVisibility(View.VISIBLE);
-                            return;
-                        } else {
-                            binding.addctLay.setVisibility(View.VISIBLE);
-                            binding.qtytxt.setText("0");
-                            binding.plusLay.setVisibility(View.INVISIBLE);
-                            binding.minusLay.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                } else {
-                    binding.addctLay.setVisibility(View.VISIBLE);
-                    binding.plusLay.setVisibility(View.INVISIBLE);
-                    binding.qtytxt.setText("0");
-                    binding.qtytxt.setVisibility(View.INVISIBLE);
-                    binding.minusLay.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
 
         reviewAdapter = new reviewAdapter(getContext(), reviewList);
         LinearLayoutManager llm2 = new LinearLayoutManager(getContext());
@@ -563,15 +525,56 @@ public class fragmentnewProduct extends Fragment {
                     }
 
                     if (productdata.getResult().getProduct_variants().size() > 0) {
+                        Log.d("variant",productdata.getResult().getProduct_variants().get(0).getSize());
                         sizeList = productdata.getResult().getProduct_variants();
                         selected_size = sizeList.get(0).getVariation_id().toString();
                         selectedsizename = sizeList.get(0).getSize().toString();
                         selectedprice = sizeList.get(0).getSelling_price();
-                        sizeadapter.notifyDataSetChanged();
+                        sizeadapter = new showszAdapter(getContext(), sizeList);
+                        LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
+                        llm1.setOrientation(RecyclerView.HORIZONTAL);
+                        binding.sizerec.setLayoutManager(llm1);
+                        binding.sizerec.setAdapter(sizeadapter);
+                        sizeadapter.setonbtnclickListener(new showszAdapter.onbtnclick() {
+                            @Override
+                            public void onCLICK(int position, String id) {
+                                selected_size = id.toString();
+                                selectedprice = sizeList.get(position).getSelling_price();
+                                selectedsizename = sizeList.get(position).getSize();
+                                binding.prodprice.setText("Rs "+selectedprice);
+                                binding.cutprice.setText("Rs "+sizeList.get(position).getPrice());
+                                if (inCartList.size() > 0) {
+                                    for (int i = 0; i < inCartList.size(); i++) {
+                                        if (inCartList.get(i).getVariant_id().equals(selected_size)) {
+                                            binding.addctLay.setVisibility(View.INVISIBLE);
+                                            binding.qtytxt.setVisibility(View.VISIBLE);
+                                            binding.qtytxt.setText(inCartList.get(i).getQuantity().toString());
+                                            binding.plusLay.setVisibility(View.VISIBLE);
+                                            binding.minusLay.setVisibility(View.VISIBLE);
+                                            return;
+                                        } else {
+                                            binding.addctLay.setVisibility(View.VISIBLE);
+                                            binding.qtytxt.setText("0");
+                                            binding.plusLay.setVisibility(View.INVISIBLE);
+                                            binding.minusLay.setVisibility(View.INVISIBLE);
+                                        }
+                                    }
+                                } else {
+                                    binding.addctLay.setVisibility(View.VISIBLE);
+                                    binding.plusLay.setVisibility(View.INVISIBLE);
+                                    binding.qtytxt.setText("0");
+                                    binding.qtytxt.setVisibility(View.INVISIBLE);
+                                    binding.minusLay.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                        });
+
                     }
-                    if (productdata.getResult().getProduct_reviews().size() > 0) {
-                        reviewList = productdata.getResult().getProduct_reviews();
-                        reviewAdapter.notifyDataSetChanged();
+                    if(productdata.getResult().getProduct_reviews()!=null) {
+                        if (productdata.getResult().getProduct_reviews().size() > 0) {
+                            reviewList = productdata.getResult().getProduct_reviews();
+                            reviewAdapter.notifyDataSetChanged();
+                        }
                     }
                     if (productdata.getResult().getIn_cart().size() > 0) {
                         inCartList = productdata.getResult().getIn_cart();
