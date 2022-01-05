@@ -291,7 +291,7 @@ public class fragmentnewProduct extends Fragment {
                         cartModel.cartResp resp = response.body();
                         Log.d("msg", resp.getMessage());
                         if (resp.getMessage().equals("Product added successfully")) {
-                            cartid=resp.getResult().getCart_id();
+                          //  cartid=resp.getResult().getCart_id();
                             binding.qtytxt.setText("1");
                             binding.qtytxt.setVisibility(View.VISIBLE);
                             binding.minusLay.setVisibility(View.VISIBLE);
@@ -332,7 +332,7 @@ public class fragmentnewProduct extends Fragment {
 
                         cartModel.cartResp resp = response.body();
                         Log.d("msg", resp.getMessage());
-                        if (resp.getMessage().equals("Product updated successfully")) {
+                        if (resp.getMessage().equals("Product added successfully")) {
                             cartid=resp.getResult().getCart_id();
                             binding.qtytxt.setText( String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1));
                             refreshCart();
@@ -370,7 +370,7 @@ public class fragmentnewProduct extends Fragment {
 
                         cartModel.cartResp resp = response.body();
                         Log.d("msg", resp.getMessage());
-                        if (resp.getMessage().equals("Product updated successfully")) {
+                        if (resp.getMessage().equals("Product added successfully")) {
                             cartid=resp.getResult().getCart_id();
                             if(Integer.valueOf(binding.qtytxt.getText().toString())>1) {
                                 binding.qtytxt.setText(String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1));

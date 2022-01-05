@@ -602,7 +602,7 @@ public class cartfragment extends Fragment {
 
                         cartModel.cartResp resp = response.body();
                         Log.d("msg", resp.getMessage().toString());
-                        if (resp.getMessage().equals("Product updated successfully ")) {
+                        if (resp.getMessage().equals("Product added successfully")) {
                             checkcartexists();
                             LoadCart();
                         } else {
@@ -648,7 +648,7 @@ public class cartfragment extends Fragment {
 
                             cartModel.cartResp resp = response.body();
                             Log.d("msg", resp.getMessage().toString());
-                            if (resp.getMessage().equals("Product updated successfully ")) {
+                            if (resp.getMessage().equals("Product added successfully")) {
                                 checkcartexists();
                                 LoadCart();
                             } else {
@@ -690,7 +690,7 @@ public class cartfragment extends Fragment {
 
                             cartModel.cartResp resp = response.body();
                             Log.d("msg", resp.getMessage().toString());
-                            if (resp.getMessage().equals("Product deleted successfully")) {
+                            if (resp.getMessage().equals("Product added successfully")) {
                                 checkcartexists();
                                 LoadCart();
                             } else {

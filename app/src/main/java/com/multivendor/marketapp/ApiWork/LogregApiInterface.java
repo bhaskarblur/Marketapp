@@ -96,7 +96,7 @@ public interface LogregApiInterface {
     Call<cartModel.cartResp> add_cart(@Field("city") String lat,
                                       @Field("user_id")String user_id,
                                       @Field("product_id")String prod_id,@Field("variant_id") String variant_id,
-                                      @Field("qty_ordered") String qty_ord);
+                                      @Field("qty") String qty_ord);
 
     @FormUrlEncoded
     @POST("update_order")
