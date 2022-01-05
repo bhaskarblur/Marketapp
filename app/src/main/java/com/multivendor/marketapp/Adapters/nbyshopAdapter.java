@@ -60,6 +60,7 @@ public class nbyshopAdapter extends RecyclerView.Adapter<nbyshopAdapter.viewHold
 
     @Override
     public void onBindViewHolder( viewHolder holder, int position) {
+        Log.d("image11",nbyshopsModel.get(position).getProduct_image());
         if(nbyshopsModel.get(position).getProduct_image()!=null) {
             Picasso.get().load(nbyshopsModel.get(position).getProduct_image()).fit().into(holder.shopimg);
         }

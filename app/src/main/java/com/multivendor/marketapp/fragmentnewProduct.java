@@ -85,6 +85,7 @@ public class fragmentnewProduct extends Fragment {
     private List<newProductModel.productCartresp> inCartList = new ArrayList<>();
     private String lat;
     private String longit;
+    private String city_name;
     private String prod_name;
     private String selectedsizename;
     private String selectedprice;
@@ -276,9 +277,8 @@ public class fragmentnewProduct extends Fragment {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
-                call = logregApiInterface.add_cart(lat, longit, userid, "1", product_id,
-                        selected_size, "", prod_name, selectedsizename, selectedprice, selected_size,
-                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1), null);
+                call = logregApiInterface.add_cart(city_name, userid,  product_id,selected_size,
+                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1));
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
                     @Override
@@ -319,9 +319,8 @@ public class fragmentnewProduct extends Fragment {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
-                call = logregApiInterface.update_cart(lat, longit, userid, "1", product_id,
-                        selected_size, "", prod_name, selectedsizename, selectedprice, selected_size,
-                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1), cartid);
+                call = logregApiInterface.add_cart(city_name, userid,  product_id,selected_size,
+                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1));
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
                     @Override
@@ -358,9 +357,8 @@ public class fragmentnewProduct extends Fragment {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
-                call = logregApiInterface.update_cart(lat, longit, userid, "1", product_id,
-                        selected_size, "", prod_name, selectedsizename, selectedprice, selected_size,
-                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1), cartid);
+                call = logregApiInterface.add_cart(city_name, userid,  product_id,selected_size,
+                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1));
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
                     @Override
@@ -433,6 +431,15 @@ public class fragmentnewProduct extends Fragment {
                         lat = String.valueOf(location.getLatitude());
                         longit = String.valueOf(location.getLongitude());
 
+                        try {
+                            if(geocoder!=null) {
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                city_name=addresses.get(0).getLocality().toString();
+//                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                     } else {
 
@@ -449,11 +456,15 @@ public class fragmentnewProduct extends Fragment {
                                     geocoder = new Geocoder(getActivity()
                                             , Locale.getDefault());
                                 }
-                                if (location != null) {
-                                    lat = String.valueOf(location.getLatitude());
-                                    longit = String.valueOf(location.getLongitude());
 
-
+                                try {
+                                    if(geocoder!=null) {
+                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                        city_name=addresses.get(0).getLocality().toString();
+//                                                hmbinding.locattext.setText(addresses.get(0).getLocality());
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
                             }
                         };

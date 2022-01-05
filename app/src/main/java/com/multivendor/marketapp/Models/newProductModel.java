@@ -419,7 +419,7 @@ public class newProductModel {
         }
     }
 
-    public  class productCartresp {
+    public class productCartresp {
 
         public String variant_id;
         public String variant_name;
