@@ -452,6 +452,9 @@ public class newProductModel {
 
     public class couponResp {
         public String success;
+        public String message;
+        public String discount;
+        public String total_price;
 
         public String getMessage() {
             return message;
@@ -461,9 +464,6 @@ public class newProductModel {
             this.message = message;
         }
 
-        public String message;
-        public String discount;
-        public String total_price;
 
         public String getSuccess() {
             return success;
