@@ -134,6 +134,7 @@
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/menu/main_menu.xml" value="0.1675213675213675" />
         <entry key="app/src/main/res/drawable/fieldnotselbg.xml" value="0.2123931623931624" />
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.2123931623931624" />
+        <entry key="app/src/main/res/layout/activity_act_quickordsee.xml" value="0.2595587383953153" />
         <entry key="app/src/main/res/layout/activity_ordhis.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_paymentactivity.xml" value="0.3196405648267009" />
         <entry key="app/src/main/res/layout/cartproditem_lay.xml" value="0.19662447257383966" />
@@ -150,7 +151,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

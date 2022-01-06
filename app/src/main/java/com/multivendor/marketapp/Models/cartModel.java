@@ -93,7 +93,6 @@ public class cartModel {
     }
 
     public class cartResult {
-
         private String order_id;
         private String order_increment_id;
         private String order_quote_status;
