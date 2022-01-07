@@ -541,8 +541,9 @@ public class cartfragment extends Fragment {
 
                 Call<cartModel.cartResp> call = null;
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
-                call = logregApiInterface.add_cart(null, userid,
-                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty);
+                call = logregApiInterface.add_cart(lat,longit, userid,
+                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty
+                ,cart_id);
 
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
@@ -589,8 +590,8 @@ public class cartfragment extends Fragment {
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
-                Call<cartModel.cartResp> call = logregApiInterface.add_cart(null, userid,
-                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty);
+                Call<cartModel.cartResp> call = logregApiInterface.update_cart(null, userid,
+                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty,cart_id);
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
                     @Override
@@ -635,8 +636,8 @@ public class cartfragment extends Fragment {
                             .addConverterFactory(GsonConverterFactory.create()).build();
                     LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
-                    Call<cartModel.cartResp> call = logregApiInterface.add_cart(null, userid,
-                            prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty);
+                    Call<cartModel.cartResp> call = logregApiInterface.update_cart(null, userid,
+                            prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty,cart_id);
 
                     call.enqueue(new Callback<cartModel.cartResp>() {
                         @Override
@@ -676,8 +677,8 @@ public class cartfragment extends Fragment {
                             .addConverterFactory(GsonConverterFactory.create()).build();
                     LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
-                    Call<cartModel.cartResp> call = logregApiInterface.add_cart(null, userid,
-                            prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty);
+                    Call<cartModel.cartResp> call = logregApiInterface.remove_product(null, userid,
+                            prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty,cart_id);
 
 
                     call.enqueue(new Callback<cartModel.cartResp>() {

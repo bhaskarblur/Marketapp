@@ -92,32 +92,27 @@ public interface LogregApiInterface {
     Call<userAPIResp.getStores> get_favshop(@Field("user_id")String userid);
 
     @FormUrlEncoded
-    @POST("add_to_cart")
-    Call<cartModel.cartResp> add_cart(@Field("city") String lat,
+    @POST("add-order")
+    Call<cartModel.cartResp> add_cart(@Field("lat") String lat,
+                                      @Field("long") String longit,
                                       @Field("user_id")String user_id,
                                       @Field("product_id")String prod_id,@Field("variant_id") String variant_id,
-                                      @Field("qty") String qty_ord);
+                                      @Field("qty") String qty_ord,@Field("cart_id") String cart_id);
 
     @FormUrlEncoded
-    @POST("update_order")
-    Call<cartModel.cartResp> update_cart(@Field("lat") String lat,@Field("long") String longit,
-                                         @Field("user_id")String user_id,@Field("store_id") String store_id,
+    @POST("update-order")
+    Call<cartModel.cartResp> update_cart(@Field("city") String lat,
+                                         @Field("user_id")String user_id,
                                          @Field("product_id")String prod_id,@Field("variant_id") String variant_id,
-                                         @Field("sku")String sku,@Field("product_name") String prod_name,
-                                         @Field("size") String sizename, @Field("price") String price,
-                                         @Field("final_price") String finprice,
-                                         @Field("qty_ordered") String qty_ord,
+                                         @Field("qty") String qty_ord,
                                          @Field("cart_id") String cart_id);
 
     @FormUrlEncoded
     @POST("delete-order")
-    Call<cartModel.cartResp> remove_product(@Field("lat") String lat,@Field("long") String longit,
-                                            @Field("user_id")String user_id,@Field("store_id") String store_id,
+    Call<cartModel.cartResp> remove_product(@Field("city") String lat,
+                                            @Field("user_id")String user_id,
                                             @Field("product_id")String prod_id,@Field("variant_id") String variant_id,
-                                            @Field("sku")String sku,@Field("product_name") String prod_name,
-                                            @Field("size") String sizename, @Field("price") String price,
-                                            @Field("qty_ordered") String qty_ord,
-                                            @Field("final_price") String finprice,
+                                            @Field("qty") String qty_ord,
                                             @Field("cart_id") String cart_id);
 
     @FormUrlEncoded
