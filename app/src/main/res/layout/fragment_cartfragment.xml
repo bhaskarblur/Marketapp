@@ -75,7 +75,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:fillViewport="true"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -553,7 +553,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <fragment
-                android:id="@+id/google_map3"
+                android:id="@+id/google_map5"
                 android:name="com.multivendor.marketapp.shopsFragment"
                 class="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"

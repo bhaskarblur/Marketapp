@@ -949,6 +949,8 @@ public class homefragment extends Fragment implements LocationListener {
     public void onResume() {
         super.onResume();
         dataloaded=false;
+        View bottom=getActivity().findViewById(R.id.bottomnav);
+        bottom.setVisibility(View.VISIBLE);
         getlatlong();
     }
 

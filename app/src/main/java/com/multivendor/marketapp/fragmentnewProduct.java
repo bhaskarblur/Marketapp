@@ -176,6 +176,7 @@ public class fragmentnewProduct extends Fragment {
             }
         });
 
+
         binding.backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -337,7 +338,6 @@ public class fragmentnewProduct extends Fragment {
                             binding.qtytxt.setText( String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1));
                             refreshCart();
                         } else {
-
                             Toast.makeText(getContext(), "There was an error", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -371,7 +371,7 @@ public class fragmentnewProduct extends Fragment {
                         cartModel.cartResp resp = response.body();
                         Log.d("msg", resp.getMessage());
                         if (resp.getMessage().equals("Product added successfully")) {
-                            cartid=resp.getResult().getCart_id();
+                          //  cartid=resp.getResult().getCart_id();
                             if(Integer.valueOf(binding.qtytxt.getText().toString())>1) {
                                 binding.qtytxt.setText(String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) - 1));
 
@@ -592,7 +592,14 @@ public class fragmentnewProduct extends Fragment {
                         inCartList = productdata.getResult().getIn_cart();
                     }
                     prod_name = productdata.getResult().getProduct_name();
-                    cartid = productdata.getResult().getCart_id();
+                    if(productdata.getResult().getCart_id()!=null) {
+                        cartid = productdata.getResult().getCart_id();
+
+                        Log.d("cart", cartid);
+                    }
+                    else {
+                        cartid=null;
+                    }
                     binding.productname.setText(productdata.getResult().getProduct_name().toString());
                     binding.productdesc.setText(productdata.getResult().getProduct_description().toString());
                     binding.prodprice.setText("Rs "+productdata.getResult().getProduct_price().toString());
@@ -662,7 +669,14 @@ public class fragmentnewProduct extends Fragment {
                     if (productdata.getResult().getIn_cart().size() > 0) {
                         inCartList = productdata.getResult().getIn_cart();
                     }
-                    cartid = productdata.getResult().getCart_id();
+                    if(productdata.getResult().getCart_id()!=null) {
+                        cartid = productdata.getResult().getCart_id();
+
+                        Log.d("cart", cartid);
+                    }
+                    else {
+                        cartid=null;
+                    }
                     if (productdata.getResult().getIn_cart() != null) {
                         for (int i = 0; i < productdata.getResult().getIn_cart().size(); i++) {
                             if (productdata.getResult().getIn_cart().get(i).getVariant_id().equals(selected_size)) {
@@ -697,7 +711,5 @@ public class fragmentnewProduct extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        View bottom=getActivity().findViewById(R.id.bottomnav);
-        bottom.setVisibility(View.VISIBLE);
     }
 }
