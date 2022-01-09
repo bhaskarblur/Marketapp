@@ -279,7 +279,7 @@ public class fragmentnewProduct extends Fragment {
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
                 call = logregApiInterface.add_cart(lat,longit, userid,  product_id,selected_size,
-                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1),null);
+                        String.valueOf(Integer.valueOf(binding.qtytxt.getText().toString()) + 1),cartid);
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
                     @Override

@@ -517,7 +517,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/roundboxbg"
                 android:backgroundTint="@color/primcolor"
-                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/poppins_medium"
                 android:foreground="?android:selectableItemBackground"
                 android:text="Proceed to buy"
                 android:textAlignment="center"

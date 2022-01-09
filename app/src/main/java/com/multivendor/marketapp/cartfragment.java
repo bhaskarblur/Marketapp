@@ -62,6 +62,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -255,7 +256,6 @@ public class cartfragment extends Fragment {
         cfbinding.picklocat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getlatlong();
             }
         });
         cfbinding.savelocat2.setOnClickListener(new View.OnClickListener() {
@@ -274,26 +274,26 @@ public class cartfragment extends Fragment {
     @SuppressLint("MissingPermission")
     private void getlatlong() {
         catViewModel.getlocation(userid_id,lat,longit,"Ludhiana");
-        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-            @Override
-            public void onChanged(newProductModel.homeprodResult productitemModels) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (productitemModels.getAll_products().size() > 0) {
-                            Log.d("hellomf","hellomf");
-                            getlatlong();
-                            checkcartexists();
-                            LoadCart();
-                        } else {
-                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+        if(catViewModel.getnbyshopModel()!=null) {
+            catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+                @Override
+                public void onChanged(newProductModel.homeprodResult productitemModels) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (productitemModels.getAll_products().size() > 0) {
+                                Log.d("hellomf", "hellomf");
+                                checkcartexists();
+                                LoadCart();
+                            } else {
+                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                                cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
-                }, 2000);
-            }
-        });
-
+                    }, 2000);
+                }
+            });
+        }
         if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -327,27 +327,27 @@ public class cartfragment extends Fragment {
 
                             cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
                             catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-                            catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-                                @Override
-                                public void onChanged(newProductModel.homeprodResult productitemModels) {
-                                    Log.d("hello1","hello1");
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (productitemModels.getAll_products().size() > 0) {
-                                             Log.d("hello","hello");
-                                                getlatlong();
-                                                checkcartexists();
-                                                LoadCart();
-                                            } else {
-                                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-                                                cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                            if(catViewModel.getnbyshopModel()!=null) {
+                                catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+                                    @Override
+                                    public void onChanged(newProductModel.homeprodResult productitemModels) {
+                                        Log.d("hello1", "hello1");
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (productitemModels.getAll_products().size() > 0) {
+                                                    Log.d("hello", "hello");
+                                                    checkcartexists();
+                                                    LoadCart();
+                                                } else {
+                                                    cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                                                    cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                                                }
                                             }
-                                        }
-                                    }, 2000);
-                                }
-                            });
-
+                                        }, 2000);
+                                    }
+                                });
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -373,27 +373,27 @@ public class cartfragment extends Fragment {
 
                                     cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
                                     catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-                                    catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-                                        @Override
-                                        public void onChanged(newProductModel.homeprodResult productitemModels) {
-                                            Log.d("hello1","hello1");
-                                            new Handler().postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    if (productitemModels.getAll_products().size() > 0) {
-                                                        Log.d("hello","hello");
-                                                        getlatlong();
-                                                        checkcartexists();
-                                                        LoadCart();
-                                                    } else {
-                                                        cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-                                                        cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                                    if(catViewModel.getnbyshopModel()!=null) {
+                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+                                            @Override
+                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
+                                                Log.d("hello1", "hello1");
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        if (productitemModels.getAll_products().size() > 0) {
+                                                            Log.d("hello", "hello");
+                                                            checkcartexists();
+                                                            LoadCart();
+                                                        } else {
+                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                                                        }
                                                     }
-                                                }
-                                            }, 2000);
-                                        }
-                                    });
-
+                                                }, 2000);
+                                            }
+                                        });
+                                    }
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -800,8 +800,8 @@ public class cartfragment extends Fragment {
     }
 
     private void loadmat(double sellat, double sellongit, String curlocat) {
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getActivity().
-                getSupportFragmentManager().findFragmentById(R.id.google_map5);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.google_map5);
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -158,22 +158,23 @@ public class categoriesFragment extends Fragment {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-                            @Override
-                            public void onChanged(newProductModel.homeprodResult homeprodResult) {
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        loadshoprec();
-                                        nbyshopAdapter.notifyDataSetChanged();
-                                        cfbidning.shoprec.setVisibility(View.VISIBLE);
-                                        cfbidning.progressBar3.setVisibility(View.INVISIBLE);
-                                    }
-                                }, 500);
-                            }
+                        if(categfragViewModel.getnbyshopmodel()!=null) {
+                            categfragViewModel.getnbyshopmodel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+                                @Override
+                                public void onChanged(newProductModel.homeprodResult homeprodResult) {
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loadshoprec();
+                                            nbyshopAdapter.notifyDataSetChanged();
+                                            cfbidning.shoprec.setVisibility(View.VISIBLE);
+                                            cfbidning.progressBar3.setVisibility(View.INVISIBLE);
+                                        }
+                                    }, 500);
+                                }
 
-                        });
-
+                            });
+                        }
 
                     } else {
 

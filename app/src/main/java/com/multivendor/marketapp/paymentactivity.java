@@ -80,7 +80,7 @@ public class paymentactivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
         userid = sharedPreferences.getString("userid", "");
         Intent intent = getIntent();
-        if(intent.getData()!=null) {
+
             storeid = intent.getStringExtra("store_id");
             cartid = intent.getStringExtra("cart_id");
             name = intent.getStringExtra("username");
@@ -93,7 +93,7 @@ public class paymentactivity extends AppCompatActivity {
             if (cartid != null) {
                 getinfo();
             }
-        }
+
         getlatlong();
         viewfunctions();
     }
@@ -343,19 +343,20 @@ public class paymentactivity extends AppCompatActivity {
                 }
 
                 userAPIResp.sellerinfo resp = response.body();
+                if(resp.getResult()!=null) {
+                    sellerUPI = resp.getResult().getUpi_id();
+                    if (sellerUPI == null) {
+                        pmbinding.codimg.setVisibility(View.VISIBLE);
+                        pmbinding.codtxt.setVisibility(View.VISIBLE);
+                        pmbinding.codtxt1.setVisibility(View.VISIBLE);
+                        pmbinding.submitbtn.setVisibility(View.VISIBLE);
+                        // pmbinding.upiradio.setVisibility(View.INVISIBLE);
+                        pmbinding.paybtn.setVisibility(View.INVISIBLE);
 
-                sellerUPI = resp.getResult().getUpi_id();
-                if (sellerUPI == null) {
-                    pmbinding.codimg.setVisibility(View.VISIBLE);
-                    pmbinding.codtxt.setVisibility(View.VISIBLE);
-                    pmbinding.codtxt1.setVisibility(View.VISIBLE);
-                    pmbinding.submitbtn.setVisibility(View.VISIBLE);
-                   // pmbinding.upiradio.setVisibility(View.INVISIBLE);
-                    pmbinding.paybtn.setVisibility(View.INVISIBLE);
+                    }
 
+                    MOA_amount = resp.getResult().getMin_order_amount();
                 }
-
-                MOA_amount = resp.getResult().getMin_order_amount();
 //                Toast.makeText(paymentactivity.this, "Choose Any Of These To Proceed.", Toast.LENGTH_SHORT).show();
             }
 
