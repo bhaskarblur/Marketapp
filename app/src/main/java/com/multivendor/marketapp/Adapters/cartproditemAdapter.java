@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.multivendor.marketapp.CustomDialogs.zoom_imageDialog;
 import com.multivendor.marketapp.Models.cartModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Models.productitemModel;
 import com.multivendor.marketapp.R;
 import com.squareup.picasso.Picasso;
@@ -32,7 +33,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapter.viewHolder> {
 
     private Context mcontext;
-    public List<productitemModel> productmodel;
+    public List<newProductModel.ListProductresp> productmodel;
     public List<cartModel.cartqtyandsize> qtylist;
     onproductsClick listener;
     String store_id;
@@ -46,7 +47,7 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
         this.store_id = store_id;
     }
 
-    public cartproditemAdapter(Context mcontext, List<productitemModel> productmodel,
+    public cartproditemAdapter(Context mcontext, List<newProductModel.ListProductresp> productmodel,
                                List<cartModel.cartqtyandsize> qtylist, String store_id) {
         this.mcontext = mcontext;
         this.productmodel = productmodel;
@@ -65,7 +66,7 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
         final int radius = 40;
         final int margin = 40;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-            Picasso.get().load(productmodel.get(position).getItemimg())
+            Picasso.get().load(productmodel.get(position).getProduct_image())
                     .resize(400, 400).transform(transformation).into(holder.itemimg);
 
             holder.itemimg.setOnClickListener(new View.OnClickListener() {
@@ -74,31 +75,31 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
                     FragmentActivity activity = (FragmentActivity) (mcontext);
                     FragmentManager fm = activity.getSupportFragmentManager();
                     Bundle bundle = new Bundle();
-                    bundle.putString("image", productmodel.get(position).getItemimg());
+                    bundle.putString("image", productmodel.get(position).getProduct_image());
                     zoom_imageDialog zoom_imageDialog1 = new zoom_imageDialog();
                     zoom_imageDialog1.setArguments(bundle);
                     zoom_imageDialog1.show(fm, "zoom_imagDialog1");
                 }
             });
-            holder.itemname.setText(productmodel.get(position).getItemname());
+            holder.itemname.setText(productmodel.get(position).getProduct_name());
 
-            if (productmodel.get(position).getSizeandquats() != null) {
+            if (productmodel.get(position).getProduct_variants() != null) {
                 for (cartModel.cartqtyandsize size : qtylist) {
-                    for (int i = 0; i < productmodel.get(position).getSizeandquats().size(); i++) {
-                        if (productmodel.get(position).getSizeandquats().get(i).getVariation_id().equals(size.getSize_id())) {
+                    for (int i = 0; i < productmodel.get(position).getProduct_variants().size(); i++) {
+                        if (productmodel.get(position).getProduct_variants().get(i).getVariation_id().equals(size.getSize_id())) {
                             if (!sizelist11.contains(size.getSize_id())) {
                                 sizelist11.add(size.getSize_id());
                                 holder.addtrigger.setVisibility(View.INVISIBLE);
                                 holder.addlay.setVisibility(View.VISIBLE);
                                 holder.quat.setText(size.getQty());
-                                holder.sizebtn.setText(productmodel.get(position).getSizeandquats().get(i).getSize());
+                                holder.sizebtn.setText(productmodel.get(position).getProduct_variants().get(i).getSize());
                                 holder.sizebtn.setBackgroundTintList(mcontext.getResources().getColorStateList(R.color.secblue));
-                                holder.quatavail.setText("Available Qty.:" + productmodel.get(position).getSizeandquats()
+                                holder.quatavail.setText("Available Qty.:" + productmodel.get(position).getProduct_variants()
                                         .get(i).getQty());
                                 holder.itemprice.setText("Rs " + productmodel.get(position)
-                                        .getSizeandquats().get(i).getSelling_price() + ".00");
+                                        .getProduct_variants().get(i).getSelling_price() + ".00");
                                 holder.itemmrp.setText("Rs " + productmodel.get(position)
-                                        .getSizeandquats().get(i).getPrice() + ".00");
+                                        .getProduct_variants().get(i).getPrice() + ".00");
                                 holder.selitemtxt.setText(String.valueOf(i));
                                 holder.itemmrp.setPaintFlags(holder.itemmrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                                 return;
@@ -115,32 +116,29 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
                 @Override
                 public void onClick(View v) {
                     if (store_id != null) {
-                        if (store_id.equals(productmodel.get(position).getUserid())) {
                             holder.addtrigger.setVisibility(View.INVISIBLE);
                             holder.addlay.setVisibility(View.VISIBLE);
                             holder.quat.setText("1");
                             listener.onaddClick(position, Integer.parseInt(holder.selitemtxt.getText().toString()), productmodel.get(position).getProduct_id(),
-                                    productmodel.get(position).getSizeandquats().get(Integer.parseInt(holder.selitemtxt.getText().toString())).getVariation_id(),
-                                    productmodel.get(position).getSizeandquats()
+                                    productmodel.get(position).getProduct_variants().get(Integer.parseInt(holder.selitemtxt.getText().toString())).getVariation_id(),
+                                    productmodel.get(position).getProduct_variants()
                                             .get(Integer.parseInt(holder.selitemtxt.getText().toString())).getSize(), holder.quat.getText().toString());
 
-                        } else {
                             holder.addtrigger.setVisibility(View.INVISIBLE);
                             holder.addlay.setVisibility(View.VISIBLE);
                             holder.quat.setText("1");
                             listener.onaddClick(position, Integer.parseInt(holder.selitemtxt.getText().toString()), productmodel.get(position).getProduct_id(),
-                                    productmodel.get(position).getSizeandquats().get(Integer.parseInt(holder.selitemtxt.getText().toString())).getVariation_id(),
-                                    productmodel.get(position).getSizeandquats()
+                                    productmodel.get(position).getProduct_variants().get(Integer.parseInt(holder.selitemtxt.getText().toString())).getVariation_id(),
+                                    productmodel.get(position).getProduct_variants()
                                             .get(Integer.parseInt(holder.selitemtxt.getText().toString())).getSize(), holder.quat.getText().toString());
 
-                        }
                     } else {
                         holder.addtrigger.setVisibility(View.INVISIBLE);
                         holder.addlay.setVisibility(View.VISIBLE);
                         holder.quat.setText("1");
                         listener.onaddClick(position, Integer.parseInt(holder.selitemtxt.getText().toString()), productmodel.get(position).getProduct_id(),
-                                productmodel.get(position).getSizeandquats().get(Integer.parseInt(holder.selitemtxt.getText().toString())).getVariation_id(),
-                                productmodel.get(position).getSizeandquats()
+                                productmodel.get(position).getProduct_variants().get(Integer.parseInt(holder.selitemtxt.getText().toString())).getVariation_id(),
+                                productmodel.get(position).getProduct_variants()
                                         .get(Integer.parseInt(holder.selitemtxt.getText().toString())).getSize(), holder.quat.getText().toString());
 
 
@@ -155,7 +153,7 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
 
     }
 
-    public void searchList(List<productitemModel> searchedList) {
+    public void searchList(List<newProductModel.ListProductresp> searchedList) {
         // nbyshopsModel.clear();
         productmodel = searchedList;
         notifyDataSetChanged();
@@ -200,12 +198,12 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
                     if (getAdapterPosition() != RecyclerView.NO_POSITION) {
                         if (Integer.parseInt(quat.getText().toString()) < Integer.parseInt(productmodel
                                 .get(getAdapterPosition()).
-                                        getSizeandquats().get(Integer.parseInt(selitemtxt.getText().toString())).getQty())) {
+                                        getProduct_variants().get(Integer.parseInt(selitemtxt.getText().toString())).getQty())) {
 
                             quat.setText(String.valueOf(Integer.parseInt(quat.getText().toString()) + 1));
                             listener.onplusClick(getAdapterPosition(), Integer.parseInt(selitemtxt.getText().toString()), productmodel.get(getAdapterPosition())
-                                    .getProduct_id(), productmodel.get(getAdapterPosition()).getSizeandquats()
-                                    .get(Integer.parseInt(selitemtxt.getText().toString())).getVariation_id(), productmodel.get(getAdapterPosition()).getSizeandquats()
+                                    .getProduct_id(), productmodel.get(getAdapterPosition()).getProduct_variants()
+                                    .get(Integer.parseInt(selitemtxt.getText().toString())).getVariation_id(), productmodel.get(getAdapterPosition()).getProduct_variants()
                                     .get(Integer.parseInt(selitemtxt.getText().toString())).getSize(), quat.getText().toString());
 
                         } else {
@@ -224,14 +222,14 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
                             addlay.setVisibility(View.INVISIBLE);
                             addtrigger.setVisibility(View.VISIBLE);
                             listener.onminusClick(getAdapterPosition(), Integer.parseInt(selitemtxt.getText().toString()), productmodel.get(getAdapterPosition())
-                                    .getProduct_id(), productmodel.get(getAdapterPosition()).getSizeandquats()
-                                    .get(Integer.parseInt(selitemtxt.getText().toString())).getVariation_id(), productmodel.get(getAdapterPosition()).getSizeandquats()
+                                    .getProduct_id(), productmodel.get(getAdapterPosition()).getProduct_variants()
+                                    .get(Integer.parseInt(selitemtxt.getText().toString())).getVariation_id(), productmodel.get(getAdapterPosition()).getProduct_variants()
                                     .get(Integer.parseInt(selitemtxt.getText().toString())).getSize(), quat.getText().toString());
                         } else {
                             quat.setText(String.valueOf(Integer.parseInt(quat.getText().toString()) - 1));
                             listener.onminusClick(getAdapterPosition(), Integer.parseInt(selitemtxt.getText().toString()), productmodel.get(getAdapterPosition())
-                                    .getProduct_id(), productmodel.get(getAdapterPosition()).getSizeandquats()
-                                    .get(Integer.parseInt(selitemtxt.getText().toString())).getVariation_id(), productmodel.get(getAdapterPosition()).getSizeandquats()
+                                    .getProduct_id(), productmodel.get(getAdapterPosition()).getProduct_variants()
+                                    .get(Integer.parseInt(selitemtxt.getText().toString())).getVariation_id(), productmodel.get(getAdapterPosition()).getProduct_variants()
                                     .get(Integer.parseInt(selitemtxt.getText().toString())).getSize(), quat.getText().toString());
                         }
 

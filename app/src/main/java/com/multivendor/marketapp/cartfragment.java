@@ -49,6 +49,7 @@ import com.multivendor.marketapp.Adapters.cartproditemAdapter;
 import com.multivendor.marketapp.Adapters.productitemAdapter;
 import com.multivendor.marketapp.ApiWork.ApiWork;
 import com.multivendor.marketapp.ApiWork.LogregApiInterface;
+import com.multivendor.marketapp.Constants.api_baseurl;
 import com.multivendor.marketapp.Models.cartModel;
 import com.multivendor.marketapp.Models.loginresResponse;
 import com.multivendor.marketapp.Models.newProductModel;
@@ -93,7 +94,7 @@ public class cartfragment extends Fragment {
     private String storeid;
     private String cartid;
     private String userid_id;
-    private List<productitemModel> cartitems = new ArrayList<>();
+    private List<newProductModel.ListProductresp> cartitems = new ArrayList<>();
     String shopnamerec = new String();
     private String username;
     private String useraddress;
@@ -101,6 +102,7 @@ public class cartfragment extends Fragment {
     private Integer items;
     private Integer amount;
     private Boolean gotdata = false;
+    api_baseurl baseurl=new api_baseurl();
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     public cartfragment() {
@@ -198,7 +200,7 @@ public class cartfragment extends Fragment {
                         cfbinding.couponVox.getText().toString() != null) {
                     String userid=getActivity().getSharedPreferences("userlogged",0)
                             .getString("userid","");
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                             .addConverterFactory(GsonConverterFactory.create()).build();
 
                     ApiWork apiWork = retrofit.create(ApiWork.class);
@@ -275,7 +277,6 @@ public class cartfragment extends Fragment {
         catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
             @Override
             public void onChanged(newProductModel.homeprodResult productitemModels) {
-                Log.d("hello1","hello1");
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -414,7 +415,7 @@ public class cartfragment extends Fragment {
     private void loaduserdetails() {
         SharedPreferences shpref = getActivity().getSharedPreferences("userlogged", 0);
         String userid = shpref.getString("userid", "");
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
@@ -454,7 +455,7 @@ public class cartfragment extends Fragment {
     public void LoadCart() {
         SharedPreferences shpref = getActivity().getSharedPreferences("userlogged", 0);
         String userid = shpref.getString("userid", "");
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         qtysizelist = new ArrayList<>();
@@ -469,9 +470,8 @@ public class cartfragment extends Fragment {
                     return;
                 }
                 cartModel.cartResp cartResp = response.body();
-
+                Log.d("msg",response.raw().toString());
                 if (cartResp.getResult() != null) {
-
                     if (cartResp.getResult().getProducts() != null) {
 
                         SharedPreferences.Editor editor = shpref.edit();
@@ -479,7 +479,6 @@ public class cartfragment extends Fragment {
                         editor.apply();
                         if (cartResp.getResult().getProducts().size() > 0) {
                             if (cartResp.getResult().getProducts() != null) {
-                                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
                                 qtysizelist.clear();
                                 //checksamestore();
                                 cfbinding.emptycarttext.setVisibility(View.INVISIBLE);
@@ -547,9 +546,10 @@ public class cartfragment extends Fragment {
         cartid = cart_id;
         cartitems.clear();
         for (cartModel.cartqtyandsize qty : qtysizelist) {
-            for (productitemModel pd : catViewModel.getItemModel().getValue()) {
-                if (pd.getProduct_id().equals(qty.getProduct_id())) {
-                    cartitems.add(pd);
+            for (int i=0;i<catViewModel.getnbyshopModel().getValue().getAll_products().size();i++) {
+                if (catViewModel.getnbyshopModel().getValue().getAll_products().get(i).
+                        getProduct_id().equals(qty.getProduct_id())) {
+                    cartitems.add(catViewModel.getnbyshopModel().getValue().getAll_products().get(i));
                 }
             }
         }
@@ -578,20 +578,20 @@ public class cartfragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        amount = amount + Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                        amount = amount + Integer.valueOf(productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos)
                                 .getSelling_price());
 
                         cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
 
                     }
                 }, 50);
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                 Call<cartModel.cartResp> call = null;
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
                 call = logregApiInterface.add_cart(lat,longit, userid,
-                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty
+                        prod_id, productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos).getVariation_id(), qty
                 ,cart_id);
 
 
@@ -628,19 +628,19 @@ public class cartfragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        amount = amount + Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                        amount = amount + Integer.valueOf(productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos)
                                 .getSelling_price());
 
                         cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
 
                     }
                 }, 50);
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
                 Call<cartModel.cartResp> call = logregApiInterface.update_cart(null, userid,
-                        prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty,cart_id);
+                        prod_id, productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos).getVariation_id(), qty,cart_id);
 
                 call.enqueue(new Callback<cartModel.cartResp>() {
                     @Override
@@ -674,19 +674,19 @@ public class cartfragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            amount = amount - Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                            amount = amount - Integer.valueOf(productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos)
                                     .getSelling_price());
 
                             cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
 
                         }
                     }, 50);
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                             .addConverterFactory(GsonConverterFactory.create()).build();
                     LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
                     Call<cartModel.cartResp> call = logregApiInterface.update_cart(null, userid,
-                            prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty,cart_id);
+                            prod_id, productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos).getVariation_id(), qty,cart_id);
 
                     call.enqueue(new Callback<cartModel.cartResp>() {
                         @Override
@@ -716,18 +716,19 @@ public class cartfragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            amount = amount - Integer.valueOf(productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos)
+                            amount = amount - Integer.valueOf(productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos)
                                     .getSelling_price());
 
                             cfbinding.carttotalprice.setText("₹ " + String.valueOf(amount));
                         }
                     }, 50);
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                    api_baseurl baseurl=new api_baseurl();
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                             .addConverterFactory(GsonConverterFactory.create()).build();
                     LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
                     Call<cartModel.cartResp> call = logregApiInterface.remove_product(null, userid,
-                            prod_id, productitemAdapter.productmodel.get(position).getSizeandquats().get(sizepos).getVariation_id(), qty,cart_id);
+                            prod_id, productitemAdapter.productmodel.get(position).getProduct_variants().get(sizepos).getVariation_id(), qty,cart_id);
 
 
                     call.enqueue(new Callback<cartModel.cartResp>() {
@@ -763,7 +764,7 @@ public class cartfragment extends Fragment {
     public void checkcartexists() {
         SharedPreferences shpref = getActivity().getSharedPreferences("userlogged", 0);
         String userid = shpref.getString("userid", "");
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);

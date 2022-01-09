@@ -92,6 +92,15 @@ public class newProductModel {
         public String product_cut_price;
         public String discount_rate;
         public String product_category;
+        public List<sizeandquat> product_variants;
+
+        public List<sizeandquat> getProduct_variants() {
+            return product_variants;
+        }
+
+        public void setProduct_variants(List<sizeandquat> product_variants) {
+            this.product_variants = product_variants;
+        }
 
         public String getProduct_category() {
             return product_category;
