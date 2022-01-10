@@ -95,6 +95,7 @@ public class cartfragment extends Fragment {
     private String storeid;
     private String cartid;
     private String userid_id;
+    private Boolean promo_applied=false;
     private List<newProductModel.ListProductresp> cartitems = new ArrayList<>();
     String shopnamerec = new String();
     private String username;
@@ -224,6 +225,7 @@ public class cartfragment extends Fragment {
                                 cfbinding.discountapplied.setVisibility(View.VISIBLE);
                                 cfbinding.textView23.setVisibility(View.VISIBLE);
                                 filldetails();
+                                promo_applied=true;
                             }
                             else {
                                 Toast.makeText(getContext(), "Incorrect Coupon Code!", Toast.LENGTH_SHORT).show();
@@ -273,27 +275,27 @@ public class cartfragment extends Fragment {
 
     @SuppressLint("MissingPermission")
     private void getlatlong() {
-        catViewModel.getlocation(userid_id,lat,longit,"Ludhiana");
-        if(catViewModel.getnbyshopModel()!=null) {
-            catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-                @Override
-                public void onChanged(newProductModel.homeprodResult productitemModels) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (productitemModels.getAll_products().size() > 0) {
-                                Log.d("hellomf", "hellomf");
-                                checkcartexists();
-                                LoadCart();
-                            } else {
-                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-                                cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }, 2000);
-                }
-            });
-        }
+//        catViewModel.getlocation(userid_id,lat,longit,"Ludhiana");
+//        if(catViewModel.getnbyshopModel()!=null) {
+//            catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+//                @Override
+//                public void onChanged(newProductModel.homeprodResult productitemModels) {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (productitemModels.getAll_products().size() > 0) {
+//                                Log.d("hellomf", "hellomf");
+//                                checkcartexists();
+//                                LoadCart();
+//                            } else {
+//                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+//                                cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+//                            }
+//                        }
+//                    }, 2000);
+//                }
+//            });
+//        }
         if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -487,6 +489,10 @@ public class cartfragment extends Fragment {
                                 cfbinding.carttotalprice.setText("₹ " + cartResp.getResult().getSubtotal()+"("+String.valueOf(cartResp.getResult().getProducts().size())+" Items)");
                                 cfbinding.cartdeliverycharge.setText("₹ " + cartResp.getResult().getShipping_charge());
                                 cfbinding.cartgrandtotal.setText("₹ " + cartResp.getResult().getTotal_price());
+                                if(promo_applied.equals(true)) {
+                                    cfbinding.discountapplied.setVisibility(View.GONE);
+                                    cfbinding.textView23.setVisibility(View.GONE);
+                                }
                                 amount = Integer.valueOf(cartResp.getResult().getSubtotal());
                                 for (int i = 0; i < cartResp.getResult().getProducts().size(); i++) {
 

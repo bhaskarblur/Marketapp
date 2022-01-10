@@ -90,7 +90,6 @@ public class vieworderRepo {
     }
         
     private void getallproductdatafromSource(String userid) {
-        Log.d("storeid",userid);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 

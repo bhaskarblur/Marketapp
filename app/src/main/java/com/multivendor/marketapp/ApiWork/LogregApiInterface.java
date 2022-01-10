@@ -126,8 +126,8 @@ public interface LogregApiInterface {
 
     @FormUrlEncoded
     @POST("get-store")
-    Call<userAPIResp.sellerinfo> get_paymentstore(@Field("store_id") String storeid,@Field("cart_id")
-                                          String cartid);
+    Call<userAPIResp.sellerinfo> get_paymentstore(@Field("store_id") String storeid,@Field("user_id")
+                                          String userid);
 
 
     @FormUrlEncoded

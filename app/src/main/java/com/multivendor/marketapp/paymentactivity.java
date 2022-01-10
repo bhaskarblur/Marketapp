@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.multivendor.marketapp.ApiWork.LogregApiInterface;
+import com.multivendor.marketapp.Constants.api_baseurl;
 import com.multivendor.marketapp.Models.cartModel;
 import com.multivendor.marketapp.Models.loginresResponse;
 import com.multivendor.marketapp.Models.userAPIResp;
@@ -64,6 +65,7 @@ public class paymentactivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationProviderClient;
     String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     int GOOGLE_PAY_REQUEST_CODE = 123;
+    private api_baseurl baseurl=new api_baseurl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,14 +196,14 @@ public class paymentactivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (selected.equals("cod")) {
-                    if (Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
+                    if (MOA_amount!=null && Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
                         confirmorder(userid, storeid, cartid, amount, name, number, address,
                                 "cod", "success", "nothing", delvinstr);
                     } else {
                         Toast.makeText(paymentactivity.this, "This shop accept minimum order of Rs " + MOA_amount, Toast.LENGTH_SHORT).show();
                     }
                 } else if (selected.equals("upi")) {
-                    if (Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
+                    if ( MOA_amount!=null && Integer.parseInt(amount) >= Integer.parseInt(MOA_amount)) {
 
                         Uri uri = new Uri.Builder().scheme("upi").authority("pay")
                                 .appendQueryParameter("pa", "8299189690@okbizaxis")
@@ -328,11 +330,11 @@ public class paymentactivity extends AppCompatActivity {
     }
 
     private void getinfo() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
-        Call<userAPIResp.sellerinfo> call = logregApiInterface.get_paymentstore(storeid, cartid);
+        Call<userAPIResp.sellerinfo> call = logregApiInterface.get_paymentstore("1", userid);
 
         call.enqueue(new Callback<userAPIResp.sellerinfo>() {
             @Override
@@ -345,15 +347,15 @@ public class paymentactivity extends AppCompatActivity {
                 userAPIResp.sellerinfo resp = response.body();
                 if(resp.getResult()!=null) {
                     sellerUPI = resp.getResult().getUpi_id();
-                    if (sellerUPI == null) {
-                        pmbinding.codimg.setVisibility(View.VISIBLE);
-                        pmbinding.codtxt.setVisibility(View.VISIBLE);
-                        pmbinding.codtxt1.setVisibility(View.VISIBLE);
-                        pmbinding.submitbtn.setVisibility(View.VISIBLE);
-                        // pmbinding.upiradio.setVisibility(View.INVISIBLE);
-                        pmbinding.paybtn.setVisibility(View.INVISIBLE);
-
-                    }
+//                    if (sellerUPI == null) {
+//                        pmbinding.codimg.setVisibility(View.VISIBLE);
+//                        pmbinding.codtxt.setVisibility(View.VISIBLE);
+//                        pmbinding.codtxt1.setVisibility(View.VISIBLE);
+//                        pmbinding.submitbtn.setVisibility(View.VISIBLE);
+//                         pmbinding.upiradio.setVisibility(View.INVISIBLE);
+//                        pmbinding.paybtn.setVisibility(View.INVISIBLE);
+//
+//                    }
 
                     MOA_amount = resp.getResult().getMin_order_amount();
                 }
