@@ -351,7 +351,54 @@ public class homefragment extends Fragment implements LocationListener {
 
     @SuppressLint("MissingPermission")
     private void getlatlong() {
-//        hmViewModel.getlocation(userid,lat, longit,"Ludhiana");
+        String usercity=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
+        hmViewModel.getlocation(userid,lat, longit,usercity);
+        if(hmViewModel.getnbyshopModel()!=null) {
+            hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+                @Override
+                public void onChanged(newProductModel.homeprodResult nbyshopsModels) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadcatrec();
+                            loadnearbyshoprec();
+                            dataloaded=true;
+                            if (nbyshopsModels.getDeal_day_products().size() > 0) {
+                                nbadapter.notifyDataSetChanged();
+                                hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
+                            }
+                            if (nbyshopsModels.getTop_sell_products().size() > 0) {
+                                nbadapter1.notifyDataSetChanged();
+                                hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
+                            }
+                            if (nbyshopsModels.getBest_deal_products().size() > 0) {
+                                nbadapter2.notifyDataSetChanged();
+                                hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
+                            }
+
+                            if(nbyshopsModels.getCart_items()!=null &&!nbyshopsModels.getCart_items().equals("0") ) {
+                                hmbinding.itemlay.setVisibility(View.VISIBLE);
+                                hmbinding.cartitemtxt.setText(nbyshopsModels.getCart_items());
+                            }
+                            else {
+                                hmbinding.itemlay.setVisibility(View.INVISIBLE);
+                            }
+
+                        }
+                    }, 1500);
+                }
+            });
+
+        }
         locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -368,7 +415,7 @@ public class homefragment extends Fragment implements LocationListener {
 
                 }
             }
-        },6000);
+        },5000);
         if(getContext()!=null) {
             if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -950,7 +997,7 @@ public class homefragment extends Fragment implements LocationListener {
         super.onResume();
         dataloaded=false;
         View bottom=getActivity().findViewById(R.id.bottomnav);
-        bottom.setVisibility(View.VISIBLE);
+        bottom.setVisibility(View.GONE);
         getlatlong();
     }
 

@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        app:cardElevation="7dp"
+        app:cardElevation="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,26 +26,26 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/topbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <ImageView
-                android:id="@+id/applogo"
-                android:layout_width="130dp"
-                android:layout_height="50dp"
+            <TextView
+                android:id="@+id/textView95"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="9dp"
-                android:paddingLeft="-20dp"
-                android:paddingTop="25dp"
-                android:paddingBottom="10dp"
-                android:scaleType="centerCrop"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="MARKETAPP"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/applogo_blue" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/searchicon"
@@ -219,60 +219,59 @@
                 android:id="@+id/onbprog1"
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="380dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="@color/primcolor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/onbprog2"
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="380dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="@color/secgrey"
                 app:layout_constraintStart_toEndOf="@+id/onbprog1"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/onbprog3"
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="380dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="@color/secgrey"
                 app:layout_constraintStart_toEndOf="@+id/onbprog2"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/onbprog4"
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="380dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="@color/secgrey"
                 android:visibility="visible"
                 app:layout_constraintStart_toEndOf="@+id/onbprog3"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/bannerrv"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="400dp"
                 android:clickable="true"
                 android:scaleType="centerInside"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
+                app:layout_constraintTop_toTopOf="parent">
 
             </androidx.viewpager2.widget.ViewPager2>
 

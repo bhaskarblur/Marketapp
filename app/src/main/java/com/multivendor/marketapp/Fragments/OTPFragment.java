@@ -227,25 +227,28 @@ public class OTPFragment extends Fragment {
                                 if (resp.getSuccess().toString().contains("true")) {
                                     if (resp.getResult().getUser_type().equals("new user")) {
                                         // send for profile update
+
+//                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+//                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                        editor.putString("userlogged", "yes");
+//                                        editor.putString("userimage",resp.getResult().getImage());
+//                                        editor.putString("userid", resp.getResult().getId());
+//                                        editor.putString("username", resp.getResult().getName().toString());
+//                                        editor.putString("userstate", resp.getResult().getState().toString());
+//                                        editor.putString("usercity", resp.getResult().getCity().toString());
+//                                        editor.putString("usermobile", resp.getResult().getMobile());
+//                                        editor.commit();
+//                                        startActivity(new Intent(getActivity(), Mainarea.class));
+//                                        getActivity().finish();
+//                                        getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                                         Bundle bundle = new Bundle();
                                         bundle.putString("userid", resp.getResult().getId());
-                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("userlogged", "yes");
-                                        editor.putString("userimage",resp.getResult().getImage());
-                                        editor.putString("userid", resp.getResult().getId());
-                                        editor.putString("username", resp.getResult().getName().toString());
-                                        editor.putString("userstate", resp.getResult().getState().toString());
-                                        editor.putString("usercity", resp.getResult().getCity().toString());
-                                        editor.putString("usermobile", resp.getResult().getMobile());
-                                        editor.commit();
-                                        startActivity(new Intent(getActivity(), Mainarea.class));
-                                        getActivity().finish();
-                                        getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-//                                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                                        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-//                                        transaction.replace(R.id.auth_fragcontainer, df);
-//                                        transaction.commit();
+                                        registerProfile df =new registerProfile();
+                                        df.setArguments(bundle);
+                                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                                        transaction.replace(R.id.auth_fragcontainer, df);
+                                        transaction.commit();
                                     } else {
                                         // send to home
                                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);

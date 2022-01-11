@@ -161,7 +161,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="MARKETAPP"
                 android:textColor="@color/black"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -174,7 +174,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="PRODUCT DESCRIPTION"
                 android:textColor="@color/black"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cutprice2" />
 
@@ -187,7 +187,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="VARIANTS"
                 android:textColor="@color/black"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productdesc" />
 
@@ -200,7 +200,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="REVIEWS"
                 android:textColor="@color/black"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sizerec" />
 

@@ -67,9 +67,9 @@ public class Mainarea extends AppCompatActivity {
         setContentView(mabidning.getRoot());
         this.getSupportActionBar().hide();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.white, this.getTheme()));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.primcolor, this.getTheme()));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.primcolor));
         }
 
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);

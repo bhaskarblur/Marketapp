@@ -275,27 +275,28 @@ public class cartfragment extends Fragment {
 
     @SuppressLint("MissingPermission")
     private void getlatlong() {
-//        catViewModel.getlocation(userid_id,lat,longit,"Ludhiana");
-//        if(catViewModel.getnbyshopModel()!=null) {
-//            catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-//                @Override
-//                public void onChanged(newProductModel.homeprodResult productitemModels) {
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if (productitemModels.getAll_products().size() > 0) {
-//                                Log.d("hellomf", "hellomf");
-//                                checkcartexists();
-//                                LoadCart();
-//                            } else {
-//                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-//                                cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//                    }, 2000);
-//                }
-//            });
-//        }
+        String usercity=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
+        catViewModel.getlocation(userid_id,lat,longit,usercity);
+        if(catViewModel.getnbyshopModel()!=null) {
+            catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+                @Override
+                public void onChanged(newProductModel.homeprodResult productitemModels) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (productitemModels.getAll_products().size() > 0) {
+                                Log.d("hellomf", "hellomf");
+                                checkcartexists();
+                                LoadCart();
+                            } else {
+                                cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+                                cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }, 2000);
+                }
+            });
+        }
         if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -327,8 +328,8 @@ public class cartfragment extends Fragment {
                             List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
                                     , location.getLongitude(), 1);
 
-                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-                            catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
+//                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+//                            catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
                             if(catViewModel.getnbyshopModel()!=null) {
                                 catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                                     @Override
@@ -374,28 +375,28 @@ public class cartfragment extends Fragment {
                                             , location.getLongitude(), 1);
 
                                     cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-                                    catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-                                    if(catViewModel.getnbyshopModel()!=null) {
-                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-                                            @Override
-                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
-                                                Log.d("hello1", "hello1");
-                                                new Handler().postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        if (productitemModels.getAll_products().size() > 0) {
-                                                            Log.d("hello", "hello");
-                                                            checkcartexists();
-                                                            LoadCart();
-                                                        } else {
-                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-                                                        }
-                                                    }
-                                                }, 2000);
-                                            }
-                                        });
-                                    }
+//                                    catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
+//                                    if(catViewModel.getnbyshopModel()!=null) {
+//                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+//                                            @Override
+//                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
+//                                                Log.d("hello1", "hello1");
+//                                                new Handler().postDelayed(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        if (productitemModels.getAll_products().size() > 0) {
+//                                                            Log.d("hello", "hello");
+//                                                            checkcartexists();
+//                                                            LoadCart();
+//                                                        } else {
+//                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+//                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+//                                                        }
+//                                                    }
+//                                                }, 2000);
+//                                            }
+//                                        });
+//                                    }
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

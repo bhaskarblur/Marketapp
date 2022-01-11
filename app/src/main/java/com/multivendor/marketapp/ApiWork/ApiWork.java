@@ -44,6 +44,14 @@ public interface ApiWork {
 
 
     @FormUrlEncoded
+    @POST("profile_update")
+    Call<AuthResponse.profile_update> updateprofile(@Field("user_id") String userid,
+                                                    @Field("name") String name,
+                                                    @Field("state") String state,
+                                                    @Field("city") String city,
+                                                    @Field("image") String image);
+
+    @FormUrlEncoded
     @POST("add_to_favourite")
     Call<AuthResponse.VerifyOtp> addfavourite(@Field("user_id") String userid,
                                               @Field("product_id") String productid);
@@ -59,5 +67,11 @@ public interface ApiWork {
                                                  @Field("coupon_code") String coupon,
                                                  @Field("cart_id") String cartid);
 
+    @GET("all-state")
+    Call<AuthResponse.getstate> getstate();
+
+    @FormUrlEncoded
+    @POST("get-city")
+    Call<AuthResponse.getcity> getcity(@Field("state_id") String stateid);
 }
 
