@@ -89,6 +89,7 @@ public class homefragment extends Fragment implements LocationListener {
     private com.multivendor.marketapp.ViewModel.homefragViewModel hmViewModel;
     private static final String ARG_PARAM1 = "param1";
     private com.multivendor.marketapp.Adapters.bannerAdapter bannerAdapter;
+    private com.multivendor.marketapp.Adapters.bannerAdapter bannerAdapter3;
     private com.multivendor.marketapp.Adapters.bannerAdapter bannerAdapter2;
     private static final String ARG_PARAM2 = "param2";
     private Integer pos = 0;
@@ -102,6 +103,7 @@ public class homefragment extends Fragment implements LocationListener {
     private String mLastLocation;
     private List<bannermodel.singleBannerresp> bannerlist1 = new ArrayList<>();
     private List<bannermodel.singleBannerresp> bannerlist2 = new ArrayList<>();
+    private List<bannermodel.singleBannerresp> bannerlist3 = new ArrayList<>();
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter;
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter1;
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter2;
@@ -183,6 +185,16 @@ public class homefragment extends Fragment implements LocationListener {
                     hmbinding.bannerrv2.setAdapter(bannerAdapter2);
                     hmbinding.bannerrv2.setCurrentItem(0);
                     rotatebanner2();
+                }
+
+                if (bannermodels.getBanner3list()!=null && bannermodels.getBanner3list().size() > 0) {
+                    bannerlist3.clear();
+                    bannerlist3 = bannermodels.getBanner2list();
+                    bannerAdapter3 = new bannerAdapter(getActivity(), bannerlist3);
+                    hmbinding.bannerrv3.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    hmbinding.bannerrv3.setAdapter(bannerAdapter3);
+                    hmbinding.bannerrv3.setCurrentItem(0);
+                    rotatebanner3();
                 }
             }
         });
@@ -592,7 +604,6 @@ public class homefragment extends Fragment implements LocationListener {
 
     }
 
-
     @SuppressLint("MissingPermission")
     private void GetcurrLocation() {
         locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
@@ -970,6 +981,74 @@ public class homefragment extends Fragment implements LocationListener {
 
             }
         }, 5000);
+    }
+
+    private void rotatebanner3() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (bannerAdapter3.getItemCount() > 0) {
+                    if (bannerAdapter3.getItemCount() > hmbinding.bannerrv3.getCurrentItem() && hmbinding.bannerrv3.getCurrentItem() == 0) {
+                        hmbinding.bannerrv3.setCurrentItem(1, true);
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner3();
+                        return;
+                    }
+                    if (bannerAdapter3.getItemCount() > hmbinding.bannerrv3.getCurrentItem() && hmbinding.bannerrv3.getCurrentItem() == 1) {
+                        hmbinding.bannerrv3.setCurrentItem(2, true);
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner3();
+                        return;
+                    }
+                    if (bannerAdapter3.getItemCount() > hmbinding.bannerrv3.getCurrentItem() && hmbinding.bannerrv3.getCurrentItem() == 2) {
+                        hmbinding.bannerrv3.setCurrentItem(3, true);
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner3();
+                        return;
+                    }
+
+                    if (bannerAdapter3.getItemCount() > hmbinding.bannerrv3.getCurrentItem() && hmbinding.bannerrv3.getCurrentItem() == 2) {
+                        hmbinding.bannerrv3.setCurrentItem(0, true);
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner3();
+                        return;
+                    }
+                    if (hmbinding.bannerrv3.getCurrentItem() == bannerAdapter3.getItemCount() - 1) {
+                        hmbinding.bannerrv3.setCurrentItem(0);
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner3();
+                        return;
+
+                    } else {
+                        hmbinding.bannerrv3.setCurrentItem(0);
+//                        hmbinding.onbprog1.getBackground().setTint(Color.parseColor("#0881E3"));
+//                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+//                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner3();
+                    }
+
+
+                }
+            }
+        }, 5000);
+
     }
 
     @Override

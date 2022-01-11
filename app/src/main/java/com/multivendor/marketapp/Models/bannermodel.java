@@ -28,7 +28,15 @@ public class bannermodel {
     public class banneresult{
         public List<singleBannerresp> banner1list;
         public List<singleBannerresp> banner2list;
+        public List<singleBannerresp> banner3list;
 
+        public List<singleBannerresp> getBanner3list() {
+            return banner3list;
+        }
+
+        public void setBanner3list(List<singleBannerresp> banner3list) {
+            this.banner3list = banner3list;
+        }
 
         public List<singleBannerresp> getBanner1list() {
             return banner1list;
