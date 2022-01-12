@@ -216,6 +216,7 @@ public class OTPFragment extends Fragment {
 
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
+                                    pressed = false;
                                     return;
                                 }
 

@@ -132,10 +132,13 @@
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/menu/main_menu.xml" value="0.1675213675213675" />
+        <entry key="app/src/main/res/drawable/borderbg_white.xml" value="0.21054852320675105" />
         <entry key="app/src/main/res/drawable/fieldnotselbg.xml" value="0.2123931623931624" />
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.2123931623931624" />
+        <entry key="app/src/main/res/drawable/green_gradient.xml" value="0.21054852320675105" />
         <entry key="app/src/main/res/font/montserrat_bold.xml" value="0.11025641025641025" />
         <entry key="app/src/main/res/layout/activity_act_quickordsee.xml" value="0.2595587383953153" />
+        <entry key="app/src/main/res/layout/activity_orderplacedactivity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_ordhis.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_paymentactivity.xml" value="0.3196405648267009" />
         <entry key="app/src/main/res/layout/cartproditem_lay.xml" value="0.49175060520109387" />
@@ -145,6 +148,7 @@
         <entry key="app/src/main/res/layout/fragment_fragmentnew_product.xml" value="0.23382984722115477" />
         <entry key="app/src/main/res/layout/fragment_homefragment.xml" value="0.2409637208888753" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.20533024801710503" />
+        <entry key="app/src/main/res/layout/fragment_noti.xml" value="0.26031868240904565" />
         <entry key="app/src/main/res/layout/fragment_o_t_p.xml" value="0.2885884694483376" />
         <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.2677452186668546" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2522167487684729" />
