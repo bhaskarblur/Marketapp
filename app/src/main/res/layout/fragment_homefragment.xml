@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        app:cardElevation="30dp"
+        app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,11 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/montserrat"
                 android:text="MARKETAPP"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,19 +56,19 @@
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/notiicon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/searchtopicon"
+                app:srcCompat="@drawable/magnifying_glass"
                 app:tint="#292929" />
 
             <ImageView
                 android:id="@+id/quickordicon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/searchicon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/quickordicon"
+                app:srcCompat="@drawable/flash"
                 app:tint="#292929" />
 
             <ImageView
@@ -80,7 +80,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/notiicon"
+                app:srcCompat="@drawable/notification"
                 app:tint="#292929" />
 
             <ImageView
@@ -92,7 +92,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bagicon"
+                app:srcCompat="@drawable/bag"
                 app:tint="#292929" />
 
             <ImageView
@@ -200,241 +200,254 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.523" />
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/homefragscroll"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:visibility="visible"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topcard">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/homefragscroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topcard">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/bannerrv_3"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bestdealrec" />
+                android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/onbprog1"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginTop="380dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="@color/primcolor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/bannerrv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:scaleType="centerInside"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bestdealrec" />
 
-            <Button
-                android:id="@+id/onbprog2"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="380dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="@color/secgrey"
-                app:layout_constraintStart_toEndOf="@+id/onbprog1"
-                app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/onbprog1"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="380dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="@color/primcolor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/onbprog3"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="380dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="@color/secgrey"
-                app:layout_constraintStart_toEndOf="@+id/onbprog2"
-                app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/onbprog2"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="380dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="@color/secgrey"
+                    app:layout_constraintStart_toEndOf="@+id/onbprog1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/onbprog4"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="380dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="@color/secgrey"
-                android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@+id/onbprog3"
-                app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/onbprog3"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="380dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="@color/secgrey"
+                    app:layout_constraintStart_toEndOf="@+id/onbprog2"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/bannerrv"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:clickable="true"
-                android:scaleType="centerInside"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                <Button
+                    android:id="@+id/onbprog4"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="380dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="@color/secgrey"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toEndOf="@+id/onbprog3"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.viewpager2.widget.ViewPager2>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/bannerrv"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:clickable="true"
+                    android:scaleType="centerInside"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat"
-                android:text="CATEGORIES"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                </androidx.viewpager2.widget.ViewPager2>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/bannerrv_2"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:scaleType="centerInside"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dealdayrec" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="CATEGORIES"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-            <TextView
-                android:id="@+id/catseeall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:fontFamily="@font/poppins"
-                android:text="See All"
-                android:visibility="gone"
-                android:textColor="#494949"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/bannerrv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:scaleType="centerInside"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dealdayrec" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoriesrv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
-                tools:itemCount="1"
-                tools:listitem="@layout/categories_lay" />
+                <TextView
+                    android:id="@+id/catseeall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="See All"
+                    android:textColor="#494949"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/montserrat"
-                android:text="DEALS OF THE DAY"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoriesrv" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categoriesrv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/categories_lay" />
 
-            <TextView
-                android:id="@+id/nearbshopsall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:fontFamily="@font/poppins"
-                android:text="See All"
-                android:textColor="@color/primcolor"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoriesrv" />
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="DEALS OF THE DAY"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoriesrv" />
 
-            <TextView
-                android:id="@+id/textView79"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/montserrat"
-                android:text="TOP SELLING"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv_2" />
+                <TextView
+                    android:id="@+id/nearbshopsall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="See All"
+                    android:textColor="@color/primcolor"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoriesrv" />
 
-            <TextView
-                android:id="@+id/textView81"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="BEST DEAL"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/topselrec" />
+                <TextView
+                    android:id="@+id/textView79"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="TOP SELLING"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv_2" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/bestdealrec"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView81"
-                tools:itemCount="1"
-                tools:listitem="@layout/nbyshops_lay" />
+                <TextView
+                    android:id="@+id/textView81"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="BEST DEAL"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topselrec" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topselrec"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView79"
-                tools:itemCount="1"
-                tools:listitem="@layout/nbyshops_lay" >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bestdealrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView81"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/nbyshops_lay" />
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/topselrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView79"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/nbyshops_lay">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dealdayrec"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7"
-                tools:itemCount="1"
-                tools:listitem="@layout/nbyshops_lay" />
+                </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dealdayrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/nbyshops_lay" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -225,6 +225,7 @@ public class OTPFragment extends Fragment {
 
                                 pressed = false;
                                 if (resp.getSuccess().toString().contains("true")) {
+                                    Log.d("usertpye",resp.getSuccess().toString());
                                     if (resp.getResult().getUser_type().equals("new user")) {
                                         // send for profile update
 

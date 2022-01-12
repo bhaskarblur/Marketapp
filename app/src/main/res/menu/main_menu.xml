@@ -3,20 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="My Orders"
+        app:itemTextAppearance="@style/menu_text_style"
         android:id="@+id/menu_myord"/>
 
     <item android:title="Terms And Conditions"
+        app:itemTextAppearance="@style/menu_text_style"
         android:id="@+id/menu_termcond"/>
 
     <item android:title="Privacy Policy"
+        app:itemTextAppearance="@style/menu_text_style"
         android:id="@+id/menu_privpol"/>
 
     <item android:title="Customer Service"
+        app:itemTextAppearance="@style/menu_text_style"
         android:id="@+id/menu_custserv"/>
 
     <item android:title="Share And Earn"
+        app:itemTextAppearance="@style/menu_text_style"
         android:id="@+id/menu_share"/>
 
     <item android:title="Log Out"
+        app:itemTextAppearance="@style/menu_text_style"
         android:id="@+id/menu_logout"/>
 </menu>

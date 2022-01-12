@@ -134,18 +134,20 @@
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/menu/main_menu.xml" value="0.1675213675213675" />
         <entry key="app/src/main/res/drawable/fieldnotselbg.xml" value="0.2123931623931624" />
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.2123931623931624" />
+        <entry key="app/src/main/res/font/montserrat_bold.xml" value="0.11025641025641025" />
         <entry key="app/src/main/res/layout/activity_act_quickordsee.xml" value="0.2595587383953153" />
         <entry key="app/src/main/res/layout/activity_ordhis.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_paymentactivity.xml" value="0.3196405648267009" />
         <entry key="app/src/main/res/layout/cartproditem_lay.xml" value="0.49175060520109387" />
         <entry key="app/src/main/res/layout/categories_lay.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/favshopslay.xml" value="0.19746835443037974" />
-        <entry key="app/src/main/res/layout/fragment_cartfragment.xml" value="0.24823584151896347" />
+        <entry key="app/src/main/res/layout/fragment_cartfragment.xml" value="0.3489610170975193" />
         <entry key="app/src/main/res/layout/fragment_fragmentnew_product.xml" value="0.23382984722115477" />
-        <entry key="app/src/main/res/layout/fragment_homefragment.xml" value="0.2804655106547188" />
+        <entry key="app/src/main/res/layout/fragment_homefragment.xml" value="0.2409637208888753" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.20533024801710503" />
         <entry key="app/src/main/res/layout/fragment_o_t_p.xml" value="0.2885884694483376" />
         <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.2677452186668546" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2522167487684729" />
         <entry key="app/src/main/res/layout/menu_header.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/nbyshops_lay.xml" value="0.4619858958257085" />
         <entry key="app/src/main/res/layout/review_layout.xml" value="0.42028345146056995" />

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -34,6 +35,7 @@ import androidx.multidex.BuildConfig;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
@@ -41,6 +43,7 @@ import android.os.Looper;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -364,7 +367,7 @@ public class homefragment extends Fragment implements LocationListener {
     @SuppressLint("MissingPermission")
     private void getlatlong() {
         String usercity=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
-        hmViewModel.getlocation(userid,lat, longit,usercity);
+        hmViewModel.getlocation(userid,lat, longit,"Ludhiana");
         if(hmViewModel.getnbyshopModel()!=null) {
             hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                 @Override
@@ -622,6 +625,20 @@ public class homefragment extends Fragment implements LocationListener {
     }
 
     private void viewfunction() {
+
+        hmbinding.swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getActivity().getViewModelStore().clear();
+                hmbinding.swipelayout.setRefreshing(false);
+                homefragment homeFragment=new homefragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainfragment, homeFragment);
+                transaction.commit();
+
+            }
+        });
+
 //        makequickfragment notiFragment = new makequickfragment();
 //        Bundle bundle=new Bundle();
 //        bundle.putString("product_id","1");
