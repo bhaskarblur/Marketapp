@@ -112,6 +112,8 @@
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_act_new_product.xml" value="0.1675213675213675" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_loginact.xml" value="0.20416666666666666" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_mainarea.xml" value="0.1675213675213675" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_myord.xml" value="0.16540084388185655" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_orderplacedactivity.xml" value="0.1675213675213675" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/activity_signinact.xml" value="0.20416666666666666" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/banner_lay.xml" value="0.1675213675213675" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/cartproditem_lay.xml" value="0.1675213675213675" />
@@ -121,8 +123,9 @@
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_catalog.xml" value="0.1675213675213675" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_categories.xml" value="0.1675213675213675" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_fragmentnew_product.xml" value="0.25" />
-        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_homefragment.xml" value="0.5" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_homefragment.xml" value="0.16" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_makequickfragment.xml" value="0.25" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_o_t_p.xml" value="0.20416666666666666" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_profilefragment.xml" value="0.33" />
         <entry key="..\:/new Marketapp/MarketApp/app/src/main/res/layout/fragment_search.xml" value="0.1675213675213675" />

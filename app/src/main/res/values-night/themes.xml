@@ -9,7 +9,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="colorPrimaryDark" tools:targetApi="23">@color/primcolor</item>

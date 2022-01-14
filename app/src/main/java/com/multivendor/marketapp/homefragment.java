@@ -110,6 +110,7 @@ public class homefragment extends Fragment implements LocationListener {
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter;
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter1;
     private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter2;
+    private com.multivendor.marketapp.Adapters.nbyshopAdapter nbadapter3;
     private Boolean dataloaded=false;
     private String userid;
     private String cityname;
@@ -854,6 +855,13 @@ public class homefragment extends Fragment implements LocationListener {
             llm2.setOrientation(RecyclerView.HORIZONTAL);
             hmbinding.bestdealrec.setLayoutManager(llm2);
             hmbinding.bestdealrec.setAdapter(nbadapter2);
+        }
+        if(hmViewModel.getnbyshopModel().getValue().getAll_products()!=null) {
+            nbadapter3 = new nbyshopAdapter(getContext(), hmViewModel.getnbyshopModel().getValue().getAll_products());
+            GridLayoutManager llm3 = new GridLayoutManager(getActivity(), 2);
+            llm3.setOrientation(RecyclerView.VERTICAL);
+            hmbinding.allprodsRec.setLayoutManager(llm3);
+            hmbinding.allprodsRec.setAdapter(nbadapter3);
         }
     }
 
