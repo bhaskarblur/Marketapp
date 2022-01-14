@@ -263,8 +263,11 @@ public class homefragment extends Fragment implements LocationListener {
                 switch (item.getItemId()){
 
                     case R.id.menu_myord:
-                        startActivity(new Intent(getActivity(),ordhisAct.class));
-                        getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                        orderfragment homeFragment=new orderfragment();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.mainfragment, homeFragment);
+                        transaction.setCustomAnimations(R.anim.fade_fast_2, R.anim.fade);
+                        transaction.commit();
                         break;
                     case R.id.menu_termcond:
                         Uri uri = Uri.parse("http://marketapp.co.in/conditions.html"); // missing 'http://' will cause crashed
@@ -367,7 +370,7 @@ public class homefragment extends Fragment implements LocationListener {
     @SuppressLint("MissingPermission")
     private void getlatlong() {
         String usercity=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
-        hmViewModel.getlocation(userid,lat, longit,"Ludhiana");
+        hmViewModel.getlocation(userid,lat, longit,usercity);
         if(hmViewModel.getnbyshopModel()!=null) {
             hmViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                 @Override

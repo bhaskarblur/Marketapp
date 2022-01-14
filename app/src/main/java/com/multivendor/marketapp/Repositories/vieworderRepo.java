@@ -49,7 +49,7 @@ public class vieworderRepo {
     }
 
     private void getOrdInfo(String storeid,String orderid) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demowebsites.co.in/marketapp/api/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);

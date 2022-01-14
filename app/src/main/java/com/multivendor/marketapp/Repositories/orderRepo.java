@@ -42,7 +42,7 @@ public class orderRepo {
 
 
     private void getorderdatafromSource(String userid) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demowebsites.co.in/marketapp/api/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
@@ -59,7 +59,7 @@ public class orderRepo {
 
                 cartModel.multcartResp resp=response.body();
                 if(resp.getResult()!=null) {
-
+                    Log.d("cart",resp.getMessage().toString());
                     for(cartModel.singlecartResult data:resp.getResult()) {
                         orderlist.add(data);
                     }

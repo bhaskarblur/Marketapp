@@ -238,7 +238,7 @@ public class paymentactivity extends AppCompatActivity {
                               String name, String number, String address, String pay_method,
                               String pay_status, String transid, String delvinstr) {
         Toast.makeText(paymentactivity.this, "Confirming Your Order!", Toast.LENGTH_SHORT).show();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demowebsites.co.in/marketapp/api/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
@@ -265,8 +265,8 @@ public class paymentactivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<cartModel.cartResp> call, Throwable t) {
                 Log.d("failed", t.getMessage());
-                startActivity(new Intent(paymentactivity.this, orderplacedactivity.class));
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+//                startActivity(new Intent(paymentactivity.this, orderplacedactivity.class));
+//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             }
         });
 

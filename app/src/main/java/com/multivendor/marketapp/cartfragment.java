@@ -282,7 +282,7 @@ public class cartfragment extends Fragment {
     @SuppressLint("MissingPermission")
     private void getlatlong() {
         String usercity=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
-        catViewModel.getlocation(userid_id,lat,longit,"Ludhiana");
+        catViewModel.getlocation(userid_id,lat,longit,usercity);
         if(catViewModel.getnbyshopModel()!=null) {
             catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                 @Override

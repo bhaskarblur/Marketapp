@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.multivendor.marketapp.Adapters.ordproductAdapter;
 import com.multivendor.marketapp.Models.cartModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Models.productitemModel;
+import com.multivendor.marketapp.ViewModel.catalogViewModel;
 import com.multivendor.marketapp.ViewModel.vieworderViewModel;
 import com.multivendor.marketapp.databinding.ActivityMyordBinding;
 
@@ -30,11 +32,11 @@ public class myordAct extends AppCompatActivity {
     private ActivityMyordBinding mybinding;
     private com.multivendor.marketapp.Adapters.ordproductAdapter ordproductAdapter;
     private com.multivendor.marketapp.ViewModel.vieworderViewModel vieworderViewModel;
-    private List<productitemModel> prodlist = new ArrayList<>();
+    private List<newProductModel.ListProductresp> prodlist = new ArrayList<>();
     private String orderid;
     private String storeid;
     private String userid;
-
+    private catalogViewModel catViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +49,45 @@ public class myordAct extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         }
 
+
         SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
         Intent intent = getIntent();
         userid = sharedPreferences.getString("userid", "");
         orderid = intent.getStringExtra("orderid");
         storeid = intent.getStringExtra("storeid");
+        String cartshop = sharedPreferences.getString("cartshop", "");
+        catViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(catalogViewModel.class);
+        String city=sharedPreferences.getString("usercity","");
         vieworderViewModel = new ViewModelProvider(this).get(vieworderViewModel.class);
         vieworderViewModel.initwork(userid, storeid, orderid);
+        catViewModel.getlocation(userid,"0","0",city);
+        catViewModel.getnbyshopModel().observe(this, new Observer<newProductModel.homeprodResult>() {
+            @Override
+            public void onChanged(newProductModel.homeprodResult homeprodResult) {
+                if(homeprodResult.getAll_products()!=null) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (homeprodResult.getAll_products().size() > 0) {
+                                if (vieworderViewModel.getGetordinfo().getValue() != null) {
+                                    for (cartModel.productResult selprods : vieworderViewModel.getGetordinfo().getValue().getProducts()) {
+                                        for (int i=0;i<catViewModel.getnbyshopModel().getValue().getAll_products().size();i++) {
+                                            if (catViewModel.getnbyshopModel().getValue().getAll_products().get(i).getProduct_id().equals(selprods.getProduct_id())) {
+                                                prodlist.add(catViewModel.getnbyshopModel().getValue().getAll_products().get(i));
+                                            }
+                                        }
+                                    }
+                                    loadData();
+                                }
+                            }
+                        }
+
+                    }, 100);
+                }
+            }
+
+
+        });
 
         vieworderViewModel.getGetordinfo().observe(this, new Observer<cartModel.singlecartResult>() {
             @Override
@@ -61,30 +95,6 @@ public class myordAct extends AppCompatActivity {
                 loadinfo();
             }
         });
-        vieworderViewModel.getAllproductModel().observe(this, new Observer<List<productitemModel>>() {
-            @Override
-            public void onChanged(List<productitemModel> productitemModels) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (productitemModels.size() > 0) {
-                            if (vieworderViewModel.getGetordinfo().getValue() != null) {
-                                for (cartModel.productResult selprods : vieworderViewModel.getGetordinfo().getValue().getProducts()) {
-                                    for (productitemModel prodmodel : productitemModels) {
-                                        if (prodmodel.getProduct_id().equals(selprods.getProduct_id())) {
-                                            prodlist.add(prodmodel);
-                                        }
-                                    }
-                                }
-                                loadData();
-                            }
-                        }
-                    }
-
-                }, 100);
-            }
-        });
-
         viewfunctions();
     }
 

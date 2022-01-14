@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.multivendor.marketapp.Models.cartModel;
+import com.multivendor.marketapp.Models.newProductModel;
 import com.multivendor.marketapp.Models.productitemModel;
 import com.multivendor.marketapp.R;
 import com.squareup.picasso.Picasso;
@@ -23,9 +24,9 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class ordproductAdapter extends RecyclerView.Adapter<ordproductAdapter.viewHolder> {
 
     private Context mcontext;
-    private List<productitemModel> productmodel;
+    private List<newProductModel.ListProductresp> productmodel;
     private List<cartModel.productResult> cartquatModel;
-    public ordproductAdapter(Context mcontext, List<productitemModel> productmodel,
+    public ordproductAdapter(Context mcontext, List<newProductModel.ListProductresp> productmodel,
                              List<cartModel.productResult> cartquatModel) {
         this.mcontext = mcontext;
         this.productmodel = productmodel;
@@ -44,9 +45,9 @@ public class ordproductAdapter extends RecyclerView.Adapter<ordproductAdapter.vi
             final int radius = 20;
             final int margin = 20;
             final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-            Picasso.get().load(productmodel.get(position).getItemimg()).
+            Picasso.get().load(productmodel.get(position).getProduct_image()).
                     resize(200, 200).transform(transformation).into(holder.itemimg);
-            holder.itemname.setText(productmodel.get(position).getItemname());
+            holder.itemname.setText(productmodel.get(position).getProduct_name());
             holder.itemprice.setText("Rs " + cartquatModel.get(position).getRow_price());
             holder.itemsize.setText(String.valueOf(cartquatModel.get(position).getSize()));
             holder.itemselquat.setText(String.valueOf(cartquatModel.get(position).getQty()));

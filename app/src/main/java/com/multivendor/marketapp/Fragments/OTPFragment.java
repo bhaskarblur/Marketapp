@@ -222,12 +222,12 @@ public class OTPFragment extends Fragment {
 
                                 AuthResponse.VerifyOtp resp = response.body();
 
-                               // Log.d("message", resp.getMessage());
+                                Log.d("message", resp.getResult().getUser_type());
 
                                 pressed = false;
                                 if (resp.getSuccess().toString().contains("true")) {
                                     Log.d("usertpye",resp.getSuccess().toString());
-                                    if (resp.getResult().getUser_type().equals("new user")) {
+                                    if (resp.getResult().getUser_type().equals("new_user")) {
                                         // send for profile update
 
 //                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
