@@ -141,10 +141,11 @@ public class makequickfragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
         String name = sharedPreferences.getString("username", "");
         String addr = sharedPreferences.getString("useraddress", "");
-        String number = sharedPreferences.getString("usernumber", "");
+        String number = sharedPreferences.getString("usermobile", "");
+
         useraddress=sharedPreferences.getString("useraddress", "");
         username=sharedPreferences.getString("username", "");
-        usernumber=  sharedPreferences.getString("usernumber", "");
+        usernumber=  sharedPreferences.getString("usermobile", "");
         qobinding.usernameTxt.setText(name);
         qobinding.useraddressTxt.setText(addr);
         qobinding.usermobileTxt.setText(number);
@@ -244,7 +245,6 @@ public class makequickfragment extends Fragment {
 
 
     }
-
 
     private void openchangeDialog() {
 
@@ -386,7 +386,7 @@ public class makequickfragment extends Fragment {
             }
 
             qobinding.placeorderbtn.setText("Placing Order");
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demowebsites.co.in/marketapp/api/")
                     .addConverterFactory(GsonConverterFactory.create()).build();
 
             LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +99,7 @@ public class searchFragment extends Fragment {
         Bundle bundle=getArguments();
         String lat=bundle.getString("lat","");
         String longit=bundle.getString("long","");
-        String cityname=bundle.getString("city_name","");
+        String cityname=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
         categfragViewModel.getlocation(userid,lat,longit,cityname);
         categfragViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
             @Override
@@ -106,10 +107,11 @@ public class searchFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (homeprodResult.getAll_products().size() > 0) {
-                            loadsearchres();
-                            nbyshopAdapter.notifyDataSetChanged();
-
+                        if(homeprodResult.getAll_products()!=null) {
+                            if (homeprodResult.getAll_products().size() > 0) {
+                                loadsearchres();
+                                nbyshopAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
                 }, 200);
@@ -125,7 +127,7 @@ public class searchFragment extends Fragment {
     private void loadsearchres() {
         shbinding.searchres.setVisibility(View.INVISIBLE);
         nbyshopAdapter = new nbyshopAdapter(getContext(), categfragViewModel.getnbyshopModel().getValue().getAll_products());
-        LinearLayoutManager glm = new LinearLayoutManager(getContext());
+        GridLayoutManager glm = new GridLayoutManager(getContext(),2);
         glm.setOrientation(RecyclerView.VERTICAL);
         shbinding.searchres.setLayoutManager(glm);
         shbinding.searchres.setAdapter(nbyshopAdapter);

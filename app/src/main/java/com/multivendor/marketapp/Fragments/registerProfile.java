@@ -163,6 +163,7 @@ public class registerProfile extends Fragment {
                                 editor.putString("userimage",resp.getResult().getImage());
                                 editor.putString("userid",resp.getResult().getId());
                                 editor.putString("usermobile",resp.getResult().getMobile());
+                                editor.putString("usernumber",resp.getResult().getMobile());
                                 editor.putString("username",resp.getResult().getName());
                                 editor.putString("userstate",resp.getResult().getState());
                                 editor.putString("usercity",resp.getResult().getCity());

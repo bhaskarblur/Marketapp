@@ -179,6 +179,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.49" />
 
+    <TextView
+        android:id="@+id/noshoptxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="No products available!"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
+
     <Button
         android:id="@+id/retrybtn"
         android:layout_width="130dp"
@@ -429,7 +445,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView81"
                     tools:itemCount="1"
-                    tools:listitem="@layout/nbyshops_lay" >
+                    tools:listitem="@layout/nbyshops_lay">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
