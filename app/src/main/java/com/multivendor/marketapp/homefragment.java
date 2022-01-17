@@ -393,6 +393,7 @@ public class homefragment extends Fragment implements LocationListener {
                             else {
                                 hmbinding.homefragscroll.setVisibility(View.INVISIBLE);
                                 hmbinding.noshoptxt.setVisibility(View.VISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                             }
                             if (nbyshopsModels.getTop_sell_products().size() > 0) {
                                 nbadapter1.notifyDataSetChanged();
@@ -405,6 +406,7 @@ public class homefragment extends Fragment implements LocationListener {
                             else {
                                 hmbinding.homefragscroll.setVisibility(View.INVISIBLE);
                                 hmbinding.noshoptxt.setVisibility(View.VISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                             }
                             if (nbyshopsModels.getBest_deal_products().size() > 0) {
                                 nbadapter2.notifyDataSetChanged();
@@ -416,6 +418,7 @@ public class homefragment extends Fragment implements LocationListener {
                             }
                             else {
                                 hmbinding.homefragscroll.setVisibility(View.INVISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                 hmbinding.noshoptxt.setVisibility(View.VISIBLE);
                             }
                             if(nbyshopsModels.getCart_items()!=null &&!nbyshopsModels.getCart_items().equals("0") ) {

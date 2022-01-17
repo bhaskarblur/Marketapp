@@ -69,7 +69,6 @@ public class searchFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     // TODO: Rename and change types and number of parameters
     public static searchFragment newInstance(String param1, String param2) {
         searchFragment fragment = new searchFragment();
@@ -122,7 +121,6 @@ public class searchFragment extends Fragment {
         return shbinding.getRoot();
 
     }
-
 
     private void loadsearchres() {
         shbinding.searchres.setVisibility(View.INVISIBLE);
