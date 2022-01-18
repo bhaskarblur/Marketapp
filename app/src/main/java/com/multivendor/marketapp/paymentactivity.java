@@ -240,7 +240,7 @@ public class paymentactivity extends AppCompatActivity {
         Toast.makeText(paymentactivity.this, "Confirming Your Order!", Toast.LENGTH_SHORT).show();
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demowebsites.co.in/marketapp/api/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
-
+        Log.d("cartid",cartid);
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
 
         Call<cartModel.cartResp> call = logregApiInterface.confirm_order(userid, storeid, cartid, amount, name

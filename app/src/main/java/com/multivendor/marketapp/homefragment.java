@@ -390,11 +390,6 @@ public class homefragment extends Fragment implements LocationListener {
                                 hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                 hmbinding.noshoptxt.setVisibility(View.INVISIBLE);
                             }
-                            else {
-                                hmbinding.homefragscroll.setVisibility(View.INVISIBLE);
-                                hmbinding.noshoptxt.setVisibility(View.VISIBLE);
-                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
-                            }
                             if (nbyshopsModels.getTop_sell_products().size() > 0) {
                                 nbadapter1.notifyDataSetChanged();
                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
@@ -403,13 +398,17 @@ public class homefragment extends Fragment implements LocationListener {
                                 hmbinding.rettxt.setVisibility(View.INVISIBLE);
                                 hmbinding.noshoptxt.setVisibility(View.INVISIBLE);
                             }
-                            else {
-                                hmbinding.homefragscroll.setVisibility(View.INVISIBLE);
-                                hmbinding.noshoptxt.setVisibility(View.VISIBLE);
-                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
-                            }
+
                             if (nbyshopsModels.getBest_deal_products().size() > 0) {
                                 nbadapter2.notifyDataSetChanged();
+                                hmbinding.homefragscroll.setVisibility(View.VISIBLE);
+                                hmbinding.progressBar2.setVisibility(View.INVISIBLE);
+                                hmbinding.retrybtn.setVisibility(View.INVISIBLE);
+                                hmbinding.rettxt.setVisibility(View.INVISIBLE);
+                                hmbinding.noshoptxt.setVisibility(View.INVISIBLE);
+                            }
+                            if(nbyshopsModels.getAll_products().size() > 0) {
+                                nbadapter3.notifyDataSetChanged();
                                 hmbinding.homefragscroll.setVisibility(View.VISIBLE);
                                 hmbinding.progressBar2.setVisibility(View.INVISIBLE);
                                 hmbinding.retrybtn.setVisibility(View.INVISIBLE);
@@ -435,10 +434,10 @@ public class homefragment extends Fragment implements LocationListener {
             });
 
         }
-        locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        }
+//        locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+//        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//            getActivity().startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+//        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -157,6 +157,9 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2522167487684729" />
         <entry key="app/src/main/res/layout/menu_header.xml" value="0.2762307685700394" />
         <entry key="app/src/main/res/layout/nbyshops_lay.xml" value="0.4619858958257085" />
+        <entry key="app/src/main/res/layout/orders_lay.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/ordprod_lay.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/productitem_lay.xml" value="0.44702926791104436" />
         <entry key="app/src/main/res/layout/review_layout.xml" value="0.42028345146056995" />
         <entry key="app/src/main/res/layout/showsizeoth_lay.xml" value="0.3509544931819768" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.19662447257383966" />

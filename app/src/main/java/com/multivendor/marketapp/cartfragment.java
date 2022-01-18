@@ -282,7 +282,7 @@ public class cartfragment extends Fragment {
     @SuppressLint("MissingPermission")
     private void getlatlong() {
         String usercity=getActivity().getSharedPreferences("userlogged",0).getString("usercity","");
-        catViewModel.getlocation(userid_id,lat,longit,usercity);
+        catViewModel.getlocation(userid_id,lat,longit,"Ludhiana");
         if(catViewModel.getnbyshopModel()!=null) {
             catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
                 @Override
@@ -303,120 +303,120 @@ public class cartfragment extends Fragment {
                 }
             });
         }
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-            LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-            fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    super.onLocationResult(locationResult);
-
-                }
-            }, Looper.getMainLooper());
-            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-
-                    Location location = task.getResult();
-                    if (location != null) {
-                        lat = String.valueOf(location.getLatitude());
-                        longit = String.valueOf(location.getLongitude());
-                        loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
-                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                        try {
-
-                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
-                                    , location.getLongitude(), 1);
-
-//                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-//                            catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-                            if(catViewModel.getnbyshopModel()!=null) {
-                                catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-                                    @Override
-                                    public void onChanged(newProductModel.homeprodResult productitemModels) {
-                                        Log.d("hello1", "hello1");
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if (productitemModels.getAll_products().size() > 0) {
-                                                    Log.d("hello", "hello");
-                                                    checkcartexists();
-                                                    LoadCart();
-                                                } else {
-                                                    cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-                                                    cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-                                                }
-                                            }
-                                        }, 2000);
-                                    }
-                                });
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    } else {
-
-                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-
-                        LocationCallback locationCallback = new LocationCallback() {
-                            @Override
-                            public void onLocationResult(LocationResult locationResult) {
-                                super.onLocationResult(locationResult);
-                                Location location1 = locationResult.getLastLocation();
-                                lat = String.valueOf(location1.getLatitude());
-                                longit = String.valueOf(location1.getLongitude());
-                                loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
-                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                                try {
-
-                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
-                                            , location.getLongitude(), 1);
-
-                                    cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-//                                    catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-//                                    if(catViewModel.getnbyshopModel()!=null) {
-//                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+//        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+//            LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+//                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+//            fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
+//                @Override
+//                public void onLocationResult(LocationResult locationResult) {
+//                    super.onLocationResult(locationResult);
+//
+//                }
+//            }, Looper.getMainLooper());
+//            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+//            if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+//            }
+//
+//            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Location> task) {
+//
+//                    Location location = task.getResult();
+//                    if (location != null) {
+//                        lat = String.valueOf(location.getLatitude());
+//                        longit = String.valueOf(location.getLongitude());
+//                        loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
+//                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+//                        try {
+//
+//                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+//                                    , location.getLongitude(), 1);
+//
+////                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+////                            catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
+//                            if(catViewModel.getnbyshopModel()!=null) {
+//                                catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+//                                    @Override
+//                                    public void onChanged(newProductModel.homeprodResult productitemModels) {
+//                                        Log.d("hello1", "hello1");
+//                                        new Handler().postDelayed(new Runnable() {
 //                                            @Override
-//                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
-//                                                Log.d("hello1", "hello1");
-//                                                new Handler().postDelayed(new Runnable() {
-//                                                    @Override
-//                                                    public void run() {
-//                                                        if (productitemModels.getAll_products().size() > 0) {
-//                                                            Log.d("hello", "hello");
-//                                                            checkcartexists();
-//                                                            LoadCart();
-//                                                        } else {
-//                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-//                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-//                                                        }
-//                                                    }
-//                                                }, 2000);
+//                                            public void run() {
+//                                                if (productitemModels.getAll_products().size() > 0) {
+//                                                    Log.d("hello", "hello");
+//                                                    checkcartexists();
+//                                                    LoadCart();
+//                                                } else {
+//                                                    cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+//                                                    cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+//                                                }
 //                                            }
-//                                        });
+//                                        }, 2000);
 //                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        };
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//                                });
+//                            }
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    } else {
+//
+//                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+//                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+//
+//                        LocationCallback locationCallback = new LocationCallback() {
+//                            @Override
+//                            public void onLocationResult(LocationResult locationResult) {
+//                                super.onLocationResult(locationResult);
+//                                Location location1 = locationResult.getLastLocation();
+//                                lat = String.valueOf(location1.getLatitude());
+//                                longit = String.valueOf(location1.getLongitude());
+//                                loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
+//                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+//                                try {
+//
+//                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+//                                            , location.getLongitude(), 1);
+//
+//                                    cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+////                                    catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
+////                                    if(catViewModel.getnbyshopModel()!=null) {
+////                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
+////                                            @Override
+////                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
+////                                                Log.d("hello1", "hello1");
+////                                                new Handler().postDelayed(new Runnable() {
+////                                                    @Override
+////                                                    public void run() {
+////                                                        if (productitemModels.getAll_products().size() > 0) {
+////                                                            Log.d("hello", "hello");
+////                                                            checkcartexists();
+////                                                            LoadCart();
+////                                                        } else {
+////                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+////                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+////                                                        }
+////                                                    }
+////                                                }, 2000);
+////                                            }
+////                                        });
+////                                    }
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        };
+//                    }
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
 
 
     }
