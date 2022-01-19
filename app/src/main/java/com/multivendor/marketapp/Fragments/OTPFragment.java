@@ -222,7 +222,7 @@ public class OTPFragment extends Fragment {
 
                                 AuthResponse.VerifyOtp resp = response.body();
 
-                                Log.d("message", resp.getResult().getUser_type());
+                               // Log.d("message", resp.getResult().getUser_type());
 
                                 pressed = false;
                                 if (resp.getSuccess().toString().contains("true")) {

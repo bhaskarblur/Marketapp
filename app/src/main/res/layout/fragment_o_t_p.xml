@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
+                android:gravity="left"
                 android:lineSpacingExtra="2dp"
                 android:text="The code will expire in "
                 android:textAlignment="viewStart"

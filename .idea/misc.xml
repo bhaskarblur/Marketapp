@@ -147,7 +147,7 @@
         <entry key="app/src/main/res/layout/favshopslay.xml" value="0.19746835443037974" />
         <entry key="app/src/main/res/layout/fragment_cartfragment.xml" value="0.3489610170975193" />
         <entry key="app/src/main/res/layout/fragment_fragmentnew_product.xml" value="0.23382984722115477" />
-        <entry key="app/src/main/res/layout/fragment_homefragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_homefragment.xml" value="0.22950009402961297" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.20533024801710503" />
         <entry key="app/src/main/res/layout/fragment_makequickfragment.xml" value="0.27332082553098025" />
         <entry key="app/src/main/res/layout/fragment_noti.xml" value="0.26031868240904565" />
@@ -156,7 +156,7 @@
         <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.2677452186668546" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2522167487684729" />
         <entry key="app/src/main/res/layout/menu_header.xml" value="0.2762307685700394" />
-        <entry key="app/src/main/res/layout/nbyshops_lay.xml" value="0.4619858958257085" />
+        <entry key="app/src/main/res/layout/nbyshops_lay.xml" value="0.2677559911491796" />
         <entry key="app/src/main/res/layout/orders_lay.xml" value="0.1" />
         <entry key="app/src/main/res/layout/ordprod_lay.xml" value="0.1" />
         <entry key="app/src/main/res/layout/productitem_lay.xml" value="0.44702926791104436" />

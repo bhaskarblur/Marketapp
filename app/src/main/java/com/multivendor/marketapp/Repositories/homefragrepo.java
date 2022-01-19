@@ -115,7 +115,7 @@ public class homefragrepo {
             @Override
             public void onResponse(Call<newProductModel.homeprodResp> call, Response<newProductModel.homeprodResp> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("Error code", String.valueOf(response.code()));
+                    Log.d("Error code1", String.valueOf(response.code()));
                     return;
                 }
 
