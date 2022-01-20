@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -48,8 +50,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.multivendor.marketapp.ApiWork.LogregApiInterface;
+import com.multivendor.marketapp.Constants.api_baseurl;
 import com.multivendor.marketapp.CustomDialogs.change_passDialog;
 import com.multivendor.marketapp.Models.loginresResponse;
+import com.multivendor.marketapp.Models.nbyshopsModel;
 import com.multivendor.marketapp.databinding.ActivityProfilesettingsactBinding;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -87,7 +91,7 @@ public class profilesettingsact extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private String mLastLocation;
     SharedPreferences shpref;
-
+    private api_baseurl baseurl=new api_baseurl();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,7 +182,6 @@ public class profilesettingsact extends AppCompatActivity {
                 psbinding.addresschange.setText(psbinding.currlocattxt.getText().toString());
                 Animation anim0 = AnimationUtils.loadAnimation(profilesettingsact.this, R.anim.slide_out_down);
                 psbinding.locatcard.setAnimation(anim0);
-                psbinding.picklocat.setVisibility(View.GONE);
                 psbinding.locatcard.setVisibility(View.INVISIBLE);
 
             }
@@ -286,7 +289,7 @@ public class profilesettingsact extends AppCompatActivity {
                 return true;
             }
         });
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);
@@ -316,9 +319,6 @@ public class profilesettingsact extends AppCompatActivity {
                     }
                     if (resp.getResult().getAddress() != null) {
                         psbinding.addresschange.setText(resp.getResult().getAddress());
-                    } else {
-                        psbinding.picklocat.setVisibility(View.VISIBLE);
-                        psbinding.updatebtn.setVisibility(View.INVISIBLE);
                     }
                     if (resp.getResult().getImage() != null) {
                         imguri = Uri.parse(resp.getResult().getImage());
@@ -369,7 +369,7 @@ public class profilesettingsact extends AppCompatActivity {
             public void onClick(View v) {
                 psbinding.progressBar4.setVisibility(View.VISIBLE);
                 psbinding.updatebtn.setVisibility(View.INVISIBLE);
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://lmartsolutions.com/api/")
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                 LogregApiInterface logregApiInterface = retrofit.create(LogregApiInterface.class);

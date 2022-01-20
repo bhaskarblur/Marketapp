@@ -160,6 +160,14 @@ public class orderfragment extends Fragment {
     }
 
     private void viewfunctions() {
+
+        ofbinding.backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         ofbinding.myordtxt.setText("My Orders");
 
         ofbinding.myordtxt.setOnClickListener(new View.OnClickListener() {

@@ -538,7 +538,7 @@
         android:id="@+id/detchangeDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardCornerRadius="4dp"
         app:cardElevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -553,20 +553,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <fragment
-                android:id="@+id/google_map5"
-                android:name="com.multivendor.marketapp.shopsFragment"
-                class="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+            <ImageView
+                android:id="@+id/picklocat3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:apiKey="@string/mapsapikey"
-                app:layout_constraintBottom_toTopOf="@+id/savelocat2"
+                android:clickable="true"
+                android:src="@drawable/locationicon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newnumtxt" />
 
             <Button
@@ -639,9 +634,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="65dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/descboxbg"
                 android:ems="10"
                 android:fontFamily="@font/poppins"
@@ -654,7 +649,6 @@
                 android:textColor="@color/black"
                 android:textColorHint="#7C7C7C"
                 android:textSize="15sp"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/savelocat2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

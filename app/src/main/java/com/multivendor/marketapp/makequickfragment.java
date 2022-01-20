@@ -204,6 +204,7 @@ public class makequickfragment extends Fragment {
                             List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
                                     , location.getLongitude(), 1);
 
+                            qobinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -227,7 +228,7 @@ public class makequickfragment extends Fragment {
 
                                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
                                             , location.getLongitude(), 1);
-
+                                    qobinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -267,12 +268,19 @@ public class makequickfragment extends Fragment {
                 username = qobinding.newnametxt.getText().toString();
                 useraddress = qobinding.newaddrtxt.getText().toString();
                 usernumber = qobinding.newnumtxt.getText().toString();
+                qobinding.useraddressTxt.setText(useraddress);
+                qobinding.usermobileTxt.setText(usernumber);
             }
         });
     }
 
     private void viewfunc() {
-
+        qobinding.picklocat3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getlatlong();
+            }
+        });
         qobinding.listTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -449,7 +457,7 @@ public class makequickfragment extends Fragment {
     }
     private void loadmat(double sellat, double sellongit, String curlocat) {
         SupportMapFragment supportMapFragment = (SupportMapFragment) getActivity().
-                getSupportFragmentManager().findFragmentById(R.id.google_map4);
+                getSupportFragmentManager().findFragmentById(R.id.google_map);
 
         new Handler().postDelayed(new Runnable() {
             @Override

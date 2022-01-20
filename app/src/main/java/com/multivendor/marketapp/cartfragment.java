@@ -158,6 +158,12 @@ public class cartfragment extends Fragment {
 
     private void viewfuncs() {
 
+        cfbinding.picklocat3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getlatlong();
+            }
+        });
         cfbinding.backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,120 +309,99 @@ public class cartfragment extends Fragment {
                 }
             });
         }
-//        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-//            LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-//                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-//            fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
-//                @Override
-//                public void onLocationResult(LocationResult locationResult) {
-//                    super.onLocationResult(locationResult);
+        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+            LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+            fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    super.onLocationResult(locationResult);
+
+                }
+            }, Looper.getMainLooper());
+            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+
+                    Location location = task.getResult();
+                    if (location != null) {
+                        lat = String.valueOf(location.getLatitude());
+                        longit = String.valueOf(location.getLongitude());
+                        loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+                                    , location.getLongitude(), 1);
+
+                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
 //
-//                }
-//            }, Looper.getMainLooper());
-//            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-//            if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-//            }
-//
-//            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Location> task) {
-//
-//                    Location location = task.getResult();
-//                    if (location != null) {
-//                        lat = String.valueOf(location.getLatitude());
-//                        longit = String.valueOf(location.getLongitude());
-//                        loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
-//                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-//                        try {
-//
-//                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
-//                                    , location.getLongitude(), 1);
-//
-////                            cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-////                            catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-//                            if(catViewModel.getnbyshopModel()!=null) {
-//                                catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-//                                    @Override
-//                                    public void onChanged(newProductModel.homeprodResult productitemModels) {
-//                                        Log.d("hello1", "hello1");
-//                                        new Handler().postDelayed(new Runnable() {
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+
+                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+
+                        LocationCallback locationCallback = new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                super.onLocationResult(locationResult);
+                                Location location1 = locationResult.getLastLocation();
+                                lat = String.valueOf(location1.getLatitude());
+                                longit = String.valueOf(location1.getLongitude());
+                                loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
+                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                                try {
+
+                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
+                                            , location.getLongitude(), 1);
+
+                                    cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+//                                    catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
+//                                    if(catViewModel.getnbyshopModel()!=null) {
+//                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
 //                                            @Override
-//                                            public void run() {
-//                                                if (productitemModels.getAll_products().size() > 0) {
-//                                                    Log.d("hello", "hello");
-//                                                    checkcartexists();
-//                                                    LoadCart();
-//                                                } else {
-//                                                    cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-//                                                    cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-//                                                }
+//                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
+//                                                Log.d("hello1", "hello1");
+//                                                new Handler().postDelayed(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        if (productitemModels.getAll_products().size() > 0) {
+//                                                            Log.d("hello", "hello");
+//                                                            checkcartexists();
+//                                                            LoadCart();
+//                                                        } else {
+//                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
+//                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
+//                                                        }
+//                                                    }
+//                                                }, 2000);
 //                                            }
-//                                        }, 2000);
+//                                        });
 //                                    }
-//                                });
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    } else {
-//
-//                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-//                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-//
-//                        LocationCallback locationCallback = new LocationCallback() {
-//                            @Override
-//                            public void onLocationResult(LocationResult locationResult) {
-//                                super.onLocationResult(locationResult);
-//                                Location location1 = locationResult.getLastLocation();
-//                                lat = String.valueOf(location1.getLatitude());
-//                                longit = String.valueOf(location1.getLongitude());
-//                                loadmat(Double.parseDouble(lat), Double.parseDouble(longit), "Your Location");
-//                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-//                                try {
-//
-//                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude()
-//                                            , location.getLongitude(), 1);
-//
-//                                    cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-////                                    catViewModel.getlocation(userid_id,lat,longit,addresses.get(0).getLocality().toString());
-////                                    if(catViewModel.getnbyshopModel()!=null) {
-////                                        catViewModel.getnbyshopModel().observe(getActivity(), new Observer<newProductModel.homeprodResult>() {
-////                                            @Override
-////                                            public void onChanged(newProductModel.homeprodResult productitemModels) {
-////                                                Log.d("hello1", "hello1");
-////                                                new Handler().postDelayed(new Runnable() {
-////                                                    @Override
-////                                                    public void run() {
-////                                                        if (productitemModels.getAll_products().size() > 0) {
-////                                                            Log.d("hello", "hello");
-////                                                            checkcartexists();
-////                                                            LoadCart();
-////                                                        } else {
-////                                                            cfbinding.progressBar7.setVisibility(View.INVISIBLE);
-////                                                            cfbinding.emptycarttext.setVisibility(View.VISIBLE);
-////                                                        }
-////                                                    }
-////                                                }, 2000);
-////                                            }
-////                                        });
-////                                    }
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        };
-//                    }
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
     }
@@ -813,69 +798,69 @@ public class cartfragment extends Fragment {
     }
 
     private void loadmat(double sellat, double sellongit, String curlocat) {
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.google_map5);
+//        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
+//                .findFragmentById(R.id.google_map5);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(supportMapFragment!=null) {
-                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(@NonNull GoogleMap googleMap) {
-                            final LatLng[] latLng = {new LatLng(sellat, sellongit)};
-                            MarkerOptions markerOptions = new MarkerOptions().position(latLng[0])
-                                    .title("Current Location").draggable(true);
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
-                            googleMap.addMarker(markerOptions).setDraggable(true);
-
-//                        psbinding.recentrebtn.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
-//                            }
-//                        });
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-                                        @Override
-                                        public void onMarkerDragStart(@NonNull Marker marker) {
-
-                                        }
-
-                                        @Override
-                                        public void onMarkerDrag(@NonNull Marker marker) {
-
-                                        }
-
-                                        @Override
-                                        public void onMarkerDragEnd(@NonNull Marker marker) {
-                                            latLng[0] = marker.getPosition();
-                                            LatLng new_latlng = marker.getPosition();
-                                            lat = String.valueOf(new_latlng.latitude);
-                                            longit = String.valueOf(new_latlng.longitude);
-
-
-                                            Geocoder geocoder = new Geocoder(getContext()
-                                                    , Locale.getDefault());
-                                            try {
-                                                List<Address> addresses = geocoder.getFromLocation(new_latlng.latitude, new_latlng.longitude, 1);
-                                                cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
-
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-                                }
-                            }, 1000);
-
-                        }
-                    });
-                }
-            }
-        }, 100);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if(supportMapFragment!=null) {
+//                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+//                        @Override
+//                        public void onMapReady(@NonNull GoogleMap googleMap) {
+//                            final LatLng[] latLng = {new LatLng(sellat, sellongit)};
+//                            MarkerOptions markerOptions = new MarkerOptions().position(latLng[0])
+//                                    .title("Current Location").draggable(true);
+//                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+//                            googleMap.addMarker(markerOptions).setDraggable(true);
+//
+////                        psbinding.recentrebtn.setOnClickListener(new View.OnClickListener() {
+////                            @Override
+////                            public void onClick(View v) {
+////                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng[0], 18));
+////                            }
+////                        });
+//                            new Handler().postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+//                                        @Override
+//                                        public void onMarkerDragStart(@NonNull Marker marker) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onMarkerDrag(@NonNull Marker marker) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onMarkerDragEnd(@NonNull Marker marker) {
+//                                            latLng[0] = marker.getPosition();
+//                                            LatLng new_latlng = marker.getPosition();
+//                                            lat = String.valueOf(new_latlng.latitude);
+//                                            longit = String.valueOf(new_latlng.longitude);
+//
+//
+//                                            Geocoder geocoder = new Geocoder(getContext()
+//                                                    , Locale.getDefault());
+//                                            try {
+//                                                List<Address> addresses = geocoder.getFromLocation(new_latlng.latitude, new_latlng.longitude, 1);
+//                                                cfbinding.newaddrtxt.setText(addresses.get(0).getAddressLine(0));
+//
+//                                            } catch (IOException e) {
+//                                                e.printStackTrace();
+//                                            }
+//                                        }
+//                                    });
+//                                }
+//                            }, 1000);
+//
+//                        }
+//                    });
+//                }
+//            }
+//        }, 100);
 
         cfbinding.savelocat2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -888,6 +873,7 @@ public class cartfragment extends Fragment {
                 username = cfbinding.newnametxt.getText().toString();
                 useraddress = cfbinding.newaddrtxt.getText().toString();
                 usernumber = cfbinding.newnumtxt.getText().toString();
+                cfbinding.useraddressTxt.setText(useraddress);
 
             }
         });

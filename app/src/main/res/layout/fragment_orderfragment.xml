@@ -21,10 +21,9 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:scaleType="fitCenter"
         android:src="@drawable/backbtn"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +31,7 @@
         android:id="@+id/myordtxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="My Orders"
@@ -57,6 +56,7 @@
         android:id="@+id/myordsel"
         android:layout_width="150dp"
         android:layout_height="4dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="52dp"
         android:background="@color/primcolor"
         app:layout_constraintStart_toStartOf="parent"

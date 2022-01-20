@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -189,6 +190,7 @@ public class searchFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         getActivity().getViewModelStore().clear();
     }
 }

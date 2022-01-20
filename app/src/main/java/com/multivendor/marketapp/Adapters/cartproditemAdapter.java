@@ -63,8 +63,8 @@ public class cartproditemAdapter extends RecyclerView.Adapter<cartproditemAdapte
 
     @Override
     public void onBindViewHolder(viewHolder holder, int position) {
-        final int radius = 40;
-        final int margin = 40;
+        final int radius = 5;
+        final int margin = 5;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
             Picasso.get().load(productmodel.get(position).getProduct_image())
                     .resize(400, 400).transform(transformation).into(holder.itemimg);

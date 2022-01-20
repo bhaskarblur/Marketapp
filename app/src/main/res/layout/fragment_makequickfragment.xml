@@ -477,18 +477,15 @@
                 android:id="@+id/orstatustxt2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginTop="110dp"
                 android:fontFamily="@font/poppins"
                 android:text="Order Placed."
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/expdelvtx"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/cartdesc2" />
 
             <TextView
                 android:id="@+id/list_txt"
@@ -544,11 +541,32 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <Button
+        android:id="@+id/placeorderbtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/roundboxbg"
+        android:backgroundTint="@color/primcolor"
+        android:fontFamily="@font/poppins"
+        android:foreground="?android:selectableItemBackground"
+        android:text="Send quick order"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/detchangeDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardCornerRadius="4dp"
         app:cardElevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -563,20 +581,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <fragment
-                android:id="@+id/google_map4"
-                android:name="com.multivendor.marketapp.shopsFragment"
-                class="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+            <ImageView
+                android:id="@+id/picklocat3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:apiKey="@string/mapsapikey"
-                app:layout_constraintBottom_toTopOf="@+id/savelocat2"
+                android:clickable="true"
+                android:src="@drawable/locationicon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newnumtxt" />
 
             <Button
@@ -649,9 +662,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="65dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/descboxbg"
                 android:ems="10"
                 android:fontFamily="@font/poppins"
@@ -664,7 +677,6 @@
                 android:textColor="@color/black"
                 android:textColorHint="#7C7C7C"
                 android:textSize="15sp"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/savelocat2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -697,25 +709,4 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/placeorderbtn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/roundboxbg"
-        android:backgroundTint="@color/primcolor"
-        android:fontFamily="@font/poppins"
-        android:foreground="?android:selectableItemBackground"
-        android:text="Send quick order"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -132,6 +132,46 @@ public class fragmentnewProduct extends Fragment {
     }
 
     private void viewfuncs() {
+
+        binding.imagebanner.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == 0) {
+                    binding.onbprog.getBackground().setTint(Color.parseColor("#000000"));
+                    binding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                } else if (position == 1) {
+                    binding.onbprog2.getBackground().setTint(Color.parseColor("#000000"));
+                    binding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                } else if (position == 2) {
+                    binding.onbprog3.getBackground().setTint(Color.parseColor("#000000"));
+                    binding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                } else if (position == 3) {
+                    binding.onbprog4.getBackground().setTint(Color.parseColor("#000000"));
+                    binding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    binding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
+
+
         binding.onbprog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -313,7 +353,7 @@ public class fragmentnewProduct extends Fragment {
             }
         });
 
-        binding.plusLay.setOnClickListener(new View.OnClickListener() {
+        binding.minusLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Call<cartModel.cartResp> call = null;
@@ -350,7 +390,7 @@ public class fragmentnewProduct extends Fragment {
             }
         });
 
-        binding.minusLay.setOnClickListener(new View.OnClickListener() {
+        binding.plusLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Call<cartModel.cartResp> call = null;
