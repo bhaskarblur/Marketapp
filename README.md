@@ -1,4 +1,4 @@
 # Marketapp Ecommerce User
 
-Market app Seller and delivery is all in the repositories of my account
+MarketApp is a MultiVendor Ecommerce Platform where buyers and sellers can come and buy sell their things, available for Android platform.
 
